@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cream: #FAFAF7;
+  --light-purple: #CACAD7;
+  --dark-navy: #1C1A37;
+  --off-white: #FDFDFE;
+  --primary-purple: #7373A8;
+}
+
+body {
+  background-color: var(--cream);
+  color: var(--dark-navy);
+}
+
+@layer utilities {
+  .btn-primary {
+    @apply bg-primary-purple hover:bg-[#5d5d8f] text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center;
+  }
+  
+  .btn-secondary {
+    @apply border-2 border-primary-purple text-primary-purple hover:bg-primary-purple hover:text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes checkmarkPop {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes bounceSoft {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes badgeGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(115, 115, 168, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(115, 115, 168, 0.6);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.6s ease-out forwards;
+}
+
+.animate-checkmarkPop {
+  animation: checkmarkPop 0.5s ease-out forwards;
+}
+
+.animate-bounce-subtle {
+  animation: bounceSoft 2s ease-in-out infinite;
+}
+
+.shine-effect {
+  animation: shine 3s ease-in-out infinite;
+}
+
+.badge-glow {
+  animation: badgeGlow 2s ease-in-out infinite;
+}
+
+/* Staggered checkmark animation */
+.checkmark-item {
+  opacity: 0;
+  animation: checkmarkPop 0.5s ease-out forwards;
+}
+
+.checkmark-item:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.checkmark-item:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.checkmark-item:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+.checkmark-item:nth-child(4) {
+  animation-delay: 0.8s;
+}
+
+.checkmark-item:nth-child(5) {
+  animation-delay: 1s;
+}
+
+.checkmark-item:nth-child(6) {
+  animation-delay: 1.2s;
+}
+
+/* Progress bar fill animation */
+@keyframes progressFill {
+  from {
+    width: 0%;
+  }
+}
+
