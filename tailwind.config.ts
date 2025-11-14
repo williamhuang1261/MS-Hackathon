@@ -2,18 +2,28 @@ import type { Config } from 'tailwindcss'
 
 const config: Config = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './lib/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {
       colors: {
-        cream: '#FAFAF7',
-        'light-purple': '#CACAD7',
-        'dark-navy': '#1C1A37',
-        'off-white': '#FDFDFE',
-        'primary-purple': '#7373A8',
+        // Trauma-informed color palette (psychology thing apparently)
+        'athena-violet': '#4B1F66',
+        'lavender-mist': '#C6B1E7',
+        'snow-white': '#FCFAFF',
+        'warm-white': '#F7F5FD',
+        'soft-charcoal': '#2E2A32',
+        'warm-blush': '#F7C6D0',
+        'hope-gold': '#F4D27A',
+        'confidence-blue': '#3A5FCD',
+        'hope-green': '#88C57F',
+        'lavender-card': '#EFE7F7',
+        'gold-white': '#FDF6D9',
+      },
+      fontFamily: {
+        'sans': ['var(--font-inter)', 'sans-serif'],
+        'serif': ['var(--font-dm-serif)', 'serif'],
       },
     },
   },

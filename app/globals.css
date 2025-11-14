@@ -11,17 +11,24 @@
 }
 
 body {
-  background-color: var(--cream);
-  color: var(--dark-navy);
+  background-color: var(--snow-white);
+  color: var(--soft-charcoal);
+  font-family: var(--font-inter), sans-serif;
+}
+
+/* Headings use DM Serif Display */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-dm-serif), serif;
+  font-weight: 400;
 }
 
 @layer utilities {
   .btn-primary {
-    @apply bg-primary-purple hover:bg-[#5d5d8f] text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center;
+    @apply bg-hope-gold hover:bg-[#f5d785] text-soft-charcoal px-6 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center;
   }
   
   .btn-secondary {
-    @apply border-2 border-primary-purple text-primary-purple hover:bg-primary-purple hover:text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center;
+    @apply border-2 border-athena-violet text-athena-violet hover:bg-athena-violet hover:text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center;
   }
 }
 

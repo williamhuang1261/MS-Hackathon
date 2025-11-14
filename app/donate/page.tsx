@@ -2,62 +2,48 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { ONE_TIME_TIERS, MONTHLY_TIERS, ROUTES, STORAGE_KEYS } from '@/lib/constants'
+import { setStorageItem } from '@/lib/utils'
+import type { DonationType } from '@/lib/types'
 
 export default function Donate() {
   const router = useRouter()
-  const [donationType, setDonationType] = useState<'one-time' | 'monthly'>('one-time')
+  const [donationType, setDonationType] = useState<DonationType>('one-time')
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null)
 
-  const oneTimeTiers = [
-    { amount: 20, label: '$20', description: 'One meal + emergency kit' },
-    { amount: 35, label: '$35', description: 'Safe night in shelter' },
-    { amount: 50, label: '$50', description: 'Therapy session starter' },
-    { amount: 100, label: '$100', description: 'Full day of care for mother & child' },
-    { amount: 250, label: '$250', description: 'One week of stability' },
-  ]
-
-  const monthlyTiers = [
-    { amount: 10, label: '$10/month', description: 'Support-line response' },
-    { amount: 25, label: '$25/month', description: 'Groceries for survivors' },
-    { amount: 50, label: '$50/month', description: 'Monthly therapy session' },
-    { amount: 100, label: '$100/month', description: 'Monthly safe-night fund' },
-  ]
-
-  const tiers = donationType === 'one-time' ? oneTimeTiers : monthlyTiers
+  const tiers = donationType === 'one-time' ? ONE_TIME_TIERS : MONTHLY_TIERS
 
   const handleComplete = () => {
     if (selectedAmount) {
       // Store donation amount in localStorage for upsell page
-      localStorage.setItem('donationAmount', selectedAmount.toString())
-      localStorage.setItem('donationType', donationType)
-      router.push('/donate/upsell')
+      setStorageItem(STORAGE_KEYS.donationAmount, selectedAmount.toString())
+      setStorageItem(STORAGE_KEYS.donationType, donationType)
+      router.push(ROUTES.upsell)
     }
   }
 
   return (
-    <main className="min-h-screen py-12 px-4">
-      <div className="max-w-3xl mx-auto space-y-10">
+    <main className="min-h-screen py-12 px-4 bg-snow-white">
+      <div className="max-w-4xl mx-auto space-y-10">
         {/* Header */}
-        <div className="text-center space-y-4">
-          <h1 className="text-4xl md:text-5xl font-bold">Make Your Donation</h1>
-          <p className="text-xl text-gray-600">
-            Every contribution directly helps a woman escape violence and rebuild her life.
-          </p>
+        <div className="bg-athena-violet text-white p-8 rounded-lg text-center">
+          <h1 className="text-4xl font-bold mb-2">Choose Your Donation</h1>
+          <p className="text-lg text-warm-white">Every contribution creates immediate safety and hope.</p>
         </div>
 
-        {/* Donation Type Selector */}
-        <section className="bg-white p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-bold mb-4">Choose Your Donation Type</h2>
-          <div className="flex gap-4">
+        {/* Donation Type Toggle */}
+        <section className="bg-white rounded-lg shadow-md p-6">
+          <h2 className="text-2xl font-bold mb-4 text-athena-violet text-center">Donation Type</h2>
+          <div className="flex gap-4 justify-center">
             <button
               onClick={() => {
                 setDonationType('one-time')
                 setSelectedAmount(null)
               }}
-              className={`flex-1 px-6 py-3 rounded-lg font-semibold transition-all ${
+              className={`px-8 py-4 rounded-lg font-bold text-lg transition-all ${
                 donationType === 'one-time'
-                  ? 'bg-primary-purple text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  ? 'bg-athena-violet text-white shadow-lg scale-105'
+                  : 'bg-lavender-card text-athena-violet border-2 border-athena-violet/30 hover:border-athena-violet'
               }`}
             >
               One-Time
@@ -67,10 +53,10 @@ export default function Donate() {
                 setDonationType('monthly')
                 setSelectedAmount(null)
               }}
-              className={`flex-1 px-6 py-3 rounded-lg font-semibold transition-all ${
+              className={`px-8 py-4 rounded-lg font-bold text-lg transition-all ${
                 donationType === 'monthly'
-                  ? 'bg-primary-purple text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  ? 'bg-athena-violet text-white shadow-lg scale-105'
+                  : 'bg-lavender-card text-athena-violet border-2 border-athena-violet/30 hover:border-athena-violet'
               }`}
             >
               Monthly Supporter
@@ -80,72 +66,67 @@ export default function Donate() {
 
         {/* Donation Tiers */}
         <section className="space-y-4">
-          <h3 className="text-2xl font-semibold">
+          <h3 className="text-2xl font-bold text-center text-athena-violet">
             {donationType === 'one-time' ? 'One-Time Support' : 'Monthly Support'}
           </h3>
-          <p className="text-gray-600">
-            {donationType === 'one-time'
-              ? 'Make an immediate impact with a one-time donation.'
-              : 'Become a sustained champion by giving monthly.'}
-          </p>
           <div className="space-y-3">
             {tiers.map(({ amount, label, description }) => (
               <button
                 key={amount}
                 onClick={() => setSelectedAmount(amount)}
-                className={`w-full p-6 rounded-lg flex justify-between items-center transition-all ${
+                className={`group relative w-full p-6 rounded-lg flex justify-between items-center transition-all ${
                   selectedAmount === amount
-                    ? 'border-3 border-primary-purple bg-primary-purple/10 shadow-lg'
-                    : 'border-2 border-gray-300 bg-white hover:border-primary-purple hover:shadow-md'
+                    ? 'border-3 border-athena-violet bg-athena-violet text-white shadow-xl scale-[1.02]'
+                    : 'border-2 border-athena-violet/20 bg-lavender-card hover:border-athena-violet hover:shadow-lg hover:scale-[1.01]'
                 }`}
               >
-                <span className="text-2xl font-bold text-primary-purple">{label}</span>
-                <span className="text-right text-gray-700 font-medium">{description}</span>
+                <span className={`text-2xl font-bold ${selectedAmount === amount ? 'text-hope-gold' : 'text-athena-violet'}`}>
+                  {label}
+                </span>
+                <span className={`text-right font-medium ${selectedAmount === amount ? 'text-white' : 'text-soft-charcoal'}`}>
+                  {description}
+                </span>
+                
+                {/* Hover Tooltip */}
+                <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-4 py-2 bg-athena-violet text-white text-sm rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+                  <div className="font-semibold">{description}</div>
+                  <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-athena-violet"></div>
+                </div>
               </button>
             ))}
           </div>
-
-          {/* Custom Amount Option */}
-          <div className="bg-white border-2 border-gray-300 p-6 rounded-lg">
-            <label className="block text-lg font-semibold mb-2">Or enter a custom amount:</label>
-            <div className="flex gap-2">
-              <span className="text-2xl font-bold text-primary-purple flex items-center">$</span>
-              <input
-                type="number"
-                placeholder="Enter amount"
-                className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg text-lg focus:outline-none focus:border-primary-purple"
-                onChange={(e) => setSelectedAmount(Number(e.target.value))}
-                value={selectedAmount && !tiers.find(t => t.amount === selectedAmount) ? selectedAmount : ''}
-              />
-            </div>
-          </div>
         </section>
 
-        {/* Complete Button */}
-        <div className="text-center pt-6">
+        {/* Complete Donation Button */}
+        <div className="flex justify-center">
           <button
             onClick={handleComplete}
             disabled={!selectedAmount}
-            className={`px-12 py-4 rounded-lg text-lg font-bold transition-all ${
+            className={`px-12 py-4 rounded-lg font-bold text-xl transition-all ${
               selectedAmount
-                ? 'bg-primary-purple text-white hover:bg-[#5d5d8f] shadow-lg'
+                ? 'bg-athena-violet text-white hover:bg-[#5a2877] shadow-lg hover:shadow-xl hover:scale-105'
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
           >
-            {selectedAmount
-              ? `Complete Donation ${donationType === 'one-time' ? '' : '(Monthly)'}`
-              : 'Select an amount to continue'}
+            {selectedAmount ? `Complete Donation` : 'Select an Amount'}
           </button>
         </div>
 
         {/* Trust Indicators */}
-        <div className="bg-light-purple/30 p-6 rounded-lg text-center">
-          <p className="text-sm text-gray-700">
-            🔒 Secure donation · 🧾 Tax-deductible · 💯 100% goes to survivors
+        <div className="bg-lavender-card border-2 border-athena-violet/20 rounded-lg p-6 text-center">
+          <p className="text-soft-charcoal mb-2">
+            <span className="font-bold text-athena-violet">🟣 80% of funds go directly to programs</span>
+          </p>
+          <p className="text-sm text-soft-charcoal/70">
+            The other 20% powers operations so we can serve more women in crisis.
           </p>
         </div>
+
+        {/* Identity-Based Microcopy */}
+        <p className="text-center text-lg italic text-soft-charcoal">
+          You're the kind of person who doesn't look away.
+        </p>
       </div>
     </main>
   )
 }
-
