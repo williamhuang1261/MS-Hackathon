@@ -44,35 +44,28 @@ export default function SurvivorStoryCarousel() {
   }
 
   return (
-    <div className="bg-gradient-to-br from-medium-purple/10 to-light-purple-gray/20 border-2 border-light-purple-gray rounded-lg p-8 md:p-10">
-      <div className="flex items-center justify-center mb-4">
-        <span className="text-3xl mr-3">💜</span>
-        <h3 className="text-2xl font-bold text-deep-navy">Real Impact Stories</h3>
+    <div className="rounded-2xl border border-border bg-card/80 p-8">
+      <div className="mb-4 flex flex-col items-center gap-2 text-center">
+        <span className="text-3xl">💜</span>
+        <h3 className="text-2xl font-serif">Real Impact Stories</h3>
       </div>
-      
-      <div 
-        className={`transition-opacity duration-500 ${
-          isVisible ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        <p className="text-lg md:text-xl text-soft-charcoal leading-relaxed text-center mb-2 italic">
-          "{stories[currentIndex].text}"
+
+      <div className={`transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+        <p className="text-lg leading-relaxed text-muted-foreground">
+          “{stories[currentIndex].text}”
         </p>
-        <p className="text-sm text-soft-charcoal/70 text-center font-semibold">
+        <p className="mt-3 text-sm font-semibold text-muted-foreground/80">
           — {stories[currentIndex].name} (name changed for privacy)
         </p>
       </div>
 
-      {/* Carousel Dots */}
-      <div className="flex justify-center gap-2 mt-6">
+      <div className="mt-6 flex justify-center gap-2">
         {stories.map((_, index) => (
           <button
             key={index}
             onClick={() => goToStory(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentIndex 
-                ? 'bg-deep-navy w-8' 
-                : 'bg-medium-purple/40 hover:bg-deep-navy/70'
+            className={`h-2 rounded-full transition-all ${
+              index === currentIndex ? 'w-10 bg-primary' : 'w-3 bg-muted'
             }`}
             aria-label={`Go to story ${index + 1}`}
           />

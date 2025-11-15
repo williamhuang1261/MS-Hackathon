@@ -3,6 +3,9 @@
  * Reusable helper functions for the donation platform
  */
 
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
 import { DONOR_LEVELS, IMPACT_COST_PER_NIGHT } from './constants';
 
 /**
@@ -136,5 +139,12 @@ export function setStorageItem(key: string, value: string): void {
   } catch (error) {
     console.error('Error writing to localStorage:', error);
   }
+}
+
+/**
+ * Tailwind-compatible className merger
+ */
+export function cn(...inputs: ClassValue[]): string {
+  return twMerge(clsx(inputs));
 }
 

@@ -39,25 +39,27 @@ export default function NotificationBanner() {
   }, [])
 
   return (
-    <div className="sticky top-0 z-50 bg-gradient-to-r from-deep-navy to-medium-purple text-cream py-3 px-4 overflow-hidden shadow-lg">
+    <div className="sticky top-0 z-50 bg-gradient-to-r from-primary to-secondary py-2.5 text-primary-foreground shadow-md">
       <div 
-        className={`max-w-7xl mx-auto text-center transition-opacity duration-300 ${
+        className={`mx-auto flex max-w-5xl items-center justify-center px-3 text-center text-sm transition-opacity duration-300 md:text-base ${
           isVisible ? 'opacity-100' : 'opacity-0'
         }`}
       >
         {currentDonation ? (
-          <div className="flex items-center justify-center gap-2 text-sm md:text-base">
+          <div className="flex flex-wrap items-center justify-center gap-2">
             <span className="text-xl">{currentDonation.emoji}</span>
             <span className="font-semibold">{currentDonation.level}</span>
             <span className="hidden sm:inline">just donated</span>
             <span className="sm:hidden">donated</span>
-            <span className="font-bold text-medium-purple">${currentDonation.amount}</span>
+            <span className="rounded-full bg-primary-foreground/10 px-2 py-0.5 text-xs font-bold uppercase tracking-wide text-primary-foreground">
+              ${currentDonation.amount}
+            </span>
             <span className="hidden md:inline">and has {currentDonation.impact}</span>
             <span className="md:hidden">• {currentDonation.impact.replace('provided ', '').replace('sheltered ', '')}</span>
-            <span className="text-medium-purple animate-pulse">✨</span>
+            <span className="animate-pulse text-lg">✨</span>
           </div>
         ) : (
-          <div className="text-sm text-cream/80">Loading recent donations…</div>
+          <div className="text-sm text-primary-foreground/70">Loading recent donations…</div>
         )}
       </div>
     </div>

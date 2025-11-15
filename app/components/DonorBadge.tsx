@@ -1,61 +1,43 @@
 'use client'
 
+import { Badge } from '@/components/ui/badge'
+import { Card } from '@/components/ui/card'
 import { DONOR_LEVELS } from '@/lib/constants'
 import type { DonorBadgeProps } from '@/lib/types'
 
-const badgeConfig: Record<string, { color: string, bgColor: string, borderColor: string }> = {
-  'Shelter Guardian': { 
-    color: 'text-deep-navy', 
-    bgColor: 'bg-gradient-to-br from-cream to-near-white',
-    borderColor: 'border-light-purple-gray',
-  },
-  'Safety Ally': { 
-    color: 'text-medium-purple', 
-    bgColor: 'bg-gradient-to-br from-near-white to-light-purple-gray',
-    borderColor: 'border-medium-purple',
-  },
-  'Shelter Champion': { 
-    color: 'text-deep-navy', 
-    bgColor: 'bg-gradient-to-br from-cream to-light-purple-gray',
-    borderColor: 'border-medium-purple',
-  },
-  'Family Protector': { 
-    color: 'text-medium-purple', 
-    bgColor: 'bg-gradient-to-br from-deep-navy/10 to-medium-purple/10',
-    borderColor: 'border-deep-navy',
-  },
-  'Athena Protector': { 
-    color: 'text-deep-navy', 
-    bgColor: 'bg-gradient-to-br from-deep-navy/20 to-medium-purple/30',
-    borderColor: 'border-deep-navy',
-  },
+const badgeColors: Record<string, { accent: string; glow: string }> = {
+  'Shelter Guardian': { accent: 'text-primary', glow: 'from-primary/15 via-primary/5 to-transparent' },
+  'Safety Ally': { accent: 'text-secondary', glow: 'from-secondary/20 via-secondary/10 to-transparent' },
+  'Shelter Champion': { accent: 'text-chart-1', glow: 'from-chart-1/20 via-chart-1/10 to-transparent' },
+  'Family Protector': { accent: 'text-chart-3', glow: 'from-chart-3/20 via-chart-3/10 to-transparent' },
+  'Athena Protector': { accent: 'text-chart-5', glow: 'from-chart-5/20 via-chart-5/10 to-transparent' },
 }
 
 export default function DonorBadge({ level, amount }: DonorBadgeProps) {
-  const config = badgeConfig[level] || badgeConfig['Shelter Guardian']
-  const levelData = DONOR_LEVELS.find(l => l.name === level) || DONOR_LEVELS[0]
+  const levelData = DONOR_LEVELS.find((item) => item.name === level) || DONOR_LEVELS[0]
+  const palette = badgeColors[level] || badgeColors['Shelter Guardian']
 
   return (
-    <div className="inline-block animate-scaleIn">
-      <div className={`${config.bgColor} ${config.borderColor} border-3 rounded-xl p-6 shadow-2xl min-w-[280px] text-center relative overflow-hidden badge-glow`}>
-        {/* Shine effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent shine-effect"></div>
-        
-        {/* Badge Content */}
-        <div className="relative z-10">
-          <div className="text-6xl mb-3 animate-bounce-subtle">{levelData.emoji}</div>
-          <h3 className={`text-2xl font-bold ${config.color} mb-1 uppercase tracking-wide`}>
-            {level}
-          </h3>
-          <p className="text-sm text-soft-charcoal font-semibold mb-3">
-            Level {levelData.level} Donor
-          </p>
-          <div className={`${config.borderColor} border-t-2 pt-3 mt-3`}>
-            <p className="text-xs text-soft-charcoal uppercase tracking-wider mb-1">Total Impact</p>
-            <p className={`text-3xl font-bold ${config.color}`}>${amount}</p>
-          </div>
+    <Card className="relative min-w-[280px] overflow-hidden border border-border bg-card/80 p-6 text-center shadow-xl">
+      <div className={`absolute inset-0 bg-gradient-to-br ${palette.glow}`} />
+      <div className="relative space-y-4">
+        <div className="text-5xl" aria-hidden>
+          {levelData.emoji}
         </div>
+        <div>
+          <p className={`text-xs font-semibold uppercase tracking-[0.3em] text-muted-foreground ${palette.accent}`}>
+            {level}
+          </p>
+          <p className="text-sm text-muted-foreground">Level {levelData.level} Donor</p>
+        </div>
+        <div className="space-y-2">
+          <p className="text-xs uppercase tracking-widest text-muted-foreground">Total Impact</p>
+          <p className={`text-4xl font-serif ${palette.accent}`}>${amount}</p>
+        </div>
+        <Badge variant="outline" className="mx-auto w-fit border-dashed">
+          Every dollar = safety
+        </Badge>
       </div>
-    </div>
+    </Card>
   )
 }

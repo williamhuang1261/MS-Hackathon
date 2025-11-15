@@ -2,9 +2,31 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { ONE_TIME_TIERS, MONTHLY_TIERS, ROUTES, STORAGE_KEYS } from '@/lib/constants'
+import { Check } from 'lucide-react'
+
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Progress } from '@/components/ui/progress'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import { MONTHLY_TIERS, ONE_TIME_TIERS, ROUTES, STORAGE_KEYS } from '@/lib/constants'
 import { setStorageItem } from '@/lib/utils'
 import type { DonationType } from '@/lib/types'
+
+const DONATION_FREQUENCY: { label: string; value: DonationType; subline: string }[] = [
+  { label: 'One-Time', value: 'one-time', subline: 'Immediate crisis response' },
+  { label: 'Monthly', value: 'monthly', subline: 'Keeps the hotline staffed' },
+]
 
 export default function Donate() {
   const router = useRouter()
@@ -15,118 +37,170 @@ export default function Donate() {
 
   const handleComplete = () => {
     if (selectedAmount) {
-      // Store donation amount in localStorage for upsell page
       setStorageItem(STORAGE_KEYS.donationAmount, selectedAmount.toString())
       setStorageItem(STORAGE_KEYS.donationType, donationType)
       router.push(ROUTES.upsell)
     }
   }
 
+  const handleTierChange = (value: string) => {
+    const numeric = Number(value)
+    setSelectedAmount(Number.isFinite(numeric) ? numeric : null)
+  }
+
   return (
-    <main className="min-h-screen py-12 px-4 bg-cream">
-      <div className="max-w-4xl mx-auto space-y-10">
-        {/* Header */}
-        <div className="bg-deep-navy text-cream p-8 rounded-lg text-center">
-          <h1 className="text-4xl font-bold mb-2">Choose Your Donation</h1>
-          <p className="text-lg text-cream">Every contribution creates immediate safety and hope.</p>
-        </div>
+    <main className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-4 py-12" id="monthly">
+      <Card className="overflow-hidden border-none bg-gradient-to-r from-primary to-secondary text-primary-foreground">
+        <CardHeader className="text-center">
+          <Badge variant="outline" className="mx-auto border-white/50 bg-white/10 text-xs font-semibold uppercase tracking-widest">
+            Choose your impact
+          </Badge>
+          <CardTitle className="text-4xl font-serif">Every dollar becomes a safe night.</CardTitle>
+          <CardDescription className="text-base text-primary-foreground/80">
+            Your donation fuels shelter beds, trauma therapy, transportation, and the 24/7 hotline.
+          </CardDescription>
+        </CardHeader>
+      </Card>
 
-        {/* Donation Type Toggle */}
-        <section className="bg-near-white rounded-lg shadow-md p-6">
-          <h2 className="text-2xl font-bold mb-4 text-deep-navy text-center">Donation Type</h2>
-          <div className="flex gap-4 justify-center">
-            <button
-              onClick={() => {
-                setDonationType('one-time')
+      <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
+        <Card className="space-y-6 border-border">
+          <CardHeader>
+            <CardTitle>Donation type</CardTitle>
+            <CardDescription>Select how you’d like to stand guard tonight.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <ToggleGroup
+              type="single"
+              value={donationType}
+              onValueChange={(value) => {
+                if (!value) return
+                setDonationType(value as DonationType)
                 setSelectedAmount(null)
               }}
-              className={`px-8 py-4 rounded-lg font-bold text-lg transition-all ${
-                donationType === 'one-time'
-                  ? 'bg-deep-navy text-cream shadow-lg scale-105'
-                  : 'bg-near-white text-deep-navy border-2 border-light-purple-gray hover:border-medium-purple'
-              }`}
+              className="flex flex-wrap gap-3"
             >
-              One-Time
-            </button>
-            <button
-              onClick={() => {
-                setDonationType('monthly')
-                setSelectedAmount(null)
-              }}
-              className={`px-8 py-4 rounded-lg font-bold text-lg transition-all ${
-                donationType === 'monthly'
-                  ? 'bg-deep-navy text-cream shadow-lg scale-105'
-                  : 'bg-near-white text-deep-navy border-2 border-light-purple-gray hover:border-medium-purple'
-              }`}
+              {DONATION_FREQUENCY.map((option) => (
+                <ToggleGroupItem key={option.value} value={option.value}>
+                  <div className="flex flex-col items-center gap-1 text-center">
+                    <span>{option.label}</span>
+                    <span className="text-xs font-normal text-muted-foreground">{option.subline}</span>
+                  </div>
+                </ToggleGroupItem>
+              ))}
+            </ToggleGroup>
+
+            <div className="space-y-3">
+              <Label htmlFor="custom">Custom amount</Label>
+              <Input
+                id="custom"
+                type="number"
+                min={5}
+                step={5}
+                placeholder="Enter a different amount"
+                value={selectedAmount ?? ''}
+                onChange={(event) => {
+                  const { value } = event.target
+                  if (value === '') {
+                    setSelectedAmount(null)
+                    return
+                  }
+                  const numeric = Number(value)
+                  setSelectedAmount(Number.isFinite(numeric) ? numeric : null)
+                }}
+              />
+            </div>
+
+            <Tabs value={donationType} className="w-full">
+              <TabsList className="w-full justify-between">
+                <TabsTrigger value="one-time" className="flex-1">
+                  One-Time Support
+                </TabsTrigger>
+                <TabsTrigger value="monthly" className="flex-1">
+                  Monthly Ally
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value={donationType} className="border-none bg-transparent p-0">
+                <RadioGroup
+                  value={selectedAmount?.toString() ?? ''}
+                  onValueChange={handleTierChange}
+                >
+                  {tiers.map(({ amount, label, description }) => (
+                    <RadioGroupItem key={amount} value={amount.toString()}>
+                      <div className="flex items-center justify-between gap-4">
+                        <div>
+                          <p className="text-2xl font-semibold">{label}</p>
+                          <p className="text-sm text-muted-foreground">{description}</p>
+                        </div>
+                        {selectedAmount === amount && (
+                          <Badge variant="outline" className="flex items-center gap-1 bg-primary/10 text-primary">
+                            <Check className="h-3.5 w-3.5" /> Selected
+                          </Badge>
+                        )}
+                      </div>
+                    </RadioGroupItem>
+                  ))}
+                </RadioGroup>
+              </TabsContent>
+            </Tabs>
+          </CardContent>
+        </Card>
+
+        <Card className="space-y-6 border-border bg-muted/30">
+          <CardHeader>
+            <CardTitle>Impact preview</CardTitle>
+            <CardDescription>Before you submit, see what tonight will feel like.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-5">
+            <div>
+              <p className="text-4xl font-serif text-primary">
+                {selectedAmount ? `$${selectedAmount.toLocaleString()}` : '--'}
+              </p>
+              <p className="text-sm text-muted-foreground">Amount applied to Athena’s House</p>
+            </div>
+            <div>
+              <Label>Programs funded</Label>
+              <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+                <li>• Emergency transport to the shelter</li>
+                <li>• 24/7 hotline staffing</li>
+                <li>• Warm meals, therapy, and essentials</li>
+              </ul>
+            </div>
+            <div>
+              <Label>Program allocation</Label>
+              <Progress value={80} className="mt-2" />
+              <p className="mt-2 text-xs text-muted-foreground">
+                80% directly funds programs · 20% powers operations so every call gets answered.
+              </p>
+            </div>
+            <Button
+              onClick={handleComplete}
+              disabled={!selectedAmount}
+              className="w-full"
+              size="lg"
             >
-              Monthly Supporter
-            </button>
-          </div>
-        </section>
-
-        {/* Donation Tiers */}
-        <section className="space-y-4">
-          <h3 className="text-2xl font-bold text-center text-deep-navy">
-            {donationType === 'one-time' ? 'One-Time Support' : 'Monthly Support'}
-          </h3>
-          <div className="space-y-3">
-            {tiers.map(({ amount, label, description }) => (
-              <button
-                key={amount}
-                onClick={() => setSelectedAmount(amount)}
-                className={`group relative w-full p-6 rounded-lg flex justify-between items-center transition-all ${
-                  selectedAmount === amount
-                    ? 'border-3 border-deep-navy bg-deep-navy text-cream shadow-xl scale-[1.02]'
-                    : 'border-2 border-light-purple-gray bg-near-white hover:border-medium-purple hover:shadow-lg hover:scale-[1.01]'
-                }`}
-              >
-                <span className={`text-2xl font-bold ${selectedAmount === amount ? 'text-medium-purple' : 'text-deep-navy'}`}>
-                  {label}
-                </span>
-                <span className={`text-right font-medium ${selectedAmount === amount ? 'text-cream' : 'text-soft-charcoal'}`}>
-                  {description}
-                </span>
-                
-                {/* Hover Tooltip */}
-                <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-4 py-2 bg-deep-navy text-cream text-sm rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
-                  <div className="font-semibold">{description}</div>
-                  <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-deep-navy"></div>
-                </div>
-              </button>
-            ))}
-          </div>
-        </section>
-
-        {/* Complete Donation Button */}
-        <div className="flex justify-center">
-          <button
-            onClick={handleComplete}
-            disabled={!selectedAmount}
-            className={`px-12 py-4 rounded-lg font-bold text-xl transition-all ${
-              selectedAmount
-                ? 'bg-deep-navy text-cream hover:bg-medium-purple shadow-lg hover:shadow-xl hover:scale-105'
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            }`}
-          >
-            {selectedAmount ? `Complete Donation` : 'Select an Amount'}
-          </button>
-        </div>
-
-        {/* Trust Indicators */}
-        <div className="bg-near-white border-2 border-light-purple-gray rounded-lg p-6 text-center">
-          <p className="text-soft-charcoal mb-2">
-            <span className="font-bold text-deep-navy">🟣 80% of funds go directly to programs</span>
-          </p>
-          <p className="text-sm text-soft-charcoal/70">
-            The other 20% powers operations so we can serve more women in crisis.
-          </p>
-        </div>
-
-        {/* Identity-Based Microcopy */}
-        <p className="text-center text-lg italic text-soft-charcoal">
-          You're the kind of person who doesn't look away.
-        </p>
+              {selectedAmount ? 'Complete Donation' : 'Select an Amount'}
+            </Button>
+            <p className="text-center text-xs text-muted-foreground">
+              Tax receipts are issued automatically (demo experience).
+            </p>
+          </CardContent>
+        </Card>
       </div>
+
+      <Card className="border-border bg-card/70 p-6 text-center">
+        <CardHeader>
+          <CardTitle className="text-lg font-semibold">
+            🟣 80% of funds go directly to programs
+          </CardTitle>
+          <CardDescription>
+            The other 20% powers operations so we can serve more women in crisis.
+          </CardDescription>
+        </CardHeader>
+      </Card>
+
+      <p className="text-center text-base italic text-muted-foreground">
+        You’re the kind of person who doesn’t look away.
+      </p>
     </main>
   )
 }

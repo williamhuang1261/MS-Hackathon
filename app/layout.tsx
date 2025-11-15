@@ -1,17 +1,34 @@
 import type { Metadata } from 'next'
-import { Inter, DM_Serif_Display } from 'next/font/google'
-import './globals.css'
-import NotificationBanner from './components/NotificationBanner'
+import { Adamina, AR_One_Sans, Azeret_Mono } from 'next/font/google'
 
-const inter = Inter({ 
+import './globals.css'
+import EmergencyBanner from './components/EmergencyBanner'
+import Footer from './components/Footer'
+import Header from './components/Header'
+import NotificationBanner from './components/NotificationBanner'
+import {
+  EMERGENCY_CONTACTS,
+  FOOTER_COLUMNS,
+  NAV_LINKS,
+  OFFICE_LOCATIONS,
+  SOCIAL_LINKS,
+} from '@/lib/constants'
+import { cn } from '@/lib/utils'
+
+const arOneSans = AR_One_Sans({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-ar-one-sans',
 })
 
-const dmSerifDisplay = DM_Serif_Display({ 
+const adamina = Adamina({
   weight: '400',
   subsets: ['latin'],
-  variable: '--font-dm-serif',
+  variable: '--font-adamina',
+})
+
+const azeretMono = Azeret_Mono({
+  subsets: ['latin'],
+  variable: '--font-azeret-mono',
 })
 
 export const metadata: Metadata = {
@@ -26,37 +43,24 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${dmSerifDisplay.variable} font-sans`}>
+      <body
+        className={cn(
+          'min-h-screen bg-background text-foreground font-sans',
+          arOneSans.variable,
+          adamina.variable,
+          azeretMono.variable
+        )}
+      >
+        <EmergencyBanner contacts={EMERGENCY_CONTACTS} showLanguageNote isSticky isDismissible />
+        <Header navLinks={NAV_LINKS} logoText="Shield of Athena" logoTagline="Family Services" />
         <NotificationBanner />
-        <nav className="bg-deep-navy text-cream shadow-lg">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
-              <div className="flex items-center">
-                <a href="/" className="text-xl font-bold">
-                  Athena's House
-                </a>
-              </div>
-              <div className="flex items-center space-x-4">
-                <a href="/" className="hover:text-medium-purple transition-colors">
-                  Home
-                </a>
-                <a 
-                  href="/donate" 
-                  className="bg-deep-navy border-2 border-medium-purple text-cream hover:bg-medium-purple hover:border-deep-navy px-4 py-2 rounded-lg font-semibold transition-all duration-200"
-                >
-                  Donate
-                </a>
-              </div>
-            </div>
-          </div>
-        </nav>
         {children}
-        <footer className="bg-deep-navy text-cream mt-16 py-8">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p className="mb-2">© 2025 Athena's House. All rights reserved.</p>
-            <p className="text-sm text-cream/80">Registered Charity · Tax receipts provided for all donations</p>
-          </div>
-        </footer>
+        <Footer
+          columns={FOOTER_COLUMNS}
+          offices={OFFICE_LOCATIONS}
+          socialLinks={SOCIAL_LINKS}
+          emergencyNumbers={EMERGENCY_CONTACTS}
+        />
       </body>
     </html>
   )

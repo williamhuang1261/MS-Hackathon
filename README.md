@@ -53,10 +53,10 @@ lib/
   - Thank you page with gamification
 
 - **Trauma-Informed Design**
-  - Athena Violet & Hope Gold color palette
-  - DM Serif Display for headings
-  - Inter for body text
-  - Warm, safe visual language
+  - Athena Violet & Hope Gold palette backed by OKLCH tokens
+  - Adamina headlines + AR One Sans body text, with Azeret Mono for data moments
+  - Always-on emergency banner with multilingual cues
+  - Warm, safe visual language throughout the flow
 
 - **Conversion Optimization**
   - Real-time donor notifications
@@ -97,16 +97,20 @@ lib/
 
 ## 🛠️ Tech Stack
 
-- **Framework**: Next.js 14 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Fonts**: DM Serif Display + Inter
-
-## 📝 Notes
-
-- This is a UI-only demo (no payment processing)
+- Next.js 14 App Router + TypeScript
+- Tailwind CSS with shadcn UI + Radix primitives
+- Embla carousel + lucide-react iconography
+- Fonts: AR One Sans, Adamina, Azeret Mono via `next/font`
+- UI-only demo (no payment processing)
 - Donation amounts stored in localStorage
-- Ready for integration with Stripe/PayPal
+- Ready for Stripe/PayPal integration when API keys are added
+
+## 🫱‍🫲 Trauma-Informed Design
+
+- Athena Violet & Hope Gold palette implemented with OKLCH tokens for consistent contrast
+- Adamina headlines, AR One Sans body copy, and Azeret Mono numerals for clarity under stress
+- Emergency crisis banner, multilingual header, and large tappable contact targets
+- Microcopy, spacing, and animations tuned for a calm-yet-urgent experience
 
 ## 📄 License
 
