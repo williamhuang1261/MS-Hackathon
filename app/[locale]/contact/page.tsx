@@ -1,7 +1,11 @@
-import React from "react";
+import StickyHeader from "@/components/LandingPage/StickyHeader";
 
 const ContactPage = () => {
-  return <div>ContactPage</div>;
+  return (
+    <div>
+      <StickyHeader />
+    </div>
+  );
 };
 
 export default ContactPage;

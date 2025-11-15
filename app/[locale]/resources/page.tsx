@@ -1,7 +1,11 @@
-import React from "react";
+import StickyHeader from "@/components/LandingPage/StickyHeader";
 
 const RessourcesPage = () => {
-  return <div>RessourcesPage</div>;
+  return (
+    <div>
+      <StickyHeader />
+    </div>
+  );
 };
 
 export default RessourcesPage;
