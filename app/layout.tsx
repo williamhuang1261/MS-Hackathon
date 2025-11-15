@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { DM_Serif_Display, Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { NextIntlClientProvider } from "next-intl";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const inter = Inter({ 
+  subsets: ['latin'],
+  variable: '--font-inter',
+})
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const dmSerifDisplay = DM_Serif_Display({ 
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-dm-serif',
+})
 
 export const metadata: Metadata = {
   title: "Shield of Athena",
@@ -27,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} ${dmSerifDisplay.variable} antialiased`}
       >
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>

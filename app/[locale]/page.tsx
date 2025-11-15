@@ -1,28 +1,29 @@
 "use client";
+
 /**
  * @file Path: app/[locale]/donate/page.tsx
  * @description: This file contains the code for the landing page
  */
-
-import LanguagePicker from "@/components/LanguagePicker";
-import { useRouter } from "@/i18n/navigation";
+import LandingBanner from "@/components/LandingPage/LandingBanner";
+import StickyHeader from "@/components/LandingPage/StickyHeader";
+import ProblemSection from "@/components/LandingPage/ProblemSection";
+import StorySection from "@/components/LandingPage/StorySection";
+import SolutionSection from "@/components/LandingPage/SolutionSection";
+import ProductSection from "@/components/LandingPage/ProductSection";
+import CTASection from "@/components/LandingPage/CTASection";
 
 const LandingPage = () => {
-  const router = useRouter();
-
-  const onClick = () => {
-    router.push("/donate");
-  };
-
   return (
-    <div className="flex gap-10">
-      <h1>LandingPage</h1>
-      <LanguagePicker />
-
-      {/* Temporary navigation buttons */}
-      <button className="outline" onClick={onClick}>
-        Go to Donation Page
-      </button>
+    <div className="flex flex-col gap-10 w-full relative justify-start">
+      <div className="w-full fixed p-16">
+        <StickyHeader />
+      </div>
+      <LandingBanner />
+      <ProblemSection />
+      <StorySection />
+      <SolutionSection />
+      <ProductSection />
+      <CTASection />
     </div>
   );
 };

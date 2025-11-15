@@ -1,33 +1,91 @@
 "use client";
 
-import DonationForm from "@/components/DonationForm";
+import StickyHeader from "@/components/LandingPage/StickyHeader";
 /**
  * @file Path: app/[locale]/donate/page.tsx
  * @description: This file contains the code for the donation page
  */
 
-import LanguagePicker from "@/components/LanguagePicker";
 import { useRouter } from "@/i18n/navigation";
+import {
+  ONE_TIME_TIERS,
+  MONTHLY_TIERS,
+  STORAGE_KEYS,
+  ROUTES,
+} from "@/lib/constants";
+import { setStorageItem } from "@/lib/utils";
+import { useState } from "react";
+import type { DonationType } from "@/lib/types";
+import DonationTypeSection from "@/components/DonationPage/DonationTypeSection";
+import Microcopy from "@/components/DonationPage/Microcopy";
+import TrustIndicators from "@/components/DonationPage/TrustIndicators";
+import CompleteDonation from "@/components/DonationPage/CompleteDonation";
+import DonationTiers from "@/components/DonationPage/DonationTiers";
+import DonationHeader from "@/components/DonationPage/DonationHeader";
+import UpsellModal from "@/components/DonationPage/Upsell/UpsellModal";
 
 const DonationPage = () => {
-  const router = useRouter();
+  const [donationType, setDonationType] = useState<DonationType>("one-time");
+  const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
+  const [showModal, setShowModal] = useState(false);
 
-  const onClick = () => {
-    router.push("/");
+  const tiers = donationType === "one-time" ? ONE_TIME_TIERS : MONTHLY_TIERS;
+
+  const handleComplete = () => {
+    console.log("handleComplete called", { selectedAmount, showModal });
+    if (selectedAmount) {
+      // Store donation amount in localStorage for upsell page
+      setStorageItem(STORAGE_KEYS.donationAmount, selectedAmount.toString());
+      setStorageItem(STORAGE_KEYS.donationType, donationType);
+      setShowModal(true);
+      console.log("Donation completed:", { donationType, selectedAmount });
+      console.log("Modal should now be showing:", true);
+    } else {
+      console.log("No amount selected, modal will not show");
+    }
   };
 
   return (
-    <div className="flex gap-10 items-start">
-      <h1>Donation Page</h1>
-      <LanguagePicker />
+    <>
+      <main className="min-h-screen py-12 px-4 bg-snow-white">
+        <div className="mb-12">
+          <StickyHeader showDonation={false} />
+        </div>
+        <div className="max-w-4xl mx-auto space-y-10">
+          {/* Header */}
+          <DonationHeader />
 
-      {/* Temporary navigation buttons */}
-      <button className="outline" onClick={onClick}>
-        Go to Home Page
-      </button>
+          {/* Donation Type Toggle */}
+          <DonationTypeSection
+            donationType={donationType}
+            setDonationType={setDonationType}
+            setSelectedAmount={setSelectedAmount}
+          />
 
-      <DonationForm />
-    </div>
+          {/* Donation Tiers */}
+          <DonationTiers
+            donationType={donationType}
+            tiers={[...tiers]}
+            selectedAmount={selectedAmount}
+            setSelectedAmount={setSelectedAmount}
+          />
+
+          {/* Complete Donation Button */}
+          <CompleteDonation
+            selectedAmount={selectedAmount}
+            handleComplete={handleComplete}
+          />
+
+          {/* Trust Indicators */}
+          <TrustIndicators />
+
+          {/* Identity-Based Microcopy */}
+          <Microcopy />
+        </div>
+      </main>
+      {console.log("Rendering modal:", { showModal })}
+      {showModal && <UpsellModal onClick={() => setShowModal(false)} />}
+    </>
   );
 };
 
