@@ -16,11 +16,12 @@ interface PaymentModalProps {
   isOpen: boolean;
   onClose: () => void;
   amount: number;
-  onPaymentComplete: (email: string) => void;
+  onPaymentComplete: (email: string, isMonthly: boolean) => void;
 }
 
 const PaymentModal = ({ isOpen, onClose, amount, onPaymentComplete }: PaymentModalProps) => {
   const [email, setEmail] = useState('');
+  const [isMonthly, setIsMonthly] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<'card' | 'paypal' | 'applepay' | 'googlepay'>('card');
   const [cardNumber, setCardNumber] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
@@ -74,37 +75,37 @@ const PaymentModal = ({ isOpen, onClose, amount, onPaymentComplete }: PaymentMod
     }
 
     // Simulate payment processing
-    onPaymentComplete(email);
+    onPaymentComplete(email, isMonthly);
   };
 
   return (
     <Backdrop onClick={onClose}>
       <div
-        className="rounded-2xl shadow-2xl max-w-2xl w-full bg-white p-8 relative max-h-[90vh] overflow-y-auto"
+        className="rounded-xl md:rounded-2xl shadow-2xl max-w-2xl w-full bg-white p-5 md:p-8 relative max-h-[90vh] overflow-y-auto mx-4"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl font-bold z-10"
+          className="absolute top-3 right-3 md:top-4 md:right-4 text-gray-400 hover:text-gray-600 text-2xl font-bold z-10 min-w-[44px] min-h-[44px] flex items-center justify-center"
         >
           ×
         </button>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
           {/* Header */}
-          <div className="text-center">
-            <h2 className="text-3xl font-bold text-primary mb-2">
+          <div className="text-center mt-8 md:mt-0">
+            <h2 className="text-2xl md:text-3xl font-bold text-primary mb-2">
               Complete Your Donation
             </h2>
-            <p className="text-xl text-purple-700 font-bold">
+            <p className="text-lg md:text-xl text-purple-700 font-bold">
               ${amount.toFixed(2)}
             </p>
           </div>
 
           {/* Email */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <label className="block text-xs md:text-sm font-semibold text-gray-700 mb-2">
               Email (for receipt)
             </label>
             <input
@@ -112,7 +113,7 @@ const PaymentModal = ({ isOpen, onClose, amount, onPaymentComplete }: PaymentMod
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
-              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+              className="w-full px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
               required
               autoFocus
             />
@@ -120,10 +121,10 @@ const PaymentModal = ({ isOpen, onClose, amount, onPaymentComplete }: PaymentMod
 
           {/* Payment Method Selection */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-3">
+            <label className="block text-xs md:text-sm font-semibold text-gray-700 mb-2 md:mb-3">
               Payment Method
             </label>
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-4 gap-1.5 md:gap-2">
               <button
                 type="button"
                 onClick={() => setPaymentMethod('card')}
@@ -326,15 +327,35 @@ const PaymentModal = ({ isOpen, onClose, amount, onPaymentComplete }: PaymentMod
             </div>
           )}
 
+          {/* Monthly Recurring Option */}
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-200 rounded-lg p-4">
+            <label className="flex items-center gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={isMonthly}
+                onChange={(e) => setIsMonthly(e.target.checked)}
+                className="w-5 h-5 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+              />
+              <div className="flex-1">
+                <span className="font-semibold text-purple-800">
+                  💜 Make this a monthly donation
+                </span>
+                <p className="text-xs text-gray-600 mt-1">
+                  Sustaining support helps us plan ahead and provide ongoing services
+                </p>
+              </div>
+            </label>
+          </div>
+
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 rounded-lg text-lg transition-all shadow-lg"
+            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 md:py-4 rounded-lg text-base md:text-lg transition-all shadow-lg min-h-[44px]"
           >
             Complete Donation - ${amount.toFixed(2)}
           </button>
 
-          <p className="text-center text-sm text-gray-500">
+          <p className="text-center text-xs md:text-sm text-gray-500">
             🔒 Secure payment processing • 100% tax deductible
           </p>
         </form>

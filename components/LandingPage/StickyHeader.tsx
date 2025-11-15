@@ -31,15 +31,15 @@ type Props = {
 
 const StickyHeader = ({ showDonation = true }: Props) => {
   return (
-    <div className="w-full bg-light-background flex justify-between items-center px-12 py-3 z-10 border-dark-background border shadow-md rounded-full">
+    <div className="w-full bg-light-background flex justify-between items-center px-4 md:px-8 lg:px-12 py-2 md:py-3 z-10 border-dark-background border shadow-md rounded-full">
       <Logo />
-      <div className="flex gap-10 ">
+      <div className="hidden lg:flex gap-6 xl:gap-10">
         <MenuOptions title="Home" destination="/" />
         <MenuOptions title="About Us" destination="/about" />
         <MenuOptions title="Ressources" destination="/resources" />
         <MenuOptions title="Contact" destination="/contact" />
       </div>
-      <div className="flex gap-10">
+      <div className="flex gap-3 md:gap-6 lg:gap-10">
         {showDonation && <DonateButton />}
         <LanguagePicker />
       </div>

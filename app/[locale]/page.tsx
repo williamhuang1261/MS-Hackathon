@@ -15,8 +15,8 @@ import CTASection from "@/components/LandingPage/CTASection";
 
 const LandingPage = () => {
   return (
-    <div className="flex flex-col gap-10 w-full relative justify-start">
-      <div className="w-full fixed top-0 left-0 p-16 z-[100]">
+    <div className="flex flex-col gap-6 md:gap-10 w-full relative justify-start">
+      <div className="w-full fixed top-0 left-0 p-4 md:p-8 lg:p-16 z-[100]">
         <StickyHeader />
       </div>
       <LandingBanner />
