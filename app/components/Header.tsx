@@ -8,7 +8,7 @@ import { ChevronRight, Menu, Phone } from 'lucide-react'
 import LanguageSelector from './LanguageSelector'
 import type { HeaderProps, NavLink } from '@/lib/types'
 import { EMERGENCY_CONTACTS, LANGUAGES } from '@/lib/constants'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/app/components/ui/button'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -17,10 +17,10 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { Separator } from '@/components/ui/separator'
+} from '@/app/components/ui/navigation-menu'
+import { Sheet, SheetContent, SheetTrigger } from '@/app/components/ui/sheet'
+import { Popover, PopoverContent, PopoverTrigger } from '@/app/components/ui/popover'
+import { Separator } from '@/app/components/ui/separator'
 import { cn } from '@/lib/utils'
 
 export default function Header({ navLinks, logoText = 'Shield of Athena', logoTagline = 'Family Services' }: HeaderProps) {

@@ -5,8 +5,8 @@ import useEmblaCarousel from 'embla-carousel-react'
 import { Pause, Play } from 'lucide-react'
 
 import type { ImpactStoriesProps } from '@/lib/types'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
+import { Button } from '@/app/components/ui/button'
+import { Card, CardContent } from '@/app/components/ui/card'
 
 export default function ImpactStories({ testimonials, autoAdvance = true, autoAdvanceInterval = 6000 }: ImpactStoriesProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' })

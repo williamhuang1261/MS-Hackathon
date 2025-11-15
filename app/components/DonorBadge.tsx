@@ -1,7 +1,7 @@
 'use client'
 
-import { Badge } from '@/components/ui/badge'
-import { Card } from '@/components/ui/card'
+import { Badge } from '@/app/components/ui/badge'
+import { Card } from '@/app/components/ui/card'
 import { DONOR_LEVELS } from '@/lib/constants'
 import type { DonorBadgeProps } from '@/lib/types'
 

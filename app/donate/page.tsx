@@ -4,21 +4,21 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Check } from 'lucide-react'
 
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { Badge } from '@/app/components/ui/badge'
+import { Button } from '@/app/components/ui/button'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Progress } from '@/components/ui/progress'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+} from '@/app/components/ui/card'
+import { Input } from '@/app/components/ui/input'
+import { Label } from '@/app/components/ui/label'
+import { Progress } from '@/app/components/ui/progress'
+import { RadioGroup, RadioGroupItem } from '@/app/components/ui/radio-group'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/app/components/ui/tabs'
+import { ToggleGroup, ToggleGroupItem } from '@/app/components/ui/toggle-group'
 import { MONTHLY_TIERS, ONE_TIME_TIERS, ROUTES, STORAGE_KEYS } from '@/lib/constants'
 import { setStorageItem } from '@/lib/utils'
 import type { DonationType } from '@/lib/types'

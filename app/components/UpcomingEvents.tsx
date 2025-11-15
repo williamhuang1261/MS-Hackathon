@@ -2,10 +2,10 @@ import Link from 'next/link'
 import { CalendarDays, MapPin, Ticket } from 'lucide-react'
 
 import type { UpcomingEventsProps } from '@/lib/types'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Separator } from '@/components/ui/separator'
+import { Button } from '@/app/components/ui/button'
+import { Badge } from '@/app/components/ui/badge'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/app/components/ui/card'
+import { Separator } from '@/app/components/ui/separator'
 
 const formatDate = (date: Date) =>
   new Intl.DateTimeFormat('en-CA', { month: 'long', day: 'numeric', year: 'numeric' }).format(date)

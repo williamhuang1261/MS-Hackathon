@@ -1,9 +1,9 @@
 import Link from 'next/link'
 
 import type { ServicesOverviewProps } from '@/lib/types'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/app/components/ui/card'
+import { Badge } from '@/app/components/ui/badge'
+import { Button } from '@/app/components/ui/button'
 
 export default function ServicesOverview({ services, heading = 'Our Services', subheading = 'Comprehensive multilingual support for every stage of recovery' }: ServicesOverviewProps) {
   return (

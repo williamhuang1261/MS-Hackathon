@@ -3,8 +3,8 @@ import Link from 'next/link'
 import LanguageSelector from './LanguageSelector'
 import type { FooterProps } from '@/lib/types'
 import { LANGUAGES } from '@/lib/constants'
-import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
+import { Button } from '@/app/components/ui/button'
+import { Separator } from '@/app/components/ui/separator'
 
 export default function Footer({ columns, offices, socialLinks, emergencyNumbers, copyrightYear = new Date().getFullYear() }: FooterProps) {
   return (

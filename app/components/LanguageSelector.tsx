@@ -15,7 +15,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from '@/app/components/ui/dropdown-menu'
 
 const STORAGE_KEY = 'shield-language'
 

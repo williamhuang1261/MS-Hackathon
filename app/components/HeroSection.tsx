@@ -2,8 +2,8 @@ import Link from 'next/link'
 import { ExternalLink } from 'lucide-react'
 
 import type { HeroSectionProps } from '@/lib/types'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+import { Button } from '@/app/components/ui/button'
+import { Badge } from '@/app/components/ui/badge'
 import { cn } from '@/lib/utils'
 
 export default function HeroSection({ headline, subheadline, ctaButtons, trustIndicators, backgroundImage }: HeroSectionProps) {
