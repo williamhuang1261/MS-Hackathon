@@ -510,11 +510,10 @@ export default function Donate() {
                       <button
                         type="button"
                         onClick={() => setPaymentMethod('card')}
-                        className={`flex items-center justify-center gap-2 rounded-xl border-2 p-4 transition-all ${
-                          paymentMethod === 'card'
+                        className={`flex items-center justify-center gap-2 rounded-xl border-2 p-4 transition-all ${paymentMethod === 'card'
                             ? 'border-primary bg-primary/5 ring-2 ring-primary/20'
                             : 'border-border hover:border-primary/50'
-                        }`}
+                          }`}
                       >
                         <CreditCard className="h-5 w-5" />
                         <span className="font-medium">Card</span>
@@ -523,11 +522,10 @@ export default function Donate() {
                       <button
                         type="button"
                         onClick={() => setPaymentMethod('googlepay')}
-                        className={`flex items-center justify-center rounded-xl border-2 p-4 transition-all ${
-                          paymentMethod === 'googlepay'
+                        className={`flex items-center justify-center rounded-xl border-2 p-4 transition-all ${paymentMethod === 'googlepay'
                             ? 'border-primary bg-primary/5 ring-2 ring-primary/20'
                             : 'border-border hover:border-primary/50'
-                        }`}
+                          }`}
                       >
                         <img src="/icons/googlepay.svg" alt="Google Pay" className="h-6" />
                       </button>
@@ -535,11 +533,10 @@ export default function Donate() {
                       <button
                         type="button"
                         onClick={() => setPaymentMethod('applepay')}
-                        className={`flex items-center justify-center rounded-xl border-2 p-4 transition-all ${
-                          paymentMethod === 'applepay'
+                        className={`flex items-center justify-center rounded-xl border-2 p-4 transition-all ${paymentMethod === 'applepay'
                             ? 'border-primary bg-primary/5 ring-2 ring-primary/20'
                             : 'border-border hover:border-primary/50'
-                        }`}
+                          }`}
                       >
                         <img src="/icons/applepay.svg" alt="Apple Pay" className="h-6" />
                       </button>
@@ -547,11 +544,10 @@ export default function Donate() {
                       <button
                         type="button"
                         onClick={() => setPaymentMethod('paypal')}
-                        className={`flex items-center justify-center rounded-xl border-2 p-4 transition-all ${
-                          paymentMethod === 'paypal'
+                        className={`flex items-center justify-center rounded-xl border-2 p-4 transition-all ${paymentMethod === 'paypal'
                             ? 'border-primary bg-primary/5 ring-2 ring-primary/20'
                             : 'border-border hover:border-primary/50'
-                        }`}
+                          }`}
                       >
                         <img src="/icons/paypal.svg" alt="PayPal" className="h-6" />
                       </button>
@@ -627,133 +623,133 @@ export default function Donate() {
                           <CreditCard className="h-5 w-5" />
                           Card Information
                         </h3>
-                    <div className="space-y-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="cardNumber">Card Number *</Label>
-                        <Input
-                          id="cardNumber"
-                          value={paymentInfo.cardNumber}
-                          onChange={(e) => handlePaymentInputChange('cardNumber', e.target.value)}
-                          placeholder="1234 5678 9012 3456"
-                          className={paymentErrors.cardNumber ? 'border-destructive' : ''}
-                        />
-                        {paymentErrors.cardNumber && (
-                          <p className="text-sm text-destructive">{paymentErrors.cardNumber}</p>
-                        )}
-                      </div>
+                        <div className="space-y-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="cardNumber">Card Number *</Label>
+                            <Input
+                              id="cardNumber"
+                              value={paymentInfo.cardNumber}
+                              onChange={(e) => handlePaymentInputChange('cardNumber', e.target.value)}
+                              placeholder="1234 5678 9012 3456"
+                              className={paymentErrors.cardNumber ? 'border-destructive' : ''}
+                            />
+                            {paymentErrors.cardNumber && (
+                              <p className="text-sm text-destructive">{paymentErrors.cardNumber}</p>
+                            )}
+                          </div>
 
-                      <div className="space-y-2">
-                        <Label htmlFor="cardName">Cardholder Name *</Label>
-                        <Input
-                          id="cardName"
-                          value={paymentInfo.cardName}
-                          onChange={(e) => handlePaymentInputChange('cardName', e.target.value)}
-                          placeholder="John Doe"
-                          className={paymentErrors.cardName ? 'border-destructive' : ''}
-                        />
-                        {paymentErrors.cardName && (
-                          <p className="text-sm text-destructive">{paymentErrors.cardName}</p>
-                        )}
-                      </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="cardName">Cardholder Name *</Label>
+                            <Input
+                              id="cardName"
+                              value={paymentInfo.cardName}
+                              onChange={(e) => handlePaymentInputChange('cardName', e.target.value)}
+                              placeholder="John Doe"
+                              className={paymentErrors.cardName ? 'border-destructive' : ''}
+                            />
+                            {paymentErrors.cardName && (
+                              <p className="text-sm text-destructive">{paymentErrors.cardName}</p>
+                            )}
+                          </div>
 
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="expiryDate">Expiry Date *</Label>
-                          <Input
-                            id="expiryDate"
-                            value={paymentInfo.expiryDate}
-                            onChange={(e) => handlePaymentInputChange('expiryDate', e.target.value)}
-                            placeholder="MM/YY"
-                            className={paymentErrors.expiryDate ? 'border-destructive' : ''}
-                          />
-                          {paymentErrors.expiryDate && (
-                            <p className="text-sm text-destructive">{paymentErrors.expiryDate}</p>
-                          )}
-                        </div>
+                          <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                              <Label htmlFor="expiryDate">Expiry Date *</Label>
+                              <Input
+                                id="expiryDate"
+                                value={paymentInfo.expiryDate}
+                                onChange={(e) => handlePaymentInputChange('expiryDate', e.target.value)}
+                                placeholder="MM/YY"
+                                className={paymentErrors.expiryDate ? 'border-destructive' : ''}
+                              />
+                              {paymentErrors.expiryDate && (
+                                <p className="text-sm text-destructive">{paymentErrors.expiryDate}</p>
+                              )}
+                            </div>
 
-                        <div className="space-y-2">
-                          <Label htmlFor="cvv">CVV *</Label>
-                          <Input
-                            id="cvv"
-                            type="password"
-                            value={paymentInfo.cvv}
-                            onChange={(e) => handlePaymentInputChange('cvv', e.target.value)}
-                            placeholder="123"
-                            className={paymentErrors.cvv ? 'border-destructive' : ''}
-                          />
-                          {paymentErrors.cvv && (
-                            <p className="text-sm text-destructive">{paymentErrors.cvv}</p>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <Separator />
-
-                  {/* Billing Address */}
-                  <div>
-                    <h3 className="text-lg font-semibold mb-4">Billing Address</h3>
-                    <div className="space-y-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="address">Street Address *</Label>
-                        <Input
-                          id="address"
-                          value={paymentInfo.address}
-                          onChange={(e) => handlePaymentInputChange('address', e.target.value)}
-                          placeholder="123 Main Street"
-                          className={paymentErrors.address ? 'border-destructive' : ''}
-                        />
-                        {paymentErrors.address && (
-                          <p className="text-sm text-destructive">{paymentErrors.address}</p>
-                        )}
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="city">City *</Label>
-                          <Input
-                            id="city"
-                            value={paymentInfo.city}
-                            onChange={(e) => handlePaymentInputChange('city', e.target.value)}
-                            placeholder="New York"
-                            className={paymentErrors.city ? 'border-destructive' : ''}
-                          />
-                          {paymentErrors.city && (
-                            <p className="text-sm text-destructive">{paymentErrors.city}</p>
-                          )}
-                        </div>
-
-                        <div className="space-y-2">
-                          <Label htmlFor="state">State *</Label>
-                          <Input
-                            id="state"
-                            value={paymentInfo.state}
-                            onChange={(e) => handlePaymentInputChange('state', e.target.value)}
-                            placeholder="NY"
-                            className={paymentErrors.state ? 'border-destructive' : ''}
-                          />
-                          {paymentErrors.state && (
-                            <p className="text-sm text-destructive">{paymentErrors.state}</p>
-                          )}
+                            <div className="space-y-2">
+                              <Label htmlFor="cvv">CVV *</Label>
+                              <Input
+                                id="cvv"
+                                type="password"
+                                value={paymentInfo.cvv}
+                                onChange={(e) => handlePaymentInputChange('cvv', e.target.value)}
+                                placeholder="123"
+                                className={paymentErrors.cvv ? 'border-destructive' : ''}
+                              />
+                              {paymentErrors.cvv && (
+                                <p className="text-sm text-destructive">{paymentErrors.cvv}</p>
+                              )}
+                            </div>
+                          </div>
                         </div>
                       </div>
 
-                      <div className="space-y-2">
-                        <Label htmlFor="zipCode">ZIP Code *</Label>
-                        <Input
-                          id="zipCode"
-                          value={paymentInfo.zipCode}
-                          onChange={(e) => handlePaymentInputChange('zipCode', e.target.value)}
-                          placeholder="10001"
-                          className={`max-w-[200px] ${paymentErrors.zipCode ? 'border-destructive' : ''}`}
-                        />
-                        {paymentErrors.zipCode && (
-                          <p className="text-sm text-destructive">{paymentErrors.zipCode}</p>
-                        )}
+                      <Separator />
+
+                      {/* Billing Address */}
+                      <div>
+                        <h3 className="text-lg font-semibold mb-4">Billing Address</h3>
+                        <div className="space-y-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="address">Street Address *</Label>
+                            <Input
+                              id="address"
+                              value={paymentInfo.address}
+                              onChange={(e) => handlePaymentInputChange('address', e.target.value)}
+                              placeholder="123 Main Street"
+                              className={paymentErrors.address ? 'border-destructive' : ''}
+                            />
+                            {paymentErrors.address && (
+                              <p className="text-sm text-destructive">{paymentErrors.address}</p>
+                            )}
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                              <Label htmlFor="city">City *</Label>
+                              <Input
+                                id="city"
+                                value={paymentInfo.city}
+                                onChange={(e) => handlePaymentInputChange('city', e.target.value)}
+                                placeholder="New York"
+                                className={paymentErrors.city ? 'border-destructive' : ''}
+                              />
+                              {paymentErrors.city && (
+                                <p className="text-sm text-destructive">{paymentErrors.city}</p>
+                              )}
+                            </div>
+
+                            <div className="space-y-2">
+                              <Label htmlFor="state">State *</Label>
+                              <Input
+                                id="state"
+                                value={paymentInfo.state}
+                                onChange={(e) => handlePaymentInputChange('state', e.target.value)}
+                                placeholder="NY"
+                                className={paymentErrors.state ? 'border-destructive' : ''}
+                              />
+                              {paymentErrors.state && (
+                                <p className="text-sm text-destructive">{paymentErrors.state}</p>
+                              )}
+                            </div>
+                          </div>
+
+                          <div className="space-y-2">
+                            <Label htmlFor="zipCode">ZIP Code *</Label>
+                            <Input
+                              id="zipCode"
+                              value={paymentInfo.zipCode}
+                              onChange={(e) => handlePaymentInputChange('zipCode', e.target.value)}
+                              placeholder="10001"
+                              className={`max-w-[200px] ${paymentErrors.zipCode ? 'border-destructive' : ''}`}
+                            />
+                            {paymentErrors.zipCode && (
+                              <p className="text-sm text-destructive">{paymentErrors.zipCode}</p>
+                            )}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
                     </>
                   )}
 
@@ -831,7 +827,7 @@ export default function Donate() {
                     ) : (
                       <>
                         <Lock className="h-4 w-4" />
-                        {paymentMethod === 'card' 
+                        {paymentMethod === 'card'
                           ? `Donate ${formatCurrency(selectedTier || customAmount)}`
                           : `Continue to ${paymentMethod === 'googlepay' ? 'Google Pay' : paymentMethod === 'applepay' ? 'Apple Pay' : 'PayPal'}`
                         }
