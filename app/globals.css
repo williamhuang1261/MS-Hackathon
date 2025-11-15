@@ -44,7 +44,7 @@
   --radius-xl: 1rem;
 }
 
-@theme dark {
+.dark {
   --color-background: oklch(0.2406 0.0633 283.2137);
   --color-foreground: oklch(0.9843 0.0040 106.4719);
   --color-card: oklch(0.3002 0.0692 283.7343);

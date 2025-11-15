@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import { ChevronRight, Menu, Phone } from 'lucide-react'
 
 import LanguageSelector from './LanguageSelector'
+import ThemeToggle from './ThemeToggle'
 import type { HeaderProps, NavLink } from '@/lib/types'
 import { EMERGENCY_CONTACTS, LANGUAGES } from '@/lib/constants'
 import { Button } from '@/app/components/ui/button'
@@ -97,6 +98,7 @@ export default function Header({ navLinks, logoText = 'Shield of Athena', logoTa
           <NavigationMenu>
             <NavigationMenuList>{navLinks.map(renderNavLink)}</NavigationMenuList>
           </NavigationMenu>
+          <ThemeToggle />
           <LanguageSelector
             currentLanguage={currentLanguage}
             onLanguageChange={setCurrentLanguage}
@@ -115,7 +117,7 @@ export default function Header({ navLinks, logoText = 'Shield of Athena', logoTa
                 {EMERGENCY_CONTACTS.map((contact) => (
                   <li key={contact.href} className="flex items-center justify-between">
                     <span className="font-medium text-foreground">{contact.label}</span>
-                    <a href={contact.href} className="font-mono text-primary">
+                    <a href={contact.href} className="font-mono text-primary hover:underline">
                       {contact.number}
                     </a>
                   </li>
@@ -140,11 +142,14 @@ export default function Header({ navLinks, logoText = 'Shield of Athena', logoTa
                 <p className="font-serif text-xl text-primary">{logoText}</p>
                 <p className="text-sm text-muted-foreground">{logoTagline}</p>
               </div>
-              <LanguageSelector
-                currentLanguage={currentLanguage}
-                onLanguageChange={setCurrentLanguage}
-                languages={LANGUAGES}
-              />
+              <div className="flex items-center gap-2">
+                <ThemeToggle />
+                <LanguageSelector
+                  currentLanguage={currentLanguage}
+                  onLanguageChange={setCurrentLanguage}
+                  languages={LANGUAGES}
+                />
+              </div>
               <nav className="space-y-3">
                 {navLinks.map((link) => (
                   <div key={link.label}>
