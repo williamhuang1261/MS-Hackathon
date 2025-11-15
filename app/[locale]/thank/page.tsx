@@ -171,6 +171,8 @@ const ThankYouPage = () => {
   return (
     <div className="bg-background min-h-screen">
       <div className="w-full px-4 md:px-12 lg:px-16 pt-8">
+    <div className="flex min-h-screen flex-col items-center bg-light-background">
+      <div className="fixed left-0 right-0 top-0 z-20 w-full px-6 pt-6 sm:px-16">
         <StickyHeader />
       </div>
       <main className="px-4 md:px-12 lg:px-16 pb-16 space-y-10">
@@ -179,6 +181,9 @@ const ThankYouPage = () => {
           <CertificateSpotlight />
         </div>
         <ShareSection />
+      </main>
+      <main className="flex w-full flex-1 items-center justify-center px-4 pb-16 pt-40 sm:px-8">
+        <ThankYouHeader />
       </main>
     </div>
   );
