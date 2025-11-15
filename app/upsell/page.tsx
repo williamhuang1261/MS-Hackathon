@@ -55,7 +55,7 @@ export default function Upsell() {
     if (type) setDonationType(type)
   }, [])
 
-  const [selectedStory] = useState<ImpactStory>(() => stories[Math.floor(Math.random() * stories.length)])
+  const [selectedStory, setSelectedStory] = useState<ImpactStory>(stories[0])
 
   const handleAddAmount = (amount: number) => {
     const newTotal = originalAmount + amount
@@ -71,28 +71,32 @@ export default function Upsell() {
     router.push(ROUTES.thankYou)
   }
 
+  useEffect(() => {
+    setSelectedStory(stories[Math.floor(Math.random() * stories.length)])
+  }, [])
+
   return (
     <main 
-      style={{ background: 'linear-gradient(180deg, #F7C6D0 0%, #C6B1E7 100%)' }}
+      style={{ background: 'linear-gradient(180deg, #FAFAF7 0%, #CACAD7 100%)' }}
       className="min-h-screen py-12 px-4"
     >
       <div className="max-w-3xl mx-auto space-y-8">
         {/* Header */}
         <div className="text-center space-y-4">
-          <div className="inline-block p-4 bg-white/20 rounded-full">
+          <div className="inline-block p-4 bg-near-white/20 rounded-full">
             <span className="text-6xl">💜</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-athena-violet">
+          <h1 className="text-4xl md:text-5xl font-bold text-deep-navy">
             Your Impact is Immediate
           </h1>
           <p className="text-xl text-soft-charcoal">
-            You just donated <span className="font-bold text-athena-violet">${originalAmount}</span>
+            You just donated <span className="font-bold text-deep-navy">${originalAmount}</span>
           </p>
         </div>
 
         {/* AI Story Card */}
-        <div className="bg-snow-white border-3 border-warm-blush rounded-xl p-8 shadow-2xl" style={{ boxShadow: '0 0 40px rgba(198, 177, 231, 0.3)' }}>
-          <h2 className="text-2xl font-bold mb-6 text-athena-violet text-center">
+        <div className="bg-cream border-3 border-light-purple-gray rounded-xl p-8 shadow-2xl" style={{ boxShadow: '0 0 40px rgba(115, 115, 168, 0.3)' }}>
+          <h2 className="text-2xl font-bold mb-6 text-deep-navy text-center">
             {selectedStory.title}
           </h2>
           <div className="space-y-4 text-soft-charcoal leading-relaxed">
@@ -106,7 +110,7 @@ export default function Upsell() {
 
         {/* Upsell Question */}
         <div className="text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-athena-violet mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-deep-navy mb-6">
             Would you like to extend your impact?
           </h2>
         </div>
@@ -117,10 +121,10 @@ export default function Upsell() {
             <button
               key={amount}
               onClick={() => handleAddAmount(amount)}
-              className="w-full bg-white hover:bg-hope-gold/20 border-3 border-hope-gold hover:border-athena-violet p-6 rounded-xl transition-all hover:shadow-2xl hover:scale-[1.02] group"
+              className="w-full bg-near-white hover:bg-medium-purple/10 border-3 border-medium-purple hover:border-deep-navy p-6 rounded-xl transition-all hover:shadow-2xl hover:scale-[1.02] group"
             >
               <div className="flex justify-between items-center">
-                <span className="text-2xl font-bold text-athena-violet group-hover:text-hope-gold transition-colors">
+                <span className="text-2xl font-bold text-deep-navy group-hover:text-medium-purple transition-colors">
                   {label}
                 </span>
                 <span className="text-right text-soft-charcoal font-medium">
@@ -132,16 +136,16 @@ export default function Upsell() {
         </div>
 
         {/* Optional Upsells */}
-        <div className="border-t-2 border-white/40 pt-6 space-y-3">
+        <div className="border-t-2 border-light-purple-gray/50 pt-6 space-y-3">
           <p className="text-center text-sm text-soft-charcoal/80 font-semibold">Or add even more impact:</p>
           {OPTIONAL_UPSELLS.map(({ amount, label, description }) => (
             <button
               key={amount}
               onClick={() => handleAddAmount(amount)}
-              className="w-full bg-white/60 hover:bg-white border-2 border-warm-blush p-4 rounded-lg transition-all hover:shadow-lg hover:scale-[1.01]"
+              className="w-full bg-near-white/60 hover:bg-near-white border-2 border-light-purple-gray p-4 rounded-lg transition-all hover:shadow-lg hover:scale-[1.01]"
             >
               <div className="flex justify-between items-center">
-                <span className="text-lg font-bold text-athena-violet">{label}</span>
+                <span className="text-lg font-bold text-deep-navy">{label}</span>
                 <span className="text-sm text-soft-charcoal">{description}</span>
               </div>
             </button>
@@ -152,7 +156,7 @@ export default function Upsell() {
         <div className="text-center pt-4">
           <button
             onClick={handleSkip}
-            className="text-soft-charcoal hover:text-athena-violet underline text-lg font-medium transition-colors"
+            className="text-soft-charcoal hover:text-deep-navy underline text-lg font-medium transition-colors"
           >
             Continue anyways
           </button>

@@ -5,29 +5,29 @@ import type { DonorBadgeProps } from '@/lib/types'
 
 const badgeConfig: Record<string, { color: string, bgColor: string, borderColor: string }> = {
   'Shelter Guardian': { 
-    color: 'text-gray-700', 
-    bgColor: 'bg-gradient-to-br from-gray-100 to-gray-200',
-    borderColor: 'border-gray-400',
+    color: 'text-deep-navy', 
+    bgColor: 'bg-gradient-to-br from-cream to-near-white',
+    borderColor: 'border-light-purple-gray',
   },
   'Safety Ally': { 
-    color: 'text-blue-700', 
-    bgColor: 'bg-gradient-to-br from-blue-100 to-blue-200',
-    borderColor: 'border-blue-500',
+    color: 'text-medium-purple', 
+    bgColor: 'bg-gradient-to-br from-near-white to-light-purple-gray',
+    borderColor: 'border-medium-purple',
   },
   'Shelter Champion': { 
-    color: 'text-yellow-700', 
-    bgColor: 'bg-gradient-to-br from-yellow-100 to-yellow-200',
-    borderColor: 'border-yellow-500',
+    color: 'text-deep-navy', 
+    bgColor: 'bg-gradient-to-br from-cream to-light-purple-gray',
+    borderColor: 'border-medium-purple',
   },
   'Family Protector': { 
-    color: 'text-purple-700', 
-    bgColor: 'bg-gradient-to-br from-purple-100 to-purple-200',
-    borderColor: 'border-purple-500',
+    color: 'text-medium-purple', 
+    bgColor: 'bg-gradient-to-br from-deep-navy/10 to-medium-purple/10',
+    borderColor: 'border-deep-navy',
   },
   'Athena Protector': { 
-    color: 'text-red-700', 
-    bgColor: 'bg-gradient-to-br from-amber-100 to-amber-200',
-    borderColor: 'border-amber-500',
+    color: 'text-deep-navy', 
+    bgColor: 'bg-gradient-to-br from-deep-navy/20 to-medium-purple/30',
+    borderColor: 'border-deep-navy',
   },
 }
 
@@ -47,11 +47,11 @@ export default function DonorBadge({ level, amount }: DonorBadgeProps) {
           <h3 className={`text-2xl font-bold ${config.color} mb-1 uppercase tracking-wide`}>
             {level}
           </h3>
-          <p className="text-sm text-gray-600 font-semibold mb-3">
+          <p className="text-sm text-soft-charcoal font-semibold mb-3">
             Level {levelData.level} Donor
           </p>
           <div className={`${config.borderColor} border-t-2 pt-3 mt-3`}>
-            <p className="text-xs text-gray-600 uppercase tracking-wider mb-1">Total Impact</p>
+            <p className="text-xs text-soft-charcoal uppercase tracking-wider mb-1">Total Impact</p>
             <p className={`text-3xl font-bold ${config.color}`}>${amount}</p>
           </div>
         </div>

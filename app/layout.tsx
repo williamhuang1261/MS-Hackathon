@@ -28,7 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} ${dmSerifDisplay.variable} font-sans`}>
         <NotificationBanner />
-        <nav className="bg-athena-violet text-white shadow-lg">
+        <nav className="bg-deep-navy text-cream shadow-lg">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
               <div className="flex items-center">
@@ -37,12 +37,12 @@ export default function RootLayout({
                 </a>
               </div>
               <div className="flex items-center space-x-4">
-                <a href="/" className="hover:text-hope-gold transition-colors">
+                <a href="/" className="hover:text-medium-purple transition-colors">
                   Home
                 </a>
                 <a 
                   href="/donate" 
-                  className="bg-hope-gold text-soft-charcoal hover:bg-[#f5d785] px-4 py-2 rounded-lg font-semibold transition-all duration-200"
+                  className="bg-deep-navy border-2 border-medium-purple text-cream hover:bg-medium-purple hover:border-deep-navy px-4 py-2 rounded-lg font-semibold transition-all duration-200"
                 >
                   Donate
                 </a>
@@ -51,14 +51,13 @@ export default function RootLayout({
           </div>
         </nav>
         {children}
-        <footer className="bg-athena-violet text-white mt-16 py-8">
+        <footer className="bg-deep-navy text-cream mt-16 py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p className="mb-2">© 2025 Athena's House. All rights reserved.</p>
-            <p className="text-sm text-warm-white/80">Registered Charity · Tax receipts provided for all donations</p>
+            <p className="text-sm text-cream/80">Registered Charity · Tax receipts provided for all donations</p>
           </div>
         </footer>
       </body>
     </html>
   )
 }
-

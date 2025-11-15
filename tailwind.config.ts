@@ -8,18 +8,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Trauma-informed color palette (psychology thing apparently)
-        'athena-violet': '#4B1F66',
-        'lavender-mist': '#C6B1E7',
-        'snow-white': '#FCFAFF',
-        'warm-white': '#F7F5FD',
+        // Refreshed palette
+        'deep-navy': '#1C1A3C',
+        'medium-purple': '#7373A8',
+        'light-purple-gray': '#CACAD7',
+        'cream': '#FAFAF7',
+        'near-white': '#FDFDFE',
         'soft-charcoal': '#2E2A32',
-        'warm-blush': '#F7C6D0',
-        'hope-gold': '#F4D27A',
-        'confidence-blue': '#3A5FCD',
-        'hope-green': '#88C57F',
-        'lavender-card': '#EFE7F7',
-        'gold-white': '#FDF6D9',
       },
       fontFamily: {
         'sans': ['var(--font-inter)', 'sans-serif'],
@@ -30,4 +25,3 @@ const config: Config = {
   plugins: [],
 }
 export default config
-

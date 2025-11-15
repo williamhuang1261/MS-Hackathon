@@ -8,24 +8,24 @@ import { ORGANIZATION_STATS } from '@/lib/constants';
 
 export default function LandingPage() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-cream">
       {/* Hero Section */}
       <section
-        style={{ background: 'linear-gradient(160deg, #4B1F66 0%, #C6B1E7 100%)' }}
-        className="text-white py-20 px-4"
+        style={{ background: 'linear-gradient(160deg, #1C1A3C 0%, #7373A8 100%)' }}
+        className="text-near-white py-20 px-4"
       >
         <div className="max-w-4xl mx-auto text-center space-y-6">
-          <h1 className="text-5xl md:text-6xl font-bold leading-tight text-snow-white">
+          <h1 className="text-5xl md:text-6xl font-bold leading-tight text-near-white">
             Heros don't always wear capes, but they provide protection to those in need.
           </h1>
-          <p className="text-xl md:text-2xl text-warm-white">
+          <p className="text-xl md:text-2xl text-cream">
             Protect a Woman Tonight. Domestic violence doesn't wait for tomorrow. Your support
             gives safety, food, and hope — right now.
           </p>
           <div className="pt-4">
             <a
               href="/donate"
-              className="bg-hope-gold text-soft-charcoal hover:bg-[#f5d785] px-8 py-4 rounded-lg text-lg font-bold transition-all duration-200 inline-block"
+              className="bg-deep-navy text-cream hover:bg-medium-purple px-8 py-4 rounded-lg text-lg font-bold transition-all duration-200 inline-block"
             >
               Donate Now
             </a>
@@ -34,9 +34,9 @@ export default function LandingPage() {
       </section>
 
       {/* Problem Section */}
-      <section className="py-16 px-4 bg-snow-white">
+      <section className="py-16 px-4 bg-cream">
         <div className="max-w-4xl mx-auto space-y-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-8 text-athena-violet">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-8 text-deep-navy">
             Tonight, hundreds of women and children in Montréal will sleep in fear.
           </h2>
           <div className="grid md:grid-cols-3 gap-8 text-center">
@@ -47,10 +47,10 @@ export default function LandingPage() {
             ].map((item, index) => (
               <div
                 key={index}
-                className="p-6 bg-white rounded-lg shadow-md border border-warm-blush/30"
+                className="p-6 bg-near-white rounded-lg shadow-md border border-light-purple-gray/60"
               >
-                <p className="text-6xl mb-4 text-warm-blush">{item.emoji}</p>
-                <p className="text-xl font-semibold mb-2 text-athena-violet">{item.title}</p>
+                <p className="text-6xl mb-4 text-medium-purple">{item.emoji}</p>
+                <p className="text-xl font-semibold mb-2 text-deep-navy">{item.title}</p>
                 <p className="text-soft-charcoal/80">{item.description}</p>
               </div>
             ))}
@@ -61,11 +61,11 @@ export default function LandingPage() {
             </p>
             <a
               href="/donate"
-              className="bg-hope-gold text-soft-charcoal hover:bg-[#f5d785] px-6 py-3 rounded-lg font-semibold transition-all duration-200 inline-block"
+              className="bg-deep-navy text-cream hover:bg-medium-purple px-6 py-3 rounded-lg font-semibold transition-all duration-200 inline-block"
             >
               Help Them Right Now
             </a>
-            <p className="text-base text-athena-violet font-semibold mt-4 italic">
+            <p className="text-base text-deep-navy font-semibold mt-4 italic">
               You're the kind of person who doesn't look away.
             </p>
           </div>
@@ -73,16 +73,16 @@ export default function LandingPage() {
       </section>
 
       {/* Survivor Story Carousel */}
-      <section className="py-16 px-4 bg-lavender-mist/20">
+      <section className="py-16 px-4 bg-light-purple-gray/30">
         <div className="max-w-4xl mx-auto">
           <SurvivorStoryCarousel />
         </div>
       </section>
 
       {/* Solution Section */}
-      <section className="py-16 px-4 bg-snow-white">
+      <section className="py-16 px-4 bg-cream">
         <div className="max-w-4xl mx-auto space-y-8">
-          <h2 className="text-4xl md:text-5xl font-bold text-center text-athena-violet">
+          <h2 className="text-4xl md:text-5xl font-bold text-center text-deep-navy">
             Athena's House: A lifeline for survivors.
           </h2>
           <p className="text-xl text-center text-soft-charcoal">
@@ -92,13 +92,13 @@ export default function LandingPage() {
           {/* Social Proof Stats */}
           <div className="flex flex-wrap justify-center gap-6 md:gap-12 py-6">
             <div className="text-center">
-              <p className="text-4xl md:text-5xl font-bold text-athena-violet">
+              <p className="text-4xl md:text-5xl font-bold text-deep-navy">
                 {ORGANIZATION_STATS.womenSupported}
               </p>
               <p className="text-soft-charcoal/80 font-semibold mt-1">Women supported last year</p>
             </div>
             <div className="text-center">
-              <p className="text-4xl md:text-5xl font-bold text-athena-violet">
+              <p className="text-4xl md:text-5xl font-bold text-deep-navy">
                 {ORGANIZATION_STATS.hotlineAvailability}
               </p>
               <p className="text-soft-charcoal/80 font-semibold mt-1">
@@ -106,7 +106,7 @@ export default function LandingPage() {
               </p>
             </div>
             <div className="text-center">
-              <p className="text-4xl md:text-5xl font-bold text-athena-violet">
+              <p className="text-4xl md:text-5xl font-bold text-deep-navy">
                 {ORGANIZATION_STATS.yearsServing}
               </p>
               <p className="text-soft-charcoal/80 font-semibold mt-1">Years serving Montréal</p>
@@ -123,16 +123,16 @@ export default function LandingPage() {
             ].map((service, index) => (
               <div
                 key={index}
-                className="bg-white p-6 rounded-lg shadow-md border border-lavender-mist/40"
+                className="bg-near-white p-6 rounded-lg shadow-md border border-light-purple-gray"
               >
-                <h3 className="text-2xl font-semibold mb-3 text-athena-violet">
+                <h3 className="text-2xl font-semibold mb-3 text-deep-navy">
                   {service.icon} {service.title}
                 </h3>
                 <p className="text-soft-charcoal/80">{service.desc}</p>
               </div>
             ))}
-            <div className="bg-white p-6 rounded-lg shadow-md md:col-span-2 border border-lavender-mist/40">
-              <h3 className="text-2xl font-semibold mb-3 text-athena-violet">
+            <div className="bg-near-white p-6 rounded-lg shadow-md md:col-span-2 border border-light-purple-gray">
+              <h3 className="text-2xl font-semibold mb-3 text-deep-navy">
                 🌍 Multilingual Community Outreach
               </h3>
               <p className="text-soft-charcoal/80">
@@ -144,11 +144,11 @@ export default function LandingPage() {
           <div className="text-center pt-8">
             <a
               href="/donate"
-              className="bg-hope-gold text-soft-charcoal hover:bg-[#f5d785] px-6 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-lg"
+              className="bg-deep-navy text-cream hover:bg-medium-purple px-6 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-lg"
             >
               Provide a Night of Safety
             </a>
-            <p className="text-base text-athena-violet font-semibold mt-4 italic">
+            <p className="text-base text-deep-navy font-semibold mt-4 italic">
               People like you protect women.
             </p>
           </div>
@@ -157,28 +157,28 @@ export default function LandingPage() {
 
       {/* Product Aware / Funnel */}
       <section
-        style={{ background: 'linear-gradient(160deg, #4B1F66 0%, #C6B1E7 100%)' }}
-        className="py-16 px-4 text-white"
+        style={{ background: 'linear-gradient(160deg, #1C1A3C 0%, #7373A8 100%)' }}
+        className="py-16 px-4 text-near-white"
       >
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-snow-white">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-near-white">
             Your donation creates a night of safety.
           </h2>
-          <p className="text-xl text-center mb-8 text-warm-white">
+          <p className="text-xl text-center mb-8 text-cream">
             Every dollar directly supports a woman in need.
           </p>
 
           {/* Impact Badge */}
           <div className="flex justify-center mb-12">
-            <div className="bg-white/10 backdrop-blur-md border-2 border-hope-gold rounded-lg px-6 py-4 shadow-lg max-w-2xl">
+            <div className="bg-near-white/10 backdrop-blur-md border-2 border-medium-purple rounded-lg px-6 py-4 shadow-lg max-w-2xl">
               <div className="flex items-center gap-3 mb-2">
                 <span className="text-2xl">🟣</span>
-                <span className="font-bold text-hope-gold text-lg">
+                <span className="font-bold text-medium-purple text-lg">
                   80% of funds go directly to programs
                 </span>
-                <span className="text-hope-green text-xl">✓</span>
+                <span className="text-medium-purple text-xl">✓</span>
               </div>
-              <p className="text-sm text-warm-white text-center">
+              <p className="text-sm text-cream text-center">
                 The other 20% powers operations (staff, facilities, hotline)
               </p>
             </div>
@@ -193,11 +193,11 @@ export default function LandingPage() {
             ].map((tier, index) => (
               <div
                 key={index}
-                className="bg-white/10 backdrop-blur-sm p-8 rounded-lg text-center border-2 border-white/20 hover:border-hope-gold/60 transition-all"
+                className="bg-near-white/10 backdrop-blur-sm p-8 rounded-lg text-center border-2 border-light-purple-gray/40 hover:border-medium-purple/60 transition-all"
               >
-                <p className="text-5xl font-bold mb-4 text-hope-gold">{tier.amount}</p>
-                <p className="text-xl font-semibold mb-2 text-snow-white">{tier.title}</p>
-                <p className="text-warm-white">{tier.desc}</p>
+                <p className="text-5xl font-bold mb-4 text-medium-purple">{tier.amount}</p>
+                <p className="text-xl font-semibold mb-2 text-near-white">{tier.title}</p>
+                <p className="text-cream">{tier.desc}</p>
               </div>
             ))}
           </div>
@@ -205,11 +205,11 @@ export default function LandingPage() {
           <div className="text-center mt-12">
             <a
               href="/donate"
-              className="bg-hope-gold text-soft-charcoal hover:bg-[#f5d785] px-8 py-4 rounded-lg text-lg font-bold transition-all duration-200 inline-block"
+              className="bg-deep-navy text-cream hover:bg-medium-purple px-8 py-4 rounded-lg text-lg font-bold transition-all duration-200 inline-block"
             >
               Make Your Impact Today
             </a>
-            <p className="text-base text-hope-gold font-semibold mt-4 italic">
+            <p className="text-base text-medium-purple font-semibold mt-4 italic">
               You're the kind of person who doesn't look away.
             </p>
           </div>
@@ -217,9 +217,9 @@ export default function LandingPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-16 px-4 bg-snow-white">
+      <section className="py-16 px-4 bg-cream">
         <div className="max-w-3xl mx-auto text-center space-y-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-athena-violet">
+          <h2 className="text-3xl md:text-4xl font-bold text-deep-navy">
             Don't wait. Someone needs you tonight.
           </h2>
           <p className="text-xl text-soft-charcoal">
@@ -227,11 +227,11 @@ export default function LandingPage() {
           </p>
           <a
             href="/donate"
-            className="bg-hope-gold text-soft-charcoal hover:bg-[#f5d785] px-6 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-lg"
+            className="bg-deep-navy text-cream hover:bg-medium-purple px-6 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-lg"
           >
             Protect a Woman Tonight
           </a>
-          <p className="text-base text-athena-violet font-semibold mt-4 italic">
+          <p className="text-base text-deep-navy font-semibold mt-4 italic">
             People like you protect women.
           </p>
         </div>
@@ -239,4 +239,3 @@ export default function LandingPage() {
     </main>
   );
 }
-

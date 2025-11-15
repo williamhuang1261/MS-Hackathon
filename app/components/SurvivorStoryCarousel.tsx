@@ -44,10 +44,10 @@ export default function SurvivorStoryCarousel() {
   }
 
   return (
-    <div className="bg-gradient-to-br from-lavender-mist/20 to-warm-blush/10 border-2 border-warm-blush/40 rounded-lg p-8 md:p-10">
+    <div className="bg-gradient-to-br from-medium-purple/10 to-light-purple-gray/20 border-2 border-light-purple-gray rounded-lg p-8 md:p-10">
       <div className="flex items-center justify-center mb-4">
         <span className="text-3xl mr-3">💜</span>
-        <h3 className="text-2xl font-bold text-athena-violet">Real Impact Stories</h3>
+        <h3 className="text-2xl font-bold text-deep-navy">Real Impact Stories</h3>
       </div>
       
       <div 
@@ -71,8 +71,8 @@ export default function SurvivorStoryCarousel() {
             onClick={() => goToStory(index)}
             className={`w-3 h-3 rounded-full transition-all duration-300 ${
               index === currentIndex 
-                ? 'bg-athena-violet w-8' 
-                : 'bg-lavender-mist hover:bg-athena-violet/50'
+                ? 'bg-deep-navy w-8' 
+                : 'bg-medium-purple/40 hover:bg-deep-navy/70'
             }`}
             aria-label={`Go to story ${index + 1}`}
           />
