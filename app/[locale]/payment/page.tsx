@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import StickyHeader from "@/components/LandingPage/StickyHeader";
-import { getStorageItem } from "@/lib/utils";
+import { getStorageItem } from "@/lib/personal_util";
 import { STORAGE_KEYS, ROUTES } from "@/lib/constants";
 
 import paypalIcon from "@/public/paypal.svg";
@@ -128,7 +128,7 @@ const PaymentPage = () => {
     console.log("========================");
 
     // Navigate to thank you page
-    router.push("/thank");
+    router.replace("/thank");
   };
 
   const getSavings = () => {

@@ -9,7 +9,7 @@ import {
   ROUTES,
   STORAGE_KEYS,
 } from "@/lib/constants";
-import { getStorageItem, setStorageItem } from "@/lib/utils";
+import { getStorageItem, setStorageItem } from "@/lib/personal_util";
 import type { ImpactStory } from "@/lib/types";
 
 const stories: ImpactStory[] = [

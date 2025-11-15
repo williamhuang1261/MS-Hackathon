@@ -13,7 +13,7 @@ import {
   STORAGE_KEYS,
   ROUTES,
 } from "@/lib/constants";
-import { setStorageItem } from "@/lib/utils";
+import { setStorageItem } from "@/lib/personal_util";
 import { useState } from "react";
 import type { DonationType } from "@/lib/types";
 import DonationTypeSection from "@/components/DonationPage/DonationTypeSection";
