@@ -81,7 +81,7 @@ const PaymentModal = ({ isOpen, onClose, amount, onPaymentComplete }: PaymentMod
   return (
     <Backdrop onClick={onClose}>
       <div
-        className="rounded-xl md:rounded-2xl shadow-2xl max-w-2xl w-full bg-white p-5 md:p-8 relative max-h-[90vh] overflow-y-auto mx-4"
+        className="rounded-xl md:rounded-2xl shadow-2xl max-w-2xl w-full bg-white p-4 sm:p-5 md:p-8 relative max-h-[90vh] overflow-y-auto mx-2 sm:mx-4"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
@@ -92,13 +92,13 @@ const PaymentModal = ({ isOpen, onClose, amount, onPaymentComplete }: PaymentMod
           ×
         </button>
 
-        <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4 md:space-y-6">
           {/* Header */}
-          <div className="text-center mt-8 md:mt-0">
-            <h2 className="text-2xl md:text-3xl font-bold text-primary mb-2">
+          <div className="text-center mt-6 sm:mt-8 md:mt-0">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-2">
               Complete Your Donation
             </h2>
-            <p className="text-lg md:text-xl text-purple-700 font-bold">
+            <p className="text-base sm:text-lg md:text-xl text-purple-700 font-bold">
               ${amount.toFixed(2)}
             </p>
           </div>
@@ -113,7 +113,7 @@ const PaymentModal = ({ isOpen, onClose, amount, onPaymentComplete }: PaymentMod
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
-              className="w-full px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+              className="w-full px-3 sm:px-4 py-3 sm:py-3.5 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 min-h-[44px]"
               required
               autoFocus
             />
@@ -124,57 +124,57 @@ const PaymentModal = ({ isOpen, onClose, amount, onPaymentComplete }: PaymentMod
             <label className="block text-xs md:text-sm font-semibold text-gray-700 mb-2 md:mb-3">
               Payment Method
             </label>
-            <div className="grid grid-cols-4 gap-1.5 md:gap-2">
+            <div className="grid grid-cols-4 gap-2 sm:gap-2">
               <button
                 type="button"
                 onClick={() => setPaymentMethod('card')}
-                className={`p-3 rounded-lg border-2 text-center transition-all ${
+                className={`p-2 sm:p-3 rounded-lg border-2 text-center transition-all min-h-[44px] flex items-center justify-center ${
                   paymentMethod === 'card'
                     ? 'border-purple-500 bg-purple-50'
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <div className="text-xs font-medium">Card</div>
+                <div className="text-[10px] sm:text-xs font-medium">Card</div>
               </button>
               <button
                 type="button"
                 onClick={() => setPaymentMethod('paypal')}
-                className={`p-3 rounded-lg border-2 flex items-center justify-center transition-all ${
+                className={`p-2 sm:p-3 rounded-lg border-2 flex items-center justify-center transition-all min-h-[44px] ${
                   paymentMethod === 'paypal'
                     ? 'border-purple-500 bg-purple-50'
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <Image src={paypalIcon} alt="PayPal" width={48} height={16} />
+                <Image src={paypalIcon} alt="PayPal" width={40} height={14} className="sm:w-12 sm:h-4" />
               </button>
               <button
                 type="button"
                 onClick={() => setPaymentMethod('applepay')}
-                className={`p-3 rounded-lg border-2 flex items-center justify-center transition-all ${
+                className={`p-2 sm:p-3 rounded-lg border-2 flex items-center justify-center transition-all min-h-[44px] ${
                   paymentMethod === 'applepay'
                     ? 'border-purple-500 bg-purple-50'
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <Image src={applePayIcon} alt="Apple Pay" width={48} height={16} />
+                <Image src={applePayIcon} alt="Apple Pay" width={40} height={14} className="sm:w-12 sm:h-4" />
               </button>
               <button
                 type="button"
                 onClick={() => setPaymentMethod('googlepay')}
-                className={`p-3 rounded-lg border-2 flex items-center justify-center transition-all ${
+                className={`p-2 sm:p-3 rounded-lg border-2 flex items-center justify-center transition-all min-h-[44px] ${
                   paymentMethod === 'googlepay'
                     ? 'border-purple-500 bg-purple-50'
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <Image src={googlePayIcon} alt="Google Pay" width={48} height={16} />
+                <Image src={googlePayIcon} alt="Google Pay" width={40} height={14} className="sm:w-12 sm:h-4" />
               </button>
             </div>
           </div>
 
           {/* Card Details */}
           {paymentMethod === 'card' && (
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               <div className="flex space-x-2 mb-4">
                 <Image src={masterCardLogo} alt="MasterCard" width={32} height={20} />
                 <Image src={visaLogo} alt="Visa" width={32} height={20} />
@@ -191,13 +191,13 @@ const PaymentModal = ({ isOpen, onClose, amount, onPaymentComplete }: PaymentMod
                   placeholder="0000 0000 0000 0000"
                   value={cardNumber}
                   onChange={(e) => handleCardNumberChange(e.target.value)}
-                  className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                  className="w-full p-3 sm:p-3.5 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 min-h-[44px] text-base"
                   required
                 />
               </div>
 
-              <div className="grid grid-cols-3 gap-4">
-                <div className="col-span-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+                <div className="col-span-2 sm:col-span-2">
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Expiry Date
                   </label>
@@ -206,11 +206,11 @@ const PaymentModal = ({ isOpen, onClose, amount, onPaymentComplete }: PaymentMod
                     placeholder="MM/YY"
                     value={expiryDate}
                     onChange={(e) => handleExpiryChange(e.target.value)}
-                    className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                    className="w-full p-3 sm:p-3.5 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 min-h-[44px] text-base"
                     required
                   />
                 </div>
-                <div>
+                <div className="col-span-2 sm:col-span-1">
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
                     CVC
                   </label>
@@ -219,7 +219,7 @@ const PaymentModal = ({ isOpen, onClose, amount, onPaymentComplete }: PaymentMod
                     placeholder="123"
                     value={cvc}
                     onChange={(e) => setCvc(e.target.value.replace(/\D/g, '').slice(0, 4))}
-                    className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                    className="w-full p-3 sm:p-3.5 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 min-h-[44px] text-base"
                     required
                   />
                 </div>
@@ -234,7 +234,7 @@ const PaymentModal = ({ isOpen, onClose, amount, onPaymentComplete }: PaymentMod
                   placeholder="John Doe"
                   value={nameOnCard}
                   onChange={(e) => setNameOnCard(e.target.value)}
-                  className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                  className="w-full p-3 sm:p-3.5 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 min-h-[44px] text-base"
                   required
                 />
               </div>
@@ -252,7 +252,7 @@ const PaymentModal = ({ isOpen, onClose, amount, onPaymentComplete }: PaymentMod
                     placeholder="123 Main Street"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 mb-2"
+                    className="w-full p-3 sm:p-3.5 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 mb-2 min-h-[44px] text-base"
                     required
                   />
                   <input
@@ -260,11 +260,11 @@ const PaymentModal = ({ isOpen, onClose, amount, onPaymentComplete }: PaymentMod
                     placeholder="Apt., suite, unit, building (Optional)"
                     value={address2}
                     onChange={(e) => setAddress2(e.target.value)}
-                    className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                    className="w-full p-3 sm:p-3.5 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 min-h-[44px] text-base"
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       City
@@ -274,7 +274,7 @@ const PaymentModal = ({ isOpen, onClose, amount, onPaymentComplete }: PaymentMod
                       placeholder="Montreal"
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
-                      className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                      className="w-full p-3 sm:p-3.5 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 min-h-[44px] text-base"
                       required
                     />
                   </div>
@@ -287,7 +287,7 @@ const PaymentModal = ({ isOpen, onClose, amount, onPaymentComplete }: PaymentMod
                       placeholder="QC"
                       value={province}
                       onChange={(e) => setProvince(e.target.value)}
-                      className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                      className="w-full p-3 sm:p-3.5 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 min-h-[44px] text-base"
                       required
                     />
                   </div>
@@ -300,7 +300,7 @@ const PaymentModal = ({ isOpen, onClose, amount, onPaymentComplete }: PaymentMod
                   <select
                     value={country}
                     onChange={(e) => setCountry(e.target.value)}
-                    className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                    className="w-full p-3 sm:p-3.5 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 min-h-[44px] text-base"
                     required
                   >
                     <option value="">Select country</option>
@@ -350,9 +350,10 @@ const PaymentModal = ({ isOpen, onClose, amount, onPaymentComplete }: PaymentMod
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 md:py-4 rounded-lg text-base md:text-lg transition-all shadow-lg min-h-[44px]"
+            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 sm:py-4 rounded-lg text-base sm:text-lg transition-all shadow-lg min-h-[48px] sm:min-h-[52px]"
           >
-            Complete Donation - ${amount.toFixed(2)}
+            <span className="hidden sm:inline">Complete Donation - ${amount.toFixed(2)}</span>
+            <span className="sm:hidden">Complete - ${amount.toFixed(2)}</span>
           </button>
 
           <p className="text-center text-xs md:text-sm text-gray-500">

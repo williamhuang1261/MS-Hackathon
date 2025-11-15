@@ -116,15 +116,17 @@ const CollectiveLotusSection = () => {
         {/* Main Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-12">
           {/* Lotus Flower Visualization */}
-          <div className="flex flex-col items-center h-full order-2 md:order-1">
-            <div className="bg-white rounded-xl md:rounded-2xl shadow-2xl p-4 md:p-8 w-full max-w-md md:max-w-none">
+          <div className="flex flex-col items-center h-full order-2 md:order-1 overflow-hidden">
+            <div className="bg-white rounded-xl md:rounded-2xl shadow-2xl p-4 md:p-8 w-full max-w-md lg:max-w-none overflow-hidden">
               {isStateLoaded ? (
-                <LotusFlower 
-                  stage={currentStage}
-                  showCelebration={showCelebration}
-                  showLabel={false}
-                  size={500}
-                />
+                <div className="w-full flex justify-center overflow-hidden">
+                  <LotusFlower 
+                    stage={currentStage}
+                    showCelebration={showCelebration}
+                    showLabel={false}
+                    size={500}
+                  />
+                </div>
               ) : (
                 <div className="flex items-center justify-center aspect-square">
                   <div className="text-gray-400">Loading lotus...</div>

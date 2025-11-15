@@ -115,19 +115,19 @@ const SimpleDonationPage = () => {
 
         <div className="max-w-6xl mx-auto">
           {/* Page Title */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4">
+          <div className="text-center mb-8 sm:mb-12 px-4">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-3 sm:mb-4">
               Make Your Impact Today 🌸
             </h1>
-            <p className="text-xl text-gray-700">
+            <p className="text-base sm:text-lg md:text-xl text-gray-700 px-2">
               Your donation provides safety, support, and hope to survivors
             </p>
           </div>
 
           <form onSubmit={handleSubmit}>
-            <div className="grid lg:grid-cols-5 gap-8">
+            <div className="grid lg:grid-cols-5 gap-6 md:gap-8">
               {/* Left Side - Amount Selection */}
-              <div className="lg:col-span-2 space-y-6">
+              <div className="lg:col-span-2 space-y-4 md:space-y-6">
                 {/* Donation Type Toggle */}
                 <div className="bg-white rounded-xl shadow-lg p-6">
                   <h2 className="text-2xl font-bold text-primary mb-4">
@@ -164,22 +164,22 @@ const SimpleDonationPage = () => {
                   <h2 className="text-2xl font-bold text-primary mb-4">
                     2. Select Amount
                   </h2>
-                  <div className="grid grid-cols-2 gap-3 mb-4">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-2 sm:gap-3 mb-4">
                     {tiers.map((tier) => (
                       <button
                         key={tier.amount}
                         type="button"
                         onClick={() => handleAmountSelect(tier.amount)}
-                        className={`p-4 rounded-lg border-2 transition-all ${
+                        className={`p-3 sm:p-4 rounded-lg border-2 transition-all min-h-[60px] sm:min-h-[80px] ${
                           selectedAmount === tier.amount && !customAmount
                             ? "border-purple-500 bg-purple-50"
                             : "border-gray-200 hover:border-purple-300"
                         }`}
                       >
-                        <div className="text-2xl font-bold text-purple-600">
+                        <div className="text-xl sm:text-2xl font-bold text-purple-600">
                           ${tier.amount}
                         </div>
-                        <div className="text-xs text-gray-600 mt-1">
+                        <div className="text-[10px] sm:text-xs text-gray-600 mt-1">
                           {tier.label}
                         </div>
                       </button>
@@ -202,7 +202,7 @@ const SimpleDonationPage = () => {
                         value={customAmount}
                         onChange={(e) => handleCustomAmountChange(e.target.value)}
                         placeholder="0.00"
-                        className="w-full pl-8 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-lg"
+                        className="w-full pl-8 pr-4 py-3 sm:py-3.5 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base sm:text-lg min-h-[44px]"
                       />
                     </div>
                   </div>
@@ -226,7 +226,7 @@ const SimpleDonationPage = () => {
               </div>
 
               {/* Right Side - Payment Details */}
-              <div className="lg:col-span-3 space-y-6">
+              <div className="lg:col-span-3 space-y-4 md:space-y-6">
                 {/* Email */}
                 <div className="bg-white rounded-xl shadow-lg p-6">
                   <h2 className="text-2xl font-bold text-primary mb-4">
@@ -236,14 +236,14 @@ const SimpleDonationPage = () => {
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Email (for receipt)
                     </label>
-                    <input
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => handleInputChange("email", e.target.value)}
-                      placeholder="your@email.com"
-                      className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
-                      required
-                    />
+                      <input
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => handleInputChange("email", e.target.value)}
+                        placeholder="your@email.com"
+                        className="w-full p-3 sm:p-3.5 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 min-h-[44px] text-base"
+                        required
+                      />
                   </div>
                 </div>
 
@@ -252,50 +252,50 @@ const SimpleDonationPage = () => {
                   <h2 className="text-2xl font-bold text-primary mb-4">
                     4. Payment Method
                   </h2>
-                  <div className="grid grid-cols-4 gap-2 mb-6">
+                  <div className="grid grid-cols-4 gap-2 sm:gap-3 mb-4 sm:mb-6">
                     <button
                       type="button"
                       onClick={() => handleInputChange("paymentMethod", "card")}
-                      className={`p-3 rounded-lg border-2 text-center transition-all ${
+                      className={`p-2 sm:p-3 rounded-lg border-2 text-center transition-all min-h-[44px] flex items-center justify-center ${
                         formData.paymentMethod === "card"
                           ? "border-purple-500 bg-purple-50"
                           : "border-gray-200 hover:border-gray-300"
                       }`}
                     >
-                      <div className="text-xs font-medium">Card</div>
+                      <div className="text-[10px] sm:text-xs font-medium">Card</div>
                     </button>
                     <button
                       type="button"
                       onClick={() => handleInputChange("paymentMethod", "paypal")}
-                      className={`p-3 rounded-lg border-2 flex items-center justify-center ${
+                      className={`p-2 sm:p-3 rounded-lg border-2 flex items-center justify-center min-h-[44px] ${
                         formData.paymentMethod === "paypal"
                           ? "border-purple-500 bg-purple-50"
                           : "border-gray-200 hover:border-gray-300"
                       }`}
                     >
-                      <Image src={paypalIcon} alt="PayPal" width={48} height={16} />
+                      <Image src={paypalIcon} alt="PayPal" width={40} height={14} className="sm:w-12 sm:h-4" />
                     </button>
                     <button
                       type="button"
                       onClick={() => handleInputChange("paymentMethod", "applepay")}
-                      className={`p-3 rounded-lg border-2 flex items-center justify-center ${
+                      className={`p-2 sm:p-3 rounded-lg border-2 flex items-center justify-center min-h-[44px] ${
                         formData.paymentMethod === "applepay"
                           ? "border-purple-500 bg-purple-50"
                           : "border-gray-200 hover:border-gray-300"
                       }`}
                     >
-                      <Image src={applePayIcon} alt="Apple Pay" width={48} height={16} />
+                      <Image src={applePayIcon} alt="Apple Pay" width={40} height={14} className="sm:w-12 sm:h-4" />
                     </button>
                     <button
                       type="button"
                       onClick={() => handleInputChange("paymentMethod", "googlepay")}
-                      className={`p-3 rounded-lg border-2 flex items-center justify-center ${
+                      className={`p-2 sm:p-3 rounded-lg border-2 flex items-center justify-center min-h-[44px] ${
                         formData.paymentMethod === "googlepay"
                           ? "border-purple-500 bg-purple-50"
                           : "border-gray-200 hover:border-gray-300"
                       }`}
                     >
-                      <Image src={googlePayIcon} alt="Google Pay" width={48} height={16} />
+                      <Image src={googlePayIcon} alt="Google Pay" width={40} height={14} className="sm:w-12 sm:h-4" />
                     </button>
                   </div>
 
@@ -318,13 +318,13 @@ const SimpleDonationPage = () => {
                           placeholder="0000 0000 0000 0000"
                           value={formData.cardNumber}
                           onChange={(e) => handleCardNumberChange(e.target.value)}
-                          className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                          className="w-full p-3 sm:p-3.5 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 min-h-[44px] text-base"
                           required
                         />
                       </div>
 
-                      <div className="grid grid-cols-3 gap-4">
-                        <div className="col-span-2">
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+                        <div className="col-span-2 sm:col-span-2">
                           <label className="block text-sm font-semibold text-gray-700 mb-2">
                             Expiry Date
                           </label>
@@ -333,11 +333,11 @@ const SimpleDonationPage = () => {
                             placeholder="MM/YY"
                             value={formData.expiryDate}
                             onChange={(e) => handleExpiryChange(e.target.value)}
-                            className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                            className="w-full p-3 sm:p-3.5 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 min-h-[44px] text-base"
                             required
                           />
                         </div>
-                        <div>
+                        <div className="col-span-2 sm:col-span-1">
                           <label className="block text-sm font-semibold text-gray-700 mb-2">
                             CVC
                           </label>
@@ -348,7 +348,7 @@ const SimpleDonationPage = () => {
                             onChange={(e) =>
                               handleInputChange("cvc", e.target.value.replace(/\D/g, "").slice(0, 4))
                             }
-                            className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                            className="w-full p-3 sm:p-3.5 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 min-h-[44px] text-base"
                             required
                           />
                         </div>
@@ -363,7 +363,7 @@ const SimpleDonationPage = () => {
                           placeholder="John Doe"
                           value={formData.nameOnCard}
                           onChange={(e) => handleInputChange("nameOnCard", e.target.value)}
-                          className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                          className="w-full p-3 sm:p-3.5 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 min-h-[44px] text-base"
                           required
                         />
                       </div>
@@ -375,13 +375,14 @@ const SimpleDonationPage = () => {
                 <button
                   type="submit"
                   disabled={!selectedAmount}
-                  className={`w-full text-white font-bold py-5 rounded-xl text-xl transition-all shadow-lg ${
+                  className={`w-full text-white font-bold py-4 sm:py-5 rounded-xl text-base sm:text-lg lg:text-xl transition-all shadow-lg min-h-[48px] sm:min-h-[56px] ${
                     selectedAmount
                       ? "bg-purple-600 hover:bg-purple-700 hover:shadow-xl"
                       : "bg-gray-400 cursor-not-allowed"
                   }`}
                 >
-                  Complete Donation & See Your Lotus Bloom 🌸
+                  <span className="hidden sm:inline">Complete Donation & See Your Lotus Bloom 🌸</span>
+                  <span className="sm:hidden">Complete Donation 🌸</span>
                 </button>
 
                 <p className="text-center text-sm text-gray-500">

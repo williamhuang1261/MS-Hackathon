@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   title: "Shield of Athena",
   description:
     "The Shield of Athena is a non-profit organization for victims of family violence. We offer emergency shelter and professional services to women and their children. ",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=5",
 };
 
 export default function RootLayout({

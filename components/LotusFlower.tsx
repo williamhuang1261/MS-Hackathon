@@ -111,11 +111,11 @@ export default function LotusFlower({
   }, [showCelebration]);
 
   return (
-    <div className="lotus-flower-container flex flex-col items-center gap-4">
+    <div className="lotus-flower-container flex flex-col items-center gap-4 w-full max-w-full overflow-hidden">
       <div 
         ref={containerRef} 
-        className="lotus-canvas-wrapper rounded-lg shadow-lg overflow-hidden bg-[#FAFAF7]"
-        style={{ width: `${size}px`, height: `${size}px` }}
+        className="lotus-canvas-wrapper rounded-lg shadow-lg overflow-hidden bg-[#FAFAF7] w-full max-w-full"
+        style={{ width: `${size}px`, height: `${size}px`, maxWidth: '100%' }}
       />
       {showLabel && (
         <div className="text-center space-y-1">
