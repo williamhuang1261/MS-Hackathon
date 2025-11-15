@@ -20,32 +20,48 @@ export interface ImpactCalculation {
   tier: DonationTier
 }
 
-// Certificate tier definitions
-export const CERTIFICATE_TIERS: Record<CertificateTier, { color: string; title: string; bgColor: string }> = {
+// Certificate tier definitions with Art Deco badge designs
+export const CERTIFICATE_TIERS: Record<CertificateTier, { 
+  color: string; 
+  title: string; 
+  bgColor: string;
+  badgeGradient: string;
+  badgeAccent: string;
+}> = {
   'supporter': {
-    color: '#9333EA', // Purple
+    color: 'oklch(0.3788 0.0886 283.8893)', // Art Deco purple border (always same)
     title: 'Supporter Certificate',
-    bgColor: '#F3E8FF'
+    bgColor: '#FDFCFB', // Warm off-white
+    badgeGradient: 'linear-gradient(135deg, oklch(0.5770 0.0809 283.5720) 0%, oklch(0.2406 0.0633 283.2137) 100%)', // Purple to dark purple
+    badgeAccent: 'oklch(87.927% 0.13015 92.78)' // Peach accent
   },
   'community-builder': {
-    color: '#1E3A8A', // Navy
+    color: 'oklch(0.3788 0.0886 283.8893)', // Art Deco purple border (always same)
     title: 'Community Builder Certificate',
-    bgColor: '#DBEAFE'
+    bgColor: '#FDFCFB', // Warm off-white
+    badgeGradient: 'linear-gradient(135deg, oklch(87.927% 0.13015 92.78) 0%, oklch(0.5770 0.0809 283.5720) 50%, oklch(0.2406 0.0633 283.2137) 100%)', // Peach to purple to dark purple
+    badgeAccent: 'oklch(0.9843 0.0040 106.4719)' // Light accent
   },
   'safety-champion': {
-    color: '#F5F5DC', // Cream/Beige
+    color: 'oklch(0.3788 0.0886 283.8893)', // Art Deco purple border (always same)
     title: 'Safety Champion Certificate',
-    bgColor: '#FEF3C7'
+    bgColor: '#FDFCFB', // Warm off-white
+    badgeGradient: 'linear-gradient(135deg, oklch(0.8429 0.0179 286.0089) 0%, oklch(0.5770 0.0809 283.5720) 100%)', // Light purple to medium purple
+    badgeAccent: 'oklch(87.927% 0.13015 92.78)' // Peach accent
   },
   'founders-circle': {
-    color: '#D97706', // Gold
+    color: 'oklch(0.3788 0.0886 283.8893)', // Art Deco purple border (always same)
     title: "Founder's Circle Certificate",
-    bgColor: '#FEF3C7'
+    bgColor: '#FDFCFB', // Warm off-white
+    badgeGradient: 'linear-gradient(135deg, oklch(0.2406 0.0633 283.2137) 0%, oklch(87.927% 0.13015 92.78) 50%, oklch(0.5770 0.0809 283.5720) 100%)', // Dark purple to peach to medium purple
+    badgeAccent: 'oklch(0.9843 0.0040 106.4719)' // Light accent
   },
   'changemaker': {
-    color: '#A3A3A3', // Platinum/Silver
+    color: 'oklch(0.3788 0.0886 283.8893)', // Art Deco purple border (always same)
     title: 'Changemaker Certificate',
-    bgColor: '#F5F5F5'
+    bgColor: '#FDFCFB', // Warm off-white
+    badgeGradient: 'linear-gradient(135deg, oklch(0.9843 0.0040 106.4719) 0%, oklch(0.8429 0.0179 286.0089) 40%, oklch(0.5770 0.0809 283.5720) 70%, oklch(0.2406 0.0633 283.2137) 100%)', // Light to dark gradient with all colors
+    badgeAccent: 'oklch(87.927% 0.13015 92.78)' // Peach accent
   }
 }
 
@@ -102,7 +118,7 @@ export const DONATION_TIERS: DonationTier[] = [
     title: 'Month of Stability',
     benefits: ['30 days shelter', 'Mental health support', 'Childcare', 'Job training'],
     certificateTier: 'founders-circle',
-    certificateColor: '#D97706',
+    certificateColor: '#e48440ff',
     certificateTitle: "Founder's Circle Certificate"
   },
   {

@@ -1,6 +1,5 @@
 import HeroSection from './components/HeroSection'
 import DonationCTA from './components/DonationCTA'
-import DonationPlans from './components/DonationPlans'
 import ImpactStories from './components/ImpactStories'
 import QuickStats from './components/QuickStats'
 import ServicesOverview from './components/ServicesOverview'
@@ -27,25 +26,41 @@ export default function LandingPage() {
   ]
 
   return (
-    <main className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-4 py-12">
-      <HeroSection
-        headline="Breaking the Cycle of Violence"
-        subheadline="Award-winning multilingual support for women and children escaping domestic violence. 34 years of compassionate service in Montreal and Laval."
-        ctaButtons={heroCtas}
-        trustIndicators={HERO_TRUST_INDICATORS}
-      />
+    <main className="mx-auto flex w-full max-w-7xl flex-col gap-20 px-6 py-16">
+      {/* Hero Section - Solid background card */}
+      <section className="rounded-3xl bg-card p-8 shadow-lg md:p-12">
+        <HeroSection
+          headline="Breaking the Cycle of Violence"
+          subheadline="Award-winning multilingual support for women and children escaping domestic violence. 34 years of compassionate service in Montreal and Laval."
+          ctaButtons={heroCtas}
+          trustIndicators={HERO_TRUST_INDICATORS}
+        />
+      </section>
 
-      <DonationPlans />
+      {/* Social Proof / Stats - Solid background */}
+      <section className="rounded-3xl bg-card p-8 shadow-lg md:p-12">
+        <QuickStats stats={QUICK_STATS} animateOnView />
+      </section>
 
-      <QuickStats stats={QUICK_STATS} animateOnView />
+      {/* About/Services Section - Solid background */}
+      <section className="rounded-3xl bg-card p-8 shadow-lg md:p-12">
+        <ServicesOverview services={SERVICES} />
+      </section>
 
-      <ServicesOverview services={SERVICES} />
+      {/* Lead Magnet / Events - Solid background */}
+      <section className="rounded-3xl bg-card p-8 shadow-lg md:p-12">
+        <UpcomingEvents primaryEvent={PRIMARY_EVENT} />
+      </section>
 
-      <UpcomingEvents primaryEvent={PRIMARY_EVENT} />
+      {/* Content Section / Testimonials - Solid background */}
+      <section className="rounded-3xl bg-card p-8 shadow-lg md:p-12">
+        <ImpactStories testimonials={TESTIMONIALS} />
+      </section>
 
-      <DonationCTA donationOptions={DONATION_OPTIONS} />
-
-      <ImpactStories testimonials={TESTIMONIALS} />
+      {/* Final CTA - Solid background */}
+      <section className="rounded-3xl bg-card p-8 shadow-lg md:p-12">
+        <DonationCTA donationOptions={DONATION_OPTIONS} />
+      </section>
     </main>
   )
 }

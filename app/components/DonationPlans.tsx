@@ -61,9 +61,6 @@ export default function DonationPlans() {
       <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
         <div className="flex-1 space-y-8">
           <div className="space-y-3 text-center lg:text-left">
-            <Badge variant="outline" className="mx-auto w-fit border-accent/50 text-accent lg:mx-0">
-              Trauma-informed giving
-            </Badge>
             <h2 className="text-4xl font-serif text-foreground sm:text-5xl">
               Fund the exact moment of safety you want to create.
             </h2>
@@ -101,9 +98,8 @@ export default function DonationPlans() {
                     return (
                       <Card
                         key={`${key}-${tier.amount}`}
-                        className={`flex h-full flex-col border-border/70 bg-background/80 shadow-xl transition hover:-translate-y-1 ${
-                          isFeatured ? 'border-emergency shadow-emergency/20' : ''
-                        }`}
+                        className={`flex h-full flex-col border-border/70 bg-background/80 shadow-xl transition hover:-translate-y-1 ${isFeatured ? 'border-emergency shadow-emergency/20' : ''
+                          }`}
                       >
                         <CardHeader>
                           <div className="flex items-start justify-between gap-2">

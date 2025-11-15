@@ -11,10 +11,10 @@ export default function AnimatedHouse() {
   }, [])
 
   return (
-    <div className="relative w-full h-[400px] flex items-center justify-center overflow-hidden">
+    <div className="relative w-full h-[600px] flex items-center justify-center overflow-hidden">
       <svg
         viewBox="0 0 800 600"
-        className="w-full h-full max-w-2xl"
+        className="w-full h-full max-w-4xl"
         xmlns="http://www.w3.org/2000/svg"
       >
         {/* Dark sky background */}
@@ -54,74 +54,6 @@ export default function AnimatedHouse() {
         
         {/* Sidewalk */}
         <rect x="0" y="430" width="800" height="20" fill="#6b7280" />
-
-        {/* Wooden Fence */}
-        {[...Array(12)].map((_, i) => (
-          <g key={`fence-${i}`}>
-            {/* Fence post */}
-            <rect
-              x={50 + i * 60}
-              y="390"
-              width="8"
-              height="60"
-              fill="#8b4513"
-              stroke="#654321"
-              strokeWidth="1"
-            />
-            {/* Fence board */}
-            <rect
-              x={46 + i * 60}
-              y="395"
-              width="16"
-              height="6"
-              fill="#a0522d"
-              stroke="#654321"
-              strokeWidth="1"
-            />
-            <rect
-              x={46 + i * 60}
-              y="420"
-              width="16"
-              height="6"
-              fill="#a0522d"
-              stroke="#654321"
-              strokeWidth="1"
-            />
-            
-            {/* Flowers growing on fence */}
-            <motion.g
-              initial={{ scale: 0, opacity: 0 }}
-              animate={isAnimating ? {
-                scale: 1,
-                opacity: 1
-              } : {}}
-              transition={{
-                duration: 1,
-                delay: 2 + (i * 0.1),
-                type: 'spring',
-                stiffness: 100
-              }}
-            >
-              {/* Flower stem */}
-              <line
-                x1={54 + i * 60}
-                y1="410"
-                x2={54 + i * 60}
-                y2="395"
-                stroke="#4ade80"
-                strokeWidth="2"
-              />
-              {/* Flower petals */}
-              <circle cx={54 + i * 60} cy="393" r="4" fill="#ec4899" />
-              <circle cx={50 + i * 60} cy="393" r="4" fill="#f472b6" />
-              <circle cx={58 + i * 60} cy="393" r="4" fill="#f472b6" />
-              <circle cx={54 + i * 60} cy="389" r="4" fill="#f472b6" />
-              <circle cx={54 + i * 60} cy="397" r="4" fill="#f472b6" />
-              {/* Flower center */}
-              <circle cx={54 + i * 60} cy="393" r="3" fill="#fbbf24" />
-            </motion.g>
-          </g>
-        ))}
 
         {/* House base */}
         <rect x="300" y="250" width="200" height="180" fill="#8b7355" stroke="#654321" strokeWidth="2" />
@@ -309,6 +241,74 @@ export default function AnimatedHouse() {
           } : {}}
           transition={{ duration: 1, delay: 1.8 }}
         />
+
+        {/* Wooden Fence - Rendered last to be in front */}
+        {[...Array(12)].map((_, i) => (
+          <g key={`fence-${i}`}>
+            {/* Fence post */}
+            <rect
+              x={50 + i * 60}
+              y="390"
+              width="8"
+              height="60"
+              fill="#8b4513"
+              stroke="#654321"
+              strokeWidth="1"
+            />
+            {/* Fence board */}
+            <rect
+              x={46 + i * 60}
+              y="395"
+              width="16"
+              height="6"
+              fill="#a0522d"
+              stroke="#654321"
+              strokeWidth="1"
+            />
+            <rect
+              x={46 + i * 60}
+              y="420"
+              width="16"
+              height="6"
+              fill="#a0522d"
+              stroke="#654321"
+              strokeWidth="1"
+            />
+            
+            {/* Flowers growing from ground */}
+            <motion.g
+              initial={{ scale: 0, opacity: 0 }}
+              animate={isAnimating ? {
+                scale: 1,
+                opacity: 1
+              } : {}}
+              transition={{
+                duration: 1,
+                delay: 2 + (i * 0.1),
+                type: 'spring',
+                stiffness: 100
+              }}
+            >
+              {/* Flower stem */}
+              <line
+                x1={54 + i * 60}
+                y1="450"
+                x2={54 + i * 60}
+                y2="420"
+                stroke="#4ade80"
+                strokeWidth="3"
+              />
+              {/* Flower petals - bigger */}
+              <circle cx={54 + i * 60} cy="418" r="7" fill="#ec4899" />
+              <circle cx={47 + i * 60} cy="418" r="7" fill="#f472b6" />
+              <circle cx={61 + i * 60} cy="418" r="7" fill="#f472b6" />
+              <circle cx={54 + i * 60} cy="411" r="7" fill="#f472b6" />
+              <circle cx={54 + i * 60} cy="425" r="7" fill="#f472b6" />
+              {/* Flower center */}
+              <circle cx={54 + i * 60} cy="418" r="5" fill="#fbbf24" />
+            </motion.g>
+          </g>
+        ))}
       </svg>
     </div>
   )
