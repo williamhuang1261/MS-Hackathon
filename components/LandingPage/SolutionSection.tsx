@@ -88,7 +88,7 @@ const SolutionSection = () => {
 
         <div className="text-center pt-8">
           <a
-            href="/donate"
+            href="#collective-lotus"
             className="bg-yellow-400 text-foreground hover:bg-[#f5d785] px-6 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-lg"
           >
             Provide a Night of Safety

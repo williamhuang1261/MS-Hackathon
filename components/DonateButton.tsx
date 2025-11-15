@@ -1,11 +1,12 @@
 "use client";
 
-import { useRouter } from "@/i18n/navigation";
-
 const DonateButton = () => {
-  const router = useRouter();
   const onClick = () => {
-    router.push("/donate");
+    // Scroll to collective lotus section
+    const lotusSection = document.getElementById('collective-lotus');
+    if (lotusSection) {
+      lotusSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   return (

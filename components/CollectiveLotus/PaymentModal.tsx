@@ -1,0 +1,347 @@
+'use client';
+
+import { useState } from 'react';
+import Backdrop from '@/components/Modal/Backdrop';
+import Image from 'next/image';
+
+import paypalIcon from '@/public/paypal.svg';
+import applePayIcon from '@/public/applepay.svg';
+import googlePayIcon from '@/public/googlepay.svg';
+import masterCardLogo from '@/public/mastercardLogo.png';
+import visaLogo from '@/public/visaLogo.png';
+import amexLogo from '@/public/amexLogo.svg';
+import discoverLogo from '@/public/discoverLogo.svg';
+
+interface PaymentModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  amount: number;
+  onPaymentComplete: (email: string) => void;
+}
+
+const PaymentModal = ({ isOpen, onClose, amount, onPaymentComplete }: PaymentModalProps) => {
+  const [email, setEmail] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState<'card' | 'paypal' | 'applepay' | 'googlepay'>('card');
+  const [cardNumber, setCardNumber] = useState('');
+  const [expiryDate, setExpiryDate] = useState('');
+  const [cvc, setCvc] = useState('');
+  const [nameOnCard, setNameOnCard] = useState('');
+  const [address, setAddress] = useState('');
+  const [address2, setAddress2] = useState('');
+  const [city, setCity] = useState('');
+  const [province, setProvince] = useState('');
+  const [country, setCountry] = useState('');
+
+  if (!isOpen) return null;
+
+  const formatCardNumber = (value: string) => {
+    return value
+      .replace(/\s/g, '')
+      .replace(/(\d{4})/g, '$1 ')
+      .trim();
+  };
+
+  const handleCardNumberChange = (value: string) => {
+    const formatted = formatCardNumber(value.replace(/\D/g, '').slice(0, 16));
+    setCardNumber(formatted);
+  };
+
+  const handleExpiryChange = (value: string) => {
+    let formatted = value.replace(/\D/g, '').slice(0, 4);
+    if (formatted.length >= 2) {
+      formatted = `${formatted.slice(0, 2)}/${formatted.slice(2)}`;
+    }
+    setExpiryDate(formatted);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email) {
+      alert('Please enter your email');
+      return;
+    }
+
+    if (paymentMethod === 'card') {
+      if (!cardNumber || !expiryDate || !cvc || !nameOnCard) {
+        alert('Please fill in all card details');
+        return;
+      }
+      if (!address || !city || !province || !country) {
+        alert('Please fill in all address details');
+        return;
+      }
+    }
+
+    // Simulate payment processing
+    onPaymentComplete(email);
+  };
+
+  return (
+    <Backdrop onClick={onClose}>
+      <div
+        className="rounded-2xl shadow-2xl max-w-2xl w-full bg-white p-8 relative max-h-[90vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl font-bold z-10"
+        >
+          ×
+        </button>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Header */}
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-primary mb-2">
+              Complete Your Donation
+            </h2>
+            <p className="text-xl text-purple-700 font-bold">
+              ${amount.toFixed(2)}
+            </p>
+          </div>
+
+          {/* Email */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Email (for receipt)
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="your@email.com"
+              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+              required
+              autoFocus
+            />
+          </div>
+
+          {/* Payment Method Selection */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-3">
+              Payment Method
+            </label>
+            <div className="grid grid-cols-4 gap-2">
+              <button
+                type="button"
+                onClick={() => setPaymentMethod('card')}
+                className={`p-3 rounded-lg border-2 text-center transition-all ${
+                  paymentMethod === 'card'
+                    ? 'border-purple-500 bg-purple-50'
+                    : 'border-gray-200 hover:border-gray-300'
+                }`}
+              >
+                <div className="text-xs font-medium">Card</div>
+              </button>
+              <button
+                type="button"
+                onClick={() => setPaymentMethod('paypal')}
+                className={`p-3 rounded-lg border-2 flex items-center justify-center transition-all ${
+                  paymentMethod === 'paypal'
+                    ? 'border-purple-500 bg-purple-50'
+                    : 'border-gray-200 hover:border-gray-300'
+                }`}
+              >
+                <Image src={paypalIcon} alt="PayPal" width={48} height={16} />
+              </button>
+              <button
+                type="button"
+                onClick={() => setPaymentMethod('applepay')}
+                className={`p-3 rounded-lg border-2 flex items-center justify-center transition-all ${
+                  paymentMethod === 'applepay'
+                    ? 'border-purple-500 bg-purple-50'
+                    : 'border-gray-200 hover:border-gray-300'
+                }`}
+              >
+                <Image src={applePayIcon} alt="Apple Pay" width={48} height={16} />
+              </button>
+              <button
+                type="button"
+                onClick={() => setPaymentMethod('googlepay')}
+                className={`p-3 rounded-lg border-2 flex items-center justify-center transition-all ${
+                  paymentMethod === 'googlepay'
+                    ? 'border-purple-500 bg-purple-50'
+                    : 'border-gray-200 hover:border-gray-300'
+                }`}
+              >
+                <Image src={googlePayIcon} alt="Google Pay" width={48} height={16} />
+              </button>
+            </div>
+          </div>
+
+          {/* Card Details */}
+          {paymentMethod === 'card' && (
+            <div className="space-y-4">
+              <div className="flex space-x-2 mb-4">
+                <Image src={masterCardLogo} alt="MasterCard" width={32} height={20} />
+                <Image src={visaLogo} alt="Visa" width={32} height={20} />
+                <Image src={amexLogo} alt="Amex" width={32} height={20} />
+                <Image src={discoverLogo} alt="Discover" width={32} height={20} />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Card Number
+                </label>
+                <input
+                  type="text"
+                  placeholder="0000 0000 0000 0000"
+                  value={cardNumber}
+                  onChange={(e) => handleCardNumberChange(e.target.value)}
+                  className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                  required
+                />
+              </div>
+
+              <div className="grid grid-cols-3 gap-4">
+                <div className="col-span-2">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Expiry Date
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="MM/YY"
+                    value={expiryDate}
+                    onChange={(e) => handleExpiryChange(e.target.value)}
+                    className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    CVC
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="123"
+                    value={cvc}
+                    onChange={(e) => setCvc(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                    className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Name on Card
+                </label>
+                <input
+                  type="text"
+                  placeholder="John Doe"
+                  value={nameOnCard}
+                  onChange={(e) => setNameOnCard(e.target.value)}
+                  className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                  required
+                />
+              </div>
+
+              {/* Billing Address */}
+              <div className="border-t-2 border-gray-100 pt-4 space-y-4">
+                <h3 className="text-sm font-semibold text-gray-700">Billing Address</h3>
+                
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Street Address
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="123 Main Street"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 mb-2"
+                    required
+                  />
+                  <input
+                    type="text"
+                    placeholder="Apt., suite, unit, building (Optional)"
+                    value={address2}
+                    onChange={(e) => setAddress2(e.target.value)}
+                    className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      City
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Montreal"
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                      className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      Province / State
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="QC"
+                      value={province}
+                      onChange={(e) => setProvince(e.target.value)}
+                      className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Country
+                  </label>
+                  <select
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                    className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                    required
+                  >
+                    <option value="">Select country</option>
+                    <option value="CA">Canada</option>
+                    <option value="US">United States</option>
+                    <option value="GB">United Kingdom</option>
+                    <option value="AU">Australia</option>
+                    <option value="FR">France</option>
+                    <option value="DE">Germany</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Alternative Payment Methods Message */}
+          {paymentMethod !== 'card' && (
+            <div className="bg-purple-50 border-2 border-purple-200 rounded-lg p-6 text-center">
+              <p className="text-purple-800">
+                You'll be redirected to {paymentMethod === 'paypal' ? 'PayPal' : 
+                  paymentMethod === 'applepay' ? 'Apple Pay' : 'Google Pay'} to complete your donation.
+              </p>
+            </div>
+          )}
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 rounded-lg text-lg transition-all shadow-lg"
+          >
+            Complete Donation - ${amount.toFixed(2)}
+          </button>
+
+          <p className="text-center text-sm text-gray-500">
+            🔒 Secure payment processing • 100% tax deductible
+          </p>
+        </form>
+      </div>
+    </Backdrop>
+  );
+};
+
+export default PaymentModal;
+

@@ -11,7 +11,7 @@ const CTASection = () => {
           Your donation provides immediate safety, food, and hope.
         </p>
         <a
-          href="/donate"
+          href="#collective-lotus"
           className="bg-yellow-400 text-foreground hover:bg-[#f5d785] px-6 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-lg"
         >
           Protect a Woman Tonight

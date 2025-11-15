@@ -68,7 +68,7 @@ const ProductSection = () => {
 
         <div className="text-center mt-12">
           <a
-            href="/donate"
+            href="#collective-lotus"
             className="bg-yellow-500 text-soft-charcoal hover:bg-[#f5d785] px-8 py-4 rounded-lg text-lg font-bold transition-all duration-200 inline-block"
           >
             Make Your Impact Today

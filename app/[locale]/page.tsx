@@ -10,12 +10,13 @@ import ProblemSection from "@/components/LandingPage/ProblemSection";
 import StorySection from "@/components/LandingPage/StorySection";
 import SolutionSection from "@/components/LandingPage/SolutionSection";
 import ProductSection from "@/components/LandingPage/ProductSection";
+import CollectiveLotusSection from "@/components/CollectiveLotus/CollectiveLotusSection";
 import CTASection from "@/components/LandingPage/CTASection";
 
 const LandingPage = () => {
   return (
     <div className="flex flex-col gap-10 w-full relative justify-start">
-      <div className="w-full fixed p-16">
+      <div className="w-full fixed top-0 left-0 p-16 z-[100]">
         <StickyHeader />
       </div>
       <LandingBanner />
@@ -23,6 +24,7 @@ const LandingPage = () => {
       <StorySection />
       <SolutionSection />
       <ProductSection />
+      <CollectiveLotusSection />
       <CTASection />
     </div>
   );

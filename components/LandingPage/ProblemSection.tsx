@@ -46,7 +46,7 @@ const ProblemSection = () => {
             Many have nowhere to go. No safety. No food. No support.
           </p>
           <a
-            href="/donate"
+            href="#collective-lotus"
             className="bg-yellow-400 text-soft-charcoal hover:bg-[#f5d785] px-6 py-3 rounded-lg font-semibold transition-all duration-200 inline-block"
           >
             Help Them Right Now
