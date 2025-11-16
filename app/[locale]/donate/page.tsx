@@ -25,7 +25,6 @@ export default function Donate() {
   const [customAmount, setCustomAmount] = useState<number>(75);
   const [sliderAmount, setSliderAmount] = useState<number>(75);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const [showCertificate, setShowCertificate] = useState(false);
   const [showHouseAnimation, setShowHouseAnimation] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<
@@ -150,9 +149,8 @@ export default function Donate() {
 
     const finalAmount = selectedTier || customAmount;
     const impactCalc = calculateImpact(finalAmount);
-    const tier = getCertificateTier(finalAmount);
-
-    setCompletedDonation({
+    const donationDetails = {
+      donorName: donorInfo.name?.trim() ? donorInfo.name.trim() : "Friend",
       amount: finalAmount,
       impact: impactCalc.description,
       tier,

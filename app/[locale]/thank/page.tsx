@@ -42,14 +42,19 @@ const ImpactProgress = ({ className = "" }: { className?: string }) => {
         </p>
         <div className="flex flex-wrap items-end gap-3">
           <h2 className="text-5xl font-serif">$14,762</h2>
-          <span className="text-yellow-300 font-semibold text-xl">+ $100 today</span>
-          <span className="text-lg text-light-background/80">/ $50,000 goal</span>
+          <span className="text-yellow-300 font-semibold text-xl">
+            + $100 today
+          </span>
+          <span className="text-lg text-light-background/80">
+            / $50,000 goal
+          </span>
         </div>
       </div>
 
       <p className="text-lg text-light-background/90">
-        Every certificate fuels wraparound care for women and children rebuilding their
-        safety. Thank you for moving us closer to fully funding the shelter.
+        Every certificate fuels wraparound care for women and children
+        rebuilding their safety. Thank you for moving us closer to fully funding
+        the shelter.
       </p>
 
       <div className="grid grid-cols-2 gap-6">
@@ -99,9 +104,9 @@ const GratitudeCard = () => {
           title={`THANK YOU ${featuredCertificate.donorName.toUpperCase()}!`}
         />
         <p className="text-lg text-muted-foreground max-w-2xl">
-          Your generosity gives women and children immediate safety, culturally aware
-          counselling, and long-term support. Here&apos;s a glimpse of what your gift is
-          making possible today.
+          Your generosity gives women and children immediate safety, culturally
+          aware counselling, and long-term support. Here&apos;s a glimpse of
+          what your gift is making possible today.
         </p>
         <div className="grid gap-4 sm:grid-cols-2">
           {gratitudeHighlights.map((highlight) => (
@@ -112,7 +117,9 @@ const GratitudeCard = () => {
               <p className="text-sm uppercase tracking-wide text-primary/80">
                 {highlight.label}
               </p>
-              <p className="text-3xl font-serif text-primary">{highlight.value}</p>
+              <p className="text-3xl font-serif text-primary">
+                {highlight.value}
+              </p>
             </div>
           ))}
         </div>
@@ -139,10 +146,12 @@ const CertificateSpotlight = () => {
         <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground">
           Your keepsake
         </p>
-        <h2 className="text-3xl font-serif">Download & share your certificate</h2>
+        <h2 className="text-3xl font-serif">
+          Download & share your certificate
+        </h2>
         <p className="text-muted-foreground">
-          Show friends and family the concrete impact your generosity is unlocking
-          across Montreal.
+          Show friends and family the concrete impact your generosity is
+          unlocking across Montreal.
         </p>
       </div>
       <div className="mt-6">

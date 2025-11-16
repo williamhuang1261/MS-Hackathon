@@ -24,7 +24,14 @@ const ThankYouHeader = ({
         alignmentClasses
       )}
     >
-      <h1 className={cn("text-primary font-semibold", compact ? "text-5xl" : "text-7xl")}>{title}</h1>
+      <h1
+        className={cn(
+          "text-primary font-semibold",
+          compact ? "text-5xl" : "text-7xl"
+        )}
+      >
+        {title}
+      </h1>
       <p className="text-xl text-primary font-medium max-w-2xl">{subtitle}</p>
     </div>
   );
