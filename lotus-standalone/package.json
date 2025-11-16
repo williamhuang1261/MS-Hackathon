@@ -1,0 +1,25 @@
+{
+  "name": "lotus-visualization",
+  "version": "1.0.0",
+  "description": "Beautiful fundraising progress visualization as a growing lotus flower",
+  "main": "LotusVisualization.tsx",
+  "keywords": [
+    "react",
+    "component",
+    "fundraising",
+    "visualization",
+    "lotus",
+    "progress",
+    "donation"
+  ],
+  "author": "Shield of Athena",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0"
+  }
+}
+

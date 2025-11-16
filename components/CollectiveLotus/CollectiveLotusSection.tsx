@@ -1,18 +1,15 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import LotusFlower from '@/components/LotusFlower';
+import { useState } from 'react';
+import LotusProgressTracker from './LotusProgressTracker';
 import DonationModal from './DonationModal';
 import PaymentModal from './PaymentModal';
 import ThankYouModal from './ThankYouModal';
-import { getCollectiveStateManager } from '@/lib/lotus/collective-state';
 
 const CollectiveLotusSection = () => {
-  const [isStateLoaded, setIsStateLoaded] = useState(false);
-  const [currentStage, setCurrentStage] = useState(0);
-  const [totalFlowers, setTotalFlowers] = useState(0);
-  const [donationCount, setDonationCount] = useState(0);
+  // Internal state - starts at $0 when app loads
   const [totalDonationAmount, setTotalDonationAmount] = useState(0);
+  const [donationCount, setDonationCount] = useState(0);
   const [showUpsellModal, setShowUpsellModal] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
@@ -20,9 +17,7 @@ const CollectiveLotusSection = () => {
   const [lastDonationAmount, setLastDonationAmount] = useState(0);
   const [selectedAmount, setSelectedAmount] = useState<number | undefined>(undefined);
   const [showCelebration, setShowCelebration] = useState(false);
-  const [flowerCompleted, setFlowerCompleted] = useState(false);
   const [isMonthlyDonation, setIsMonthlyDonation] = useState(false);
-  const stateManagerRef = useRef<ReturnType<typeof getCollectiveStateManager> | null>(null);
 
   // Calculate impact stats
   const impactStats = {
@@ -30,43 +25,6 @@ const CollectiveLotusSection = () => {
     therapySessions: Math.floor(totalDonationAmount / 50), // $50 per session
     shelterNights: Math.floor(totalDonationAmount / 35), // $35 per night
   };
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    // Initialize state manager
-    stateManagerRef.current = getCollectiveStateManager();
-    const state = stateManagerRef.current.getState();
-    
-    setCurrentStage(state.currentStage);
-    setTotalFlowers(state.totalFlowers);
-    setDonationCount(state.donations.length);
-    
-    // Calculate total donation amount
-    const total = state.donations.reduce((sum: number, donation: any) => sum + donation.amount, 0);
-    setTotalDonationAmount(total);
-    
-    setIsStateLoaded(true); // Mark state as loaded
-
-    // Listen for state changes
-    const handleStateChange = (newState: any) => {
-      setCurrentStage(newState.currentStage);
-      setTotalFlowers(newState.totalFlowers);
-      setDonationCount(newState.donations.length);
-      
-      // Recalculate total
-      const newTotal = newState.donations.reduce((sum: number, donation: any) => sum + donation.amount, 0);
-      setTotalDonationAmount(newTotal);
-    };
-
-    stateManagerRef.current.addListener(handleStateChange);
-
-    return () => {
-      if (stateManagerRef.current) {
-        stateManagerRef.current.removeListener(handleStateChange);
-      }
-    };
-  }, []);
 
   const handleDonateClick = (amount?: number) => {
     setSelectedAmount(amount);
@@ -79,21 +37,27 @@ const CollectiveLotusSection = () => {
   };
 
   const handlePaymentComplete = (email: string, isMonthly: boolean) => {
-    if (!stateManagerRef.current) return;
-
-    // Add donation to collective state
-    const flowerWasCompleted = stateManagerRef.current.addDonation(finalDonationAmount, email);
+    // Add donation to internal total
+    const newTotal = totalDonationAmount + finalDonationAmount;
+    setTotalDonationAmount(newTotal);
+    setDonationCount(donationCount + 1);
     
-    // Show celebration if flower completed
-    if (flowerWasCompleted) {
+    // Check if we hit a milestone (every $10k or reaching $100k)
+    const oldMilestone = Math.floor(totalDonationAmount / 10000);
+    const newMilestone = Math.floor(newTotal / 10000);
+    const hitMilestone = newMilestone > oldMilestone || newTotal >= 100000;
+    
+    // Show celebration if hit milestone
+    if (hitMilestone) {
       setShowCelebration(true);
       setTimeout(() => setShowCelebration(false), 4000);
     }
 
-    // Store donation amount, flower completion status, and monthly flag for thank you modal
+    // Store donation info for thank you modal
     setLastDonationAmount(finalDonationAmount);
-    setFlowerCompleted(flowerWasCompleted);
     setIsMonthlyDonation(isMonthly);
+    
+    console.log('Donation added! New total:', newTotal, 'Milestone hit:', hitMilestone);
     
     // Close payment modal and show thank you
     setShowPaymentModal(false);
@@ -109,74 +73,22 @@ const CollectiveLotusSection = () => {
             Grow Our Collective Lotus 🌸
           </h2>
           <p className="text-base md:text-xl text-gray-700 max-w-3xl mx-auto mb-2 px-4">
-            Every donation helps our community lotus bloom. Watch it grow stage by stage as supporters like you contribute.
+            Every donation helps our community lotus bloom. Watch it grow as we reach $100,000 together.
           </p>
         </div>
 
         {/* Main Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-12">
-          {/* Lotus Flower Visualization */}
-          <div className="flex flex-col items-center h-full order-2 md:order-1 overflow-hidden">
-            <div className="bg-white rounded-xl md:rounded-2xl shadow-2xl p-4 md:p-8 w-full max-w-md lg:max-w-none overflow-hidden">
-              {isStateLoaded ? (
-                <div className="w-full flex justify-center overflow-hidden">
-                  <LotusFlower 
-                    stage={currentStage}
-                    showCelebration={showCelebration}
-                    showLabel={false}
-                    size={500}
-                  />
-                </div>
-              ) : (
-                <div className="flex items-center justify-center aspect-square">
-                  <div className="text-gray-400">Loading lotus...</div>
-                </div>
-              )}
-              
-              {/* Stats */}
-              <div className="mt-4 md:mt-6 text-center space-y-2 md:space-y-3">
-                <div className="text-2xl md:text-3xl font-bold text-purple-700">
-                  Stage {currentStage} of 10
-                </div>
-                <div className="text-lg md:text-xl text-gray-600">
-                  {totalFlowers} Flower{totalFlowers !== 1 ? 's' : ''} Bloomed
-                </div>
-                
-                {/* Impact Stats */}
-                <div className="pt-2 md:pt-3 border-t-2 border-purple-100">
-                  <div className="text-xs md:text-sm font-semibold text-gray-700 mb-2">Collective Impact</div>
-                  <div className="grid grid-cols-3 gap-1 md:gap-2 text-center">
-                    <div className="bg-purple-50 rounded-lg p-1.5 md:p-2">
-                      <div className="text-base md:text-lg font-bold text-purple-700">{impactStats.meals}</div>
-                      <div className="text-[10px] md:text-xs text-gray-600">Meals</div>
-                    </div>
-                    <div className="bg-purple-50 rounded-lg p-1.5 md:p-2">
-                      <div className="text-base md:text-lg font-bold text-purple-700">{impactStats.therapySessions}</div>
-                      <div className="text-[10px] md:text-xs text-gray-600">Sessions</div>
-                    </div>
-                    <div className="bg-purple-50 rounded-lg p-1.5 md:p-2">
-                      <div className="text-base md:text-lg font-bold text-purple-700">{impactStats.shelterNights}</div>
-                      <div className="text-[10px] md:text-xs text-gray-600">Nights</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 mb-12">
+          {/* Lotus Progress Tracker - Exportable Component */}
+          <div className="flex flex-col items-center order-2 lg:order-1">
+            <LotusProgressTracker 
+              totalAmount={totalDonationAmount}
+              showCelebration={showCelebration}
+            />
           </div>
 
-          {/* Right Column - Stacked */}
-          <div className="space-y-4 md:space-y-6 flex flex-col order-1 md:order-2">
-            {/* About the Lotus */}
-            <div className="bg-purple-50 border-2 border-purple-200 rounded-xl p-4 md:p-6">
-              <h4 className="font-bold text-purple-800 mb-2 md:mb-3 text-sm md:text-base">
-                🌸 About the Lotus
-              </h4>
-              <p className="text-gray-700 text-xs md:text-sm leading-relaxed">
-                The lotus flower is a powerful symbol of resilience and transformation. 
-                It grows from mud and darkness, yet rises to bloom with remarkable beauty—just like survivors of domestic violence. 
-                Each donation advances our collective lotus one stage closer to full bloom, representing the hope and healing you help create.
-              </p>
-            </div>
+          {/* Right Column - Donation Actions */}
+          <div className="space-y-4 md:space-y-6 flex flex-col order-1 lg:order-2">
 
             {/* Donation Panel */}
             <div className="bg-white rounded-xl shadow-lg p-4 md:p-6 border border-purple-100">
@@ -230,15 +142,19 @@ const CollectiveLotusSection = () => {
               <ul className="text-gray-700 text-xs md:text-sm space-y-1.5 md:space-y-2">
                 <li className="flex items-start">
                   <span className="text-purple-600 mr-2">•</span>
-                  <span><strong>10 stages</strong> from seed to full bloom</span>
+                  <span><strong>$100,000 goal</strong> grows the lotus from seed to full bloom</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-purple-600 mr-2">•</span>
-                  <span><strong>Each donation</strong> advances 1 stage</span>
+                  <span><strong>12 milestone stages</strong> along the journey</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-purple-600 mr-2">•</span>
-                  <span><strong>One collective lotus</strong> for everyone</span>
+                  <span><strong>Every contribution</strong> brings us closer to full bloom</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-purple-600 mr-2">•</span>
+                  <span><strong>Watch progress</strong> on the timeline in real-time</span>
                 </li>
               </ul>
             </div>
@@ -267,8 +183,8 @@ const CollectiveLotusSection = () => {
         isOpen={showThankYou}
         onClose={() => setShowThankYou(false)}
         amount={lastDonationAmount}
-        newStage={currentStage}
-        flowerCompleted={flowerCompleted}
+        newStage={Math.floor(totalDonationAmount / 10000)}
+        flowerCompleted={totalDonationAmount >= 100000}
         isMonthly={isMonthlyDonation}
       />
     </section>
