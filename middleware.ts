@@ -5,9 +5,8 @@ import createMiddleware from "next-intl/middleware";
 const intlMiddleware = createMiddleware(routing);
 
 export default async function middleware(request: NextRequest) {
-  // Apply internationalization middleware first
+  // Apply internationalization middleware
   const response = intlMiddleware(request);
-
   return response;
 }
 

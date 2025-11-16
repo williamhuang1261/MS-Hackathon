@@ -2,17 +2,6 @@ import type { Metadata } from 'next'
 import { Adamina, AR_One_Sans, Azeret_Mono } from 'next/font/google'
 
 import './globals.css'
-import EmergencyBanner from './components/EmergencyBanner'
-import Footer from './components/Footer'
-import Header from './components/Header'
-import NotificationBanner from './components/NotificationBanner'
-import {
-  EMERGENCY_CONTACTS,
-  FOOTER_COLUMNS,
-  NAV_LINKS,
-  OFFICE_LOCATIONS,
-  SOCIAL_LINKS,
-} from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 const arOneSans = AR_One_Sans({
@@ -51,16 +40,7 @@ export default function RootLayout({
           azeretMono.variable
         )}
       >
-        <EmergencyBanner contacts={EMERGENCY_CONTACTS} showLanguageNote isSticky isDismissible />
-        <Header navLinks={NAV_LINKS} logoText="Shield of Athena" logoTagline="Family Services" />
-        <NotificationBanner />
         {children}
-        <Footer
-          columns={FOOTER_COLUMNS}
-          offices={OFFICE_LOCATIONS}
-          socialLinks={SOCIAL_LINKS}
-          emergencyNumbers={EMERGENCY_CONTACTS}
-        />
       </body>
     </html>
   )
