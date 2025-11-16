@@ -38,9 +38,13 @@ export default function Donate() {
     expiryDate: "",
     cvv: "",
     address: "",
+    address2: "",
     city: "",
     state: "",
     zipCode: "",
+    province: "",
+    country: "",
+    billingFrequency: "monthly" as "monthly" | "yearly",
   });
   const [paymentErrors, setPaymentErrors] = useState<Record<string, string>>(
     {}
@@ -60,123 +64,58 @@ export default function Donate() {
   };
 
   const handleDonateClick = () => {
-    router.push("/payment");
-  };
-
-  // Payment form helpers
-  const formatCardNumber = (value: string) => {
-    const numbers = value.replace(/\D/g, "");
-    const groups = numbers.match(/.{1,4}/g);
-    return groups ? groups.join(" ") : numbers;
-  };
-
-  const formatExpiryDate = (value: string) => {
-    const numbers = value.replace(/\D/g, "");
-    if (numbers.length >= 2) {
-      return numbers.slice(0, 2) + "/" + numbers.slice(2, 4);
-    }
-    return numbers;
+    setShowPaymentModal(true);
   };
 
   const handlePaymentInputChange = (field: string, value: string) => {
     let formattedValue = value;
 
+    // Format specific fields
     if (field === "cardNumber") {
-      formattedValue = formatCardNumber(value);
-      if (formattedValue.replace(/\s/g, "").length > 16) return;
+      // Format card number with spaces
+      formattedValue = value
+        .replace(/\s/g, "")
+        .replace(/(.{4})/g, "$1 ")
+        .trim();
     } else if (field === "expiryDate") {
-      formattedValue = formatExpiryDate(value);
-      if (formattedValue.length > 5) return;
-    } else if (field === "cvv") {
-      formattedValue = value.replace(/\D/g, "");
-      if (formattedValue.length > 3) return;
-    } else if (field === "zipCode") {
-      formattedValue = value.replace(/\D/g, "");
-      if (formattedValue.length > 5) return;
-    }
-
-    setPaymentInfo({ ...paymentInfo, [field]: formattedValue });
-    if (paymentErrors[field]) {
-      setPaymentErrors({ ...paymentErrors, [field]: "" });
-    }
-  };
-
-  const validatePaymentForm = () => {
-    const newErrors: Record<string, string> = {};
-
-    if (!donorInfo.name || donorInfo.name.length < 3) {
-      newErrors.name = "Please enter your full name";
-    }
-
-    if (
-      !donorInfo.email ||
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(donorInfo.email)
-    ) {
-      newErrors.email = "Please enter a valid email address";
-    }
-
-    // Only validate card details if paying by card
-    if (paymentMethod === "card") {
-      if (
-        !paymentInfo.cardNumber ||
-        paymentInfo.cardNumber.replace(/\s/g, "").length !== 16
-      ) {
-        newErrors.cardNumber = "Please enter a valid 16-digit card number";
-      }
-
-      if (!paymentInfo.cardName || paymentInfo.cardName.length < 3) {
-        newErrors.cardName = "Please enter the cardholder name";
-      }
-
-      if (!paymentInfo.expiryDate || paymentInfo.expiryDate.length !== 5) {
-        newErrors.expiryDate = "Please enter a valid expiry date (MM/YY)";
+      // Format expiry date as MM/YY
+      const cleaned = value.replace(/\D/g, "");
+      if (cleaned.length >= 2) {
+        formattedValue =
+          cleaned.substring(0, 2) +
+          (cleaned.length > 2 ? "/" + cleaned.substring(2, 4) : "");
       } else {
-        const [month, year] = paymentInfo.expiryDate.split("/").map(Number);
-        const currentDate = new Date();
-        const currentYear = currentDate.getFullYear() % 100;
-        const currentMonth = currentDate.getMonth() + 1;
-
-        if (month < 1 || month > 12) {
-          newErrors.expiryDate = "Invalid month";
-        } else if (
-          year < currentYear ||
-          (year === currentYear && month < currentMonth)
-        ) {
-          newErrors.expiryDate = "Card has expired";
-        }
+        formattedValue = cleaned;
       }
-
-      if (!paymentInfo.cvv || paymentInfo.cvv.length !== 3) {
-        newErrors.cvv = "Please enter a valid 3-digit CVV";
-      }
-
-      if (!paymentInfo.address || paymentInfo.address.length < 5) {
-        newErrors.address = "Please enter your billing address";
-      }
-
-      if (!paymentInfo.city || paymentInfo.city.length < 2) {
-        newErrors.city = "Please enter your city";
-      }
-
-      if (!paymentInfo.state || paymentInfo.state.length < 2) {
-        newErrors.state = "Please enter your state";
-      }
-
-      if (!paymentInfo.zipCode || paymentInfo.zipCode.length !== 5) {
-        newErrors.zipCode = "Please enter a valid 5-digit ZIP code";
-      }
+    } else if (field === "cvv") {
+      // Limit CVV to 4 digits
+      formattedValue = value.replace(/\D/g, "").slice(0, 4);
     }
 
-    setPaymentErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    // Handle donor info fields
+    if (field === "name" || field === "email" || field === "isReturning") {
+      if (field === "isReturning") {
+        setDonorInfo((prev) => ({ ...prev, [field]: value === "true" }));
+      } else {
+        setDonorInfo((prev) => ({ ...prev, [field]: formattedValue }));
+      }
+    } else {
+      // Handle payment info fields
+      setPaymentInfo((prev) => ({ ...prev, [field]: formattedValue }));
+    }
+
+    // Clear errors for the field
+    setPaymentErrors((prev) => {
+      if (prev[field]) {
+        const { [field]: removed, ...rest } = prev;
+        return rest;
+      }
+      return prev;
+    });
   };
 
   const handlePaymentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!validatePaymentForm()) {
-      return;
-    }
 
     setIsProcessing(true);
 
@@ -199,8 +138,7 @@ export default function Donate() {
 
     // Show certificate after house animation
     setTimeout(() => {
-      setShowHouseAnimation(false);
-      setShowCertificate(true);
+      router.push("/thank");
     }, 4000);
   };
 
@@ -246,7 +184,6 @@ export default function Donate() {
         setShowPaymentModal={setShowPaymentModal}
         impact={impact}
         donorInfo={donorInfo}
-        setDonorInfo={setDonorInfo}
         paymentInfo={paymentInfo}
         handlePaymentInputChange={handlePaymentInputChange}
         paymentMethod={paymentMethod}
