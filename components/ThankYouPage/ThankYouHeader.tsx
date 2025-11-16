@@ -11,6 +11,11 @@ import {
 import { useSearchParams } from "next/navigation";
 import { ROUTES } from "@/lib/constants";
 
+import facebookIcon from "@/public/facebookLogo.svg";
+import instagramIcon from "@/public/instagramLogo.svg";
+import linkedinIcon from "@/public/linkedinLogo.png";
+import xIcon from "@/public/xLogo.jpg";
+
 const FALLBACK_SITE_URL = "https://athena-shelter.org";
 const HERO_EMOJI = "🌸";
 
@@ -191,32 +196,6 @@ const ThankYouHeader = ({
   );
   const encodedUrl = useMemo(() => encodeURIComponent(shareUrl), [shareUrl]);
 
-  const shareTargets = useMemo(
-    () => [
-      {
-        name: "Share on X",
-        icon: "✕",
-        href: `https://twitter.com/intent/tweet?text=${encodedMessage}`,
-      },
-      {
-        name: "Share on Facebook",
-        icon: "📘",
-        href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedMessage}`,
-      },
-      {
-        name: "Share on LinkedIn",
-        icon: "💼",
-        href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
-      },
-      {
-        name: "Share on WhatsApp",
-        icon: "📱",
-        href: `https://api.whatsapp.com/send?text=${encodedMessage}`,
-      },
-    ],
-    [encodedMessage, encodedUrl]
-  );
-
   const handleCopy = useCallback(async () => {
     if (typeof navigator === "undefined" || !navigator.clipboard) {
       setShareError("Clipboard is unavailable on this device");
@@ -283,12 +262,12 @@ const ThankYouHeader = ({
       </div>
 
       <div
-        className="w-full max-w-4xl rounded-3xl border bg-white/90 p-8 shadow-2xl"
+        className="w-full rounded-3xl border bg-white/90 p-8 shadow-2xl"
         style={{ borderColor: "var(--thank-primary)" }}
       >
-        <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]">
+        <div className="flex gap-8">
           <div
-            className="flex flex-col items-center rounded-3xl px-6 py-8 text-center"
+            className="flex flex-col items-center rounded-3xl px-6 py-8 text-center min-w-120"
             style={{
               backgroundColor: "var(--thank-soft)",
               border: "1px solid var(--thank-accent)",
@@ -379,94 +358,82 @@ const ThankYouHeader = ({
                 {stickerError}
               </p>
             )}
-            <button
-              type="button"
-              onClick={handleCopy}
-              className="mt-6 w-full rounded-full bg-accent px-6 py-3 text-base font-semibold text-light-background shadow-md transition hover:bg-[color:var(--thank-primary)] hover:text-white"
-            >
-              {copied ? "Copied to clipboard ✨" : "Copy sticker & message"}
-            </button>
-            {shareError && (
-              <p
-                className="mt-3 text-sm"
-                style={{ color: "var(--thank-primary)" }}
-              >
-                {shareError}
-              </p>
-            )}
-            {!shareError && (
-              <p
-                className="mt-3 text-sm"
-                style={{ color: "var(--thank-primary)", opacity: 0.8 }}
-              >
-                {shareMessage}
-              </p>
-            )}
           </div>
-
-          <div className="flex flex-col gap-4">
-            <p
-              className="text-left text-sm font-semibold uppercase tracking-widest"
-              style={{ color: "var(--thank-primary)" }}
-            >
-              Share with one tap
-            </p>
-            <div className="grid gap-4 md:grid-cols-2">
-              {shareTargets.map((target) => (
-                <a
-                  key={target.name}
-                  href={target.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center justify-between rounded-2xl border bg-white px-4 py-4 text-left text-base font-semibold text-[color:var(--thank-primary)] shadow-sm transition hover:-translate-y-0.5 hover:border-[color:var(--thank-primary)] hover:shadow-lg"
+          <div className="flex flex-col justify-between gap-8">
+            <div className="flex flex-col gap-4">
+              <button
+                type="button"
+                onClick={handleCopy}
+                className="mt-6 w-full rounded-full bg-accent px-6 py-3 text-base font-semibold text-light-background shadow-md transition hover:bg-[color:var(--thank-primary)] hover:text-white"
+              >
+                {copied ? "Copied to clipboard ✨" : "Copy sticker & message"}
+              </button>
+              {shareError && (
+                <p
+                  className="mt-3 text-sm"
+                  style={{ color: "var(--thank-primary)" }}
                 >
-                  <span className="flex items-center gap-3">
-                    <span aria-hidden>{target.icon}</span>
-                    {target.name}
-                  </span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    className="h-5 w-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M17.25 6.75L6.75 17.25M17.25 6.75H9.75M17.25 6.75V14.25"
-                    />
-                  </svg>
-                </a>
-              ))}
+                  {shareError}
+                </p>
+              )}
+              {!shareError && (
+                <p
+                  className="mt-3 text-sm"
+                  style={{ color: "var(--thank-primary)", opacity: 0.8 }}
+                >
+                  {shareMessage}
+                </p>
+              )}
             </div>
 
-            <button
-              type="button"
-              onClick={handleNativeShare}
-              className="mt-2 flex items-center justify-center gap-2 rounded-2xl border px-4 py-4 text-base font-semibold transition hover:bg-[color:var(--thank-soft)]"
-              style={{
-                borderColor: "var(--thank-primary)",
-                color: "var(--thank-primary)",
-              }}
-            >
-              <span role="img" aria-hidden>
-                🚀
-              </span>
-              Share from this device
-            </button>
-
-            <div
-              className="rounded-2xl border border-dashed px-5 py-4 text-left text-sm"
-              style={{
-                borderColor: "var(--thank-primary)",
-                color: "var(--thank-primary)",
-                backgroundColor: "var(--thank-soft)",
-              }}
-            >
-              💡 Tip: Drop the Blossom into your stories with #HopeBlossoms so
-              we can celebrate you publicly (with your permission).
+            <div className="flex flex-col gap-4 mt-4">
+              <p
+                className="text-left text-sm font-semibold uppercase tracking-widest"
+                style={{ color: "var(--thank-primary)" }}
+              >
+                Share with one tap
+              </p>
+              <div className="flex gap-4">
+                <Image
+                  src={facebookIcon}
+                  alt="Facebook logo"
+                  width={36}
+                  height={36}
+                  className="inline-block"
+                />
+                <Image
+                  src={instagramIcon}
+                  alt="Instagram logo"
+                  width={36}
+                  height={36}
+                  className="inline-block"
+                />
+                <Image
+                  src={linkedinIcon}
+                  alt="LinkedIn logo"
+                  width={36}
+                  height={36}
+                  className="inline-block"
+                />
+                <Image
+                  src={xIcon}
+                  alt="X logo"
+                  width={36}
+                  height={36}
+                  className="inline-block"
+                />
+              </div>
+              <div
+                className="rounded-2xl border border-dashed px-5 py-4 text-left text-sm"
+                style={{
+                  borderColor: "var(--thank-primary)",
+                  color: "var(--thank-primary)",
+                  backgroundColor: "var(--thank-soft)",
+                }}
+              >
+                💡 Tip: Drop the Blossom into your stories with #HopeBlossoms so
+                we can celebrate you publicly (with your permission).
+              </div>
             </div>
           </div>
         </div>

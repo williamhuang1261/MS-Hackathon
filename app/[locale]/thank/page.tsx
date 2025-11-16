@@ -72,12 +72,12 @@ const ThankYouPage = () => {
 
   return (
     <div className="flex min-h-screen flex-col bg-light-background">
-      <div className="fixed left-0 right-0 top-0 z-20 w-full px-6 pt-6 sm:px-16">
+      <div className="fixed left-0 right-0 top-0 z-50 w-full px-6 pt-6 sm:px-16">
         <StickyHeader />
       </div>
       <main className="flex w-full flex-1 justify-center px-4 pb-24 pt-32 sm:px-8 lg:px-12 xl:px-16">
         <section className="flex w-full max-w-[1500px] flex-col gap-12">
-          <header className="text-center">
+          <header className="text-center mt-8">
             <h1 className="text-4xl font-semibold text-primary sm:text-5xl">
               Your kindness is contagious
             </h1>
@@ -88,8 +88,8 @@ const ThankYouPage = () => {
             </p>
           </header>
 
-          <div className="grid w-full items-stretch gap-y-10 lg:grid-cols-[minmax(420px,0.9fr)_minmax(660px,1.25fr)] lg:gap-y-0 lg:gap-x-6 xl:gap-x-8">
-            <div className="flex h-full flex-col items-center gap-6 text-center lg:items-start lg:text-left">
+          <div className="flex flex-col gap-8 items-center">
+            <div className="flex h-full flex-col items-center gap-6 text-center lg:items-start lg:text-left p-8">
               <ThankYouHeader
                 primaryColor={certificateTheme.color}
                 accentColor={certificateTheme.badgeAccent}

@@ -124,7 +124,6 @@ export default function Certificate({
 
   const certificateWrapperClasses = cn(
     "relative w-full",
-    isModalVariant ? "max-w-3xl" : "max-w-[1040px]",
     !isModalVariant && "h-full"
   );
 
@@ -162,16 +161,16 @@ export default function Certificate({
     >
       <Card
         className={cn(
-          "relative flex w-full flex-col overflow-visible rounded-3xl border bg-white/95 p-6 sm:p-10 shadow-2xl",
+          "relative flex w-full flex-col overflow-visible rounded-3xl border bg-white/95 p-10 shadow-2xl outline",
           !isModalVariant && "h-full"
         )}
         style={{ borderColor: certificateData.color, borderWidth: 1 }}
       >
         <div className="flex h-full flex-col gap-8">
-          <div className="relative rounded-[32px] border border-[#d8c8ae] bg-[#f9f4e7] p-3 sm:p-5 shadow-xl">
+          <div className="relative rounded-lg border border-[#d8c8ae] bg-[#f9f4e7] p-3 sm:p-5 shadow-xl">
             <div className={certificateCanvasClasses}>
               <div
-                className="pointer-events-none absolute inset-3 sm:inset-5 rounded-[28px] sm:rounded-[36px] opacity-95 z-0"
+                className="pointer-events-none absolute inset-3 sm:inset-5 rounded-xl  opacity-95 z-0"
                 style={{
                   backgroundImage: "url('/certificateborder.png')",
                   backgroundSize: "100% 100%",
