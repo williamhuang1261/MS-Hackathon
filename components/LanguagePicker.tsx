@@ -1,16 +1,19 @@
 "use client";
-import { usePathname, useRouter } from "@/i18n/navigation";
-import { useLocale } from "next-intl";
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
 
 const LanguagePicker = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const currentLocale = useLocale();
+  const [currentLocale, setCurrentLocale] = useState("en");
 
   const handleLanguageChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    router.replace(pathname, { locale: event.target.value });
+    const newLocale = event.target.value;
+    setCurrentLocale(newLocale);
+    // For now, just navigate to the same path
+    // In the future, this can be connected to proper i18n routing
     router.refresh();
   };
 

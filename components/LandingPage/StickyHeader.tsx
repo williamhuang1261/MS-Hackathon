@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "@/i18n/navigation";
+import { useRouter } from "next/navigation";
 import DonateButton from "../DonateButton";
 import LanguagePicker from "../LanguagePicker";
 import Logo from "../Logo";
