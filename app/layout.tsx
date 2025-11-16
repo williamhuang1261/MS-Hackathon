@@ -1,37 +1,67 @@
-import type { Metadata } from "next";
-import { DM_Serif_Display, Geist, Geist_Mono, Inter } from "next/font/google";
-import "./globals.css";
-import { NextIntlClientProvider } from "next-intl";
+import type { Metadata } from 'next'
+import { Adamina, AR_One_Sans, Azeret_Mono } from 'next/font/google'
 
-const inter = Inter({ 
+import './globals.css'
+import EmergencyBanner from './components/EmergencyBanner'
+import Footer from './components/Footer'
+import Header from './components/Header'
+import NotificationBanner from './components/NotificationBanner'
+import {
+  EMERGENCY_CONTACTS,
+  FOOTER_COLUMNS,
+  NAV_LINKS,
+  OFFICE_LOCATIONS,
+  SOCIAL_LINKS,
+} from '@/lib/constants'
+import { cn } from '@/lib/utils'
+
+const arOneSans = AR_One_Sans({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-ar-one-sans',
 })
 
-const dmSerifDisplay = DM_Serif_Display({ 
+const adamina = Adamina({
   weight: '400',
   subsets: ['latin'],
-  variable: '--font-dm-serif',
+  variable: '--font-adamina',
+})
+
+const azeretMono = Azeret_Mono({
+  subsets: ['latin'],
+  variable: '--font-azeret-mono',
 })
 
 export const metadata: Metadata = {
-  title: "Shield of Athena",
-  description:
-    "The Shield of Athena is a non-profit organization for victims of family violence. We offer emergency shelter and professional services to women and their children. ",
-};
+  title: "Athena's House - Protect a Woman Tonight",
+  description: 'Providing safety, shelter, and hope to survivors of domestic violence in Montréal',
+}
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${dmSerifDisplay.variable} antialiased`}
+        className={cn(
+          'min-h-screen bg-background text-foreground font-sans',
+          arOneSans.variable,
+          adamina.variable,
+          azeretMono.variable
+        )}
       >
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <EmergencyBanner contacts={EMERGENCY_CONTACTS} showLanguageNote isSticky isDismissible />
+        <Header navLinks={NAV_LINKS} logoText="Shield of Athena" logoTagline="Family Services" />
+        <NotificationBanner />
+        {children}
+        <Footer
+          columns={FOOTER_COLUMNS}
+          offices={OFFICE_LOCATIONS}
+          socialLinks={SOCIAL_LINKS}
+          emergencyNumbers={EMERGENCY_CONTACTS}
+        />
       </body>
     </html>
-  );
+  )
 }

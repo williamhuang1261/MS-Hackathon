@@ -1,0 +1,91 @@
+﻿Donation Page
+* Progress bar: "We're 68% to our monthly goal of housing 100 families"
+* Real-time counter: "12 donations this week"
+
+
+Purple background to differentiation from surrounding cards: 
+Main Donation Form:
+
+
+3 Cards -
+Choose your impact:( Instead of arbitrary amounts, show impact tiers:)
+☐ $75 - One night of safety
+   → 1 night of shelter + counseling session + children's care
+☐ $100 - Week of Transformation
+   → 7 nights shelter + job training workshop + legal consultation
+☐ $500 - Month of Stability
+   → 30 days shelter + mental health support + childcare
+Card underneath for custom amount
+☐ Custom Amount - Your Impact:
+        [input field]
+Input field is also connected to slider so they can use both
+   [slider from 75$ to 5000+]
+   Auto-calculates: "Your $75 provides..."
+*For this we need to have the benefits at different price ranges calculated so the benefit cis accurate and can be reused in the success page
+ Payment button and learn more button, learn more brings you down on the page to a new area  
+"Where Your Money Goes" Module Card:
+
+
+
+
+Interactive pie chart (hover to see details)
+Breakdown: "72% Direct Services | 18% Operations | 10% Outreach"
+Direct link button below "View Full Financial Report (PDF)"
+
+
+Real Impact Photos Carousel (use placeholders for now) :
+Blurred/anonymized photos of shelter spaces
+"A bedroom at Athena's House"
+"Community kitchen where families share meals"
+"Children's play area funded by donors like you"
+
+
+This Month's Impact card:
+"847 meals served"
+"23 families housed"
+"156 counseling sessions"
+
+
+Credibility carousel
+Awards showcase: "2023 Community Impact Award Winner"
+Media mentions: "As seen in CBC, CTV, Montreal Gazette"
+Partnership logos: Government of Canada, United Way, etc.
+Years in operation: "34 years of trusted service"
+Statistics with sources: "1 in 3 women experience domestic violence (Stats Canada, 2022)"
+At the bottom theres a donate now button that brings you back up to the donation area
+The payment button will then upon up the payment process that is in will’s branch of the github to simulate a payment being made. Once payment is made we get 
+* "Welcome back, [name] ! Last donation: 3 months ago"
+* Your Impact So Far:
+   * "Your total: $[total]"
+   * "You've provided: [autocalculated benefit] "like three nights of shelter and counseling etc
+   * Certificate collection preview (3 certificates displayed)
+* Quick donate: Pre-filled info, one-click amount buttons
+* "Continue your impact" messaging
+
+
+________________
+
+
+3. Thank You Experience
+Once the payment has been made,  there is a large (basically full screen but youre not on a new webpage its just to create the experience) card where there is a reveal of a certificate ( a PDF) and it gets “printed” to the screen along side some motivation and fun messaging and shareable icons
+For the pdf to be created we need this Process:
+1. Website Event: A website event triggers a script on your server. The payment process being started 
+2. Data Processing: The script pulls the necessary data from a database: Donor name (or "Anonymous Supporter"), Date of donation, Impact statement: "This certificate recognizes your contribution of $50, which provided *emergency shelter and warm meals for a woman and her child for 2 nights, and one mental health counseling session.*" *whatever the calculated benefit was*, Unique certificate ID number
+PDF Population: The script uses a library or API to insert the data into a PDF template programmatically.   These are the different tiers of certificates
+   1. Purple: $10-24 - "Supporter Certificate"Navy: $25-99 - "Community Builder Certificate"
+   2. Cream:$100-249 - "Safety Champion Certificate"
+   3. Gold: $250+ - "Founder's Circle Certificate"
+   4. Platinum: $1000+ “Changemaker Certificate
+3. Delivery: The server then manages the delivery of the final PDF file. 
+Within the card it will also have the following
+* Completion progress: "You're 75% to your next certificate level!"
+* Streaks: "Donate again within 30 days to maintain your 'Consistent Supporter' status"
+* Social share Badge Icon for the respective certificate tier that appears on a card on the website next the pop up for the pdf certificate with automatic share to facebook, instagram , and messages, and download buttons *use placeholders for now but we will design little pngs*
+* Download button for the pdf as well
+Once they exit the certificate page there will be an animation of a cute house in the dark with a wooden fence in front of it, and the lights in the windows will turn on, the streetlight next to the house will turn on, and flowers will grow on the fence.
+Next Steps Section:
+* Download certificate (PNG/PDF) button
+* Share on social media (pre-populated: "I just helped provide shelter for families in need. Join me in supporting @ShieldOfAthena")
+* "Become a monthly donor" soft CTA
+* "Invite a friend" referral link
+* Learn how to get involved button

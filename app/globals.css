@@ -1,30 +1,235 @@
 @import "tailwindcss";
 
-:root {
-  --background: #FAFAF7;
-  --foreground: #171717;
+@theme {
+  --color-background: oklch(0.9843 0.0040 106.4719);
+  --color-foreground: oklch(0.2406 0.0633 283.2137);
+  --color-card: oklch(0.9943 0.0013 286.3761);
+  --color-card-foreground: oklch(0.2406 0.0633 283.2137);
+  --color-popover: oklch(0.9843 0.0040 106.4719);
+  --color-popover-foreground: oklch(0.2406 0.0633 283.2137);
+  --color-primary: oklch(0.5770 0.0809 283.5720);
+  --color-primary-foreground: oklch(0.9843 0.0040 106.4719);
+  --color-secondary: oklch(0.8072 0.0635 301.5870);
+  --color-secondary-foreground: oklch(0.2406 0.0633 283.2137);
+  --color-muted: oklch(0.9005 0.0272 285.8415);
+  --color-muted-foreground: oklch(0.2406 0.0633 283.2137);
+  --color-accent: oklch(0.8072 0.0635 301.5870);
+  --color-accent-foreground: oklch(0.2406 0.0633 283.2137);
+  --color-destructive: oklch(0.6368 0.2078 25.3313);
+  --color-destructive-foreground: oklch(0.9843 0.0040 106.4719);
+  --color-border: oklch(0.8429 0.0179 286.0089);
+  --color-input: oklch(0.9005 0.0272 285.8415);
+  --color-ring: oklch(0.5770 0.0809 283.5720);
+  --color-chart-1: oklch(0.8072 0.0635 301.5870);
+  --color-chart-2: oklch(0.8904 0.0678 84.4226);
+  --color-chart-3: oklch(0.8565 0.0600 229.9378);
+  --color-chart-4: oklch(0.8490 0.0386 51.6518);
+  --color-chart-5: oklch(0.9204 0.0967 123.2645);
+  --color-sidebar: oklch(0.9843 0.0040 106.4719);
+  --color-sidebar-foreground: oklch(0.2406 0.0633 283.2137);
+  --color-sidebar-primary: oklch(0.5770 0.0809 283.5720);
+  --color-sidebar-primary-foreground: oklch(0.9843 0.0040 106.4719);
+  --color-sidebar-accent: oklch(0.9005 0.0272 285.8415);
+  --color-sidebar-accent-foreground: oklch(0.2406 0.0633 283.2137);
+  --color-sidebar-border: oklch(0.8429 0.0179 286.0089);
+  --color-sidebar-ring: oklch(0.5770 0.0809 283.5720);
+
+  --radius-lg: 0.75rem;
+  --radius-md: 0.5rem;
+  --radius-sm: 0.375rem;
+  --radius-xl: 1rem;
 }
 
-@theme inline {
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-
-  --color-primary: #1C1A3C;
-  --color-accent: #7373A8;
-  --color-dark-background: #CACAD7;
-  --color-background: #FAFAF7;
-  --color-light-background: #FDFDFE
+.dark {
+  --color-background: oklch(0.2406 0.0633 283.2137);
+  --color-foreground: oklch(0.9843 0.0040 106.4719);
+  --color-card: oklch(0.3002 0.0692 283.7343);
+  --color-card-foreground: oklch(0.9843 0.0040 106.4719);
+  --color-popover: oklch(0.2406 0.0633 283.2137);
+  --color-popover-foreground: oklch(0.9843 0.0040 106.4719);
+  --color-primary: oklch(0.7762 0.0952 54.7265);
+  --color-primary-foreground: oklch(0.2406 0.0633 283.2137);
+  --color-secondary: oklch(0.5770 0.0809 283.5720);
+  --color-secondary-foreground: oklch(0.9843 0.0040 106.4719);
+  --color-muted: oklch(0.3788 0.0886 283.8893);
+  --color-muted-foreground: oklch(0.8429 0.0179 286.0089);
+  --color-accent: oklch(0.7762 0.0952 54.7265);
+  --color-accent-foreground: oklch(0.2406 0.0633 283.2137);
+  --color-destructive: oklch(0.6368 0.2078 25.3313);
+  --color-destructive-foreground: oklch(0.9843 0.0040 106.4719);
+  --color-border: oklch(0.3788 0.0886 283.8893);
+  --color-input: oklch(0.3788 0.0886 283.8893);
+  --color-ring: oklch(0.7762 0.0952 54.7265);
+  --color-chart-1: oklch(0.8904 0.0678 84.4226);
+  --color-chart-2: oklch(0.8072 0.0635 301.5870);
+  --color-chart-3: oklch(0.8565 0.0600 229.9378);
+  --color-chart-4: oklch(0.8490 0.0386 51.6518);
+  --color-chart-5: oklch(0.9204 0.0967 123.2645);
+  --color-sidebar: oklch(0.2406 0.0633 283.2137);
+  --color-sidebar-foreground: oklch(0.9843 0.0040 106.4719);
+  --color-sidebar-primary: oklch(0.7762 0.0952 54.7265);
+  --color-sidebar-primary-foreground: oklch(0.2406 0.0633 283.2137);
+  --color-sidebar-accent: oklch(0.3788 0.0886 283.8893);
+  --color-sidebar-accent-foreground: oklch(0.9843 0.0040 106.4719);
+  --color-sidebar-border: oklch(0.5770 0.0809 283.5720);
+  --color-sidebar-ring: oklch(0.9843 0.0040 106.4719);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-inter), sans-serif;
+@layer base {
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    letter-spacing: var(--tracking-normal);
+    padding-top: var(--banner-height);
+    transition: padding-top 0.3s ease;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif font-normal;
+  }
+
+  :root {
+    --banner-height: 0px;
+    --tracking-normal: normal;
+  }
 }
 
-/* Headings use DM Serif Display */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-dm-serif), serif;
-  font-weight: 400;
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes checkmarkPop {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes bounceSoft {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes badgeGlow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(115, 115, 168, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 20px rgba(115, 115, 168, 0.6);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.6s ease-out forwards;
+}
+
+.animate-checkmarkPop {
+  animation: checkmarkPop 0.5s ease-out forwards;
+}
+
+.animate-bounce-subtle {
+  animation: bounceSoft 2s ease-in-out infinite;
+}
+
+.shine-effect {
+  animation: shine 3s ease-in-out infinite;
+}
+
+.badge-glow {
+  animation: badgeGlow 2s ease-in-out infinite;
+}
+
+/* Staggered checkmark animation */
+.checkmark-item {
+  opacity: 0;
+  animation: checkmarkPop 0.5s ease-out forwards;
+}
+
+.checkmark-item:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.checkmark-item:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.checkmark-item:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+.checkmark-item:nth-child(4) {
+  animation-delay: 0.8s;
+}
+
+.checkmark-item:nth-child(5) {
+  animation-delay: 1s;
+}
+
+.checkmark-item:nth-child(6) {
+  animation-delay: 1.2s;
+}
+
+/* Progress bar fill animation */
+@keyframes progressFill {
+  from {
+    width: 0%;
+  }
 }
