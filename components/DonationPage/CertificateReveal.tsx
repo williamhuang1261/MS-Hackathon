@@ -18,6 +18,7 @@ interface Props {
     impact: string;
     tier: CertificateTier;
   } | null;
+  onClose?: () => void;
 }
 
 const CertificateReveal = ({
@@ -25,6 +26,7 @@ const CertificateReveal = ({
   setShowCertificate,
   donorInfo,
   completedDonation,
+  onClose,
 }: Props) => {
   return (
     <AnimatePresence>
@@ -34,7 +36,10 @@ const CertificateReveal = ({
           amount={completedDonation.amount}
           impactDescription={completedDonation.impact}
           tier={completedDonation.tier}
-          onClose={() => setShowCertificate(false)}
+          onClose={() => {
+            setShowCertificate(false);
+            onClose?.();
+          }}
         />
       )}
     </AnimatePresence>
