@@ -4,6 +4,7 @@ import { FAKE_DONOR_NAMES } from "@/lib/fakeDonors";
 import { WordCloudProps } from "@isoterik/react-word-cloud";
 import LeftCloud from "./WordCloud/LeftCloud";
 import RightCloud from "./WordCloud/RightCloud";
+import Lotus from "./WordCloud/Lotus";
 
 const formatDonorName = FAKE_DONOR_NAMES.map(({ text, value }) => {
   return {
@@ -33,7 +34,7 @@ interface Props {
 const DonorWall = ({ width = 400, height = 200, handSize = 200 }: Props) => {
   return (
     <div className="w-full flex p-8 justify-center items-center">
-      <div className="flex gap-8">
+      <div className="flex relative h-100 items-end">
         <LeftCloud
           words={firstHalf}
           resolveFonts={resolveFonts}
@@ -41,6 +42,9 @@ const DonorWall = ({ width = 400, height = 200, handSize = 200 }: Props) => {
             return -30;
           }}
         />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <Lotus progress={75}/>
+        </div>
         <RightCloud
           words={secondHalf}
           resolveFonts={resolveFonts}
