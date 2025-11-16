@@ -3,7 +3,6 @@
 
 import { formatCurrency } from "@/lib/donation-utils";
 import { Progress } from "@radix-ui/react-progress";
-import { Slider } from "@radix-ui/react-slider";
 import { motion } from "framer-motion";
 import React from "react";
 import StickyHeader from "../LandingPage/StickyHeader";
@@ -19,6 +18,7 @@ import { Input } from "../ui/input";
 import { Badge } from "../ui/badge";
 import { Label } from "../ui/label";
 import { ArrowDown, Heart } from "lucide-react";
+import { Slider } from "../ui/slider";
 
 const IMPACT_TIERS = [
   {
@@ -212,7 +212,7 @@ const HeroSection = ({
                       min={75}
                       max={5000}
                       step={25}
-                      className="w-full"
+                      className="w-full mt-2"
                     />
                     <div className="flex justify-between text-xs text-muted-foreground">
                       <span>$75</span>

@@ -279,5 +279,54 @@
       "shieldButton": "Shield of Athena: 514-274-8117",
       "confidentialNote": "All services are confidential and available in multiple languages"
     }
+  },
+
+  "footer": {
+    "emergency": {
+      "title": "IMPORTANT NUMBERS",
+      "police": "Police",
+      "sosViolence": "S.O.S. Violence conjugale",
+      "shieldMontrealOffice": "Shield of Athena Montreal office",
+      "shieldLavalOffice": "Shield of Athena Laval office",
+      "multilingualSupport": "The Shield's Multilingual Sexual Violence Support and Help Lines",
+      "confidentialNotice": "All calls are confidential and free | Multiple languages available"
+    },
+    "organization": {
+      "name": "Shield of Athena",
+      "subtitle": "Bouclier d'Athéna | Founded 1991",
+      "description": "A registered non-profit organization providing comprehensive support services to survivors of domestic violence and their children. We offer emergency shelter, professional counseling, legal advocacy, and community resources in a safe, confidential environment.",
+      "montrealOffice": "Montreal Office:",
+      "lavalOffice": "Laval Office:",
+      "email": "Email:",
+      "languages": "Languages:",
+      "languagesList": "English, French, Spanish, Arabic, Greek"
+    },
+    "services": {
+      "title": "Our Services",
+      "emergencyShelter": "Emergency Shelter (24/7)",
+      "professionalCounseling": "Professional Counseling",
+      "legalAdvocacy": "Legal Advocacy",
+      "childrensPrograms": "Children's Programs",
+      "safetyPlanning": "Safety Planning",
+      "communityOutreach": "Community Outreach"
+    },
+    "information": {
+      "title": "Information",
+      "aboutMission": "About Our Mission",
+      "safetyResources": "Safety Resources",
+      "makeDonation": "Make a Donation",
+      "volunteerOpportunities": "Volunteer Opportunities",
+      "getInTouch": "Get in Touch",
+      "privacySafety": "Privacy & Safety"
+    },
+    "legal": {
+      "copyright": "© 2024 Shield of Athena / Bouclier d'Athéna. All rights reserved.",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service",
+      "accessibility": "Accessibility",
+      "mediaInquiries": "Media Inquiries",
+      "trustMessage": "Confidential. Professional. Trusted.",
+      "priorityMessage": "Your safety and privacy are our highest priorities."
+    }
   }
 }
