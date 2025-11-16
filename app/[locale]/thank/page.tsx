@@ -1,5 +1,6 @@
 import Certificate from "@/components/Certificate";
 import StickyHeader from "@/components/LandingPage/StickyHeader";
+import ShareSection from "@/components/ThankYouPage/ShareSection";
 import ThankYouHeader from "@/components/ThankYouPage/ThankYouHeader";
 import YourImpactSection from "@/components/ThankYouPage/YourImpactSection";
 import { Button } from "@/components/ui/button";
@@ -163,11 +164,12 @@ const ThankYouPage = () => {
       <div className="w-full px-4 md:px-12 lg:px-16 pt-8">
         <StickyHeader />
       </div>
-      <main className="px-4 md:px-12 lg:px-16 pb-16">
+      <main className="px-4 md:px-12 lg:px-16 pb-16 space-y-10">
         <div className="grid gap-10 xl:grid-cols-2">
           <GratitudeCard />
           <CertificateSpotlight />
         </div>
+        <ShareSection />
       </main>
     </div>
   );
