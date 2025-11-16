@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import {
   CreditCard,
   Lock,
@@ -40,7 +41,6 @@ import {
   type CertificateTier,
 } from "@/lib/donation-utils";
 import StickyHeader from "@/components/LandingPage/StickyHeader";
-import { useRouter } from "@/i18n/navigation";
 
 // Predefined donation tiers
 const IMPACT_TIERS = [
@@ -96,7 +96,6 @@ const CREDIBILITY_ITEMS = [
 ];
 
 export default function Donate() {
-  const router = useRouter();
   const [selectedTier, setSelectedTier] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<number>(75);
   const [sliderAmount, setSliderAmount] = useState<number>(75);
@@ -140,7 +139,10 @@ export default function Donate() {
   };
 
   const handleDonateClick = () => {
-    router.push("/payment");
+    setShowCertificate(false);
+    setShowHouseAnimation(false);
+    setCompletedDonation(null);
+    setShowPaymentModal(true);
   };
 
   // Payment form helpers
@@ -352,11 +354,10 @@ export default function Donate() {
                     whileTap={{ scale: 0.98 }}
                   >
                     <Card
-                      className={`cursor-pointer transition-all ${
-                        selectedTier === tier.amount
-                          ? "border-accent border-2 shadow-lg"
-                          : "hover:border-accent/50"
-                      }`}
+                      className={`cursor-pointer transition-all ${selectedTier === tier.amount
+                        ? "border-accent border-2 shadow-lg"
+                        : "hover:border-accent/50"
+                        }`}
                       onClick={() => {
                         setSelectedTier(tier.amount);
                         setSliderAmount(tier.amount);
@@ -369,11 +370,10 @@ export default function Donate() {
                             {formatCurrency(tier.amount)}
                           </CardTitle>
                           <div
-                            className={`w-6 h-6 rounded-full border-2 ${
-                              selectedTier === tier.amount
-                                ? "bg-accent border-accent"
-                                : "border-muted"
-                            }`}
+                            className={`w-6 h-6 rounded-full border-2 ${selectedTier === tier.amount
+                              ? "bg-accent border-accent"
+                              : "border-muted"
+                              }`}
                           />
                         </div>
                         <CardDescription className="font-semibold text-lg text-foreground">
@@ -570,478 +570,564 @@ export default function Donate() {
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
-              className="bg-card rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+              className="flex w-full max-w-5xl max-h-[90vh] flex-col overflow-hidden rounded-3xl border border-border/40 bg-card/95 shadow-2xl backdrop-blur-xl"
               onClick={(e) => e.stopPropagation()}
             >
-              <form onSubmit={handlePaymentSubmit}>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Lock className="h-5 w-5" />
-                    Complete Your Donation
-                  </CardTitle>
-                  <CardDescription>
-                    Donating {formatCurrency(selectedTier || customAmount)} •
-                    Secure payment powered by Stripe
-                  </CardDescription>
+              <form
+                onSubmit={handlePaymentSubmit}
+                className="flex h-full flex-col"
+              >
+                <CardHeader className="gap-4 border-b border-border/40 bg-muted/20 px-6 py-6">
+                  <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                    <div>
+                      <CardTitle className="flex items-center gap-2 text-2xl">
+                        <Lock className="h-5 w-5" />
+                        Complete Your Donation
+                      </CardTitle>
+                      <CardDescription className="mt-1 text-base">
+                        Donating {formatCurrency(selectedTier || customAmount)}
+                        {" • "}Secure payment powered by Stripe
+                      </CardDescription>
+                    </div>
+                    <Badge className="w-fit rounded-full bg-white/10 px-4 py-1 text-xs uppercase tracking-wide">
+                      Secure Checkout
+                    </Badge>
+                  </div>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                  {/* Payment Method Selection */}
-                  <div>
-                    <h3 className="text-lg font-semibold mb-4">
-                      Payment Method
-                    </h3>
-                    <div className="grid grid-cols-2 gap-3">
-                      <button
-                        type="button"
-                        onClick={() => setPaymentMethod("card")}
-                        className={`flex items-center justify-center gap-2 rounded-xl border-2 p-4 transition-all ${
-                          paymentMethod === "card"
+
+                <div className="flex flex-1 flex-col overflow-y-auto md:flex-row">
+                  <CardContent className="space-y-6 px-6 py-6 md:w-2/3 md:pr-10">
+                    {/* Payment Method Selection */}
+                    <div>
+                      <h3 className="text-lg font-semibold mb-4">
+                        Payment Method
+                      </h3>
+                      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+                        <button
+                          type="button"
+                          onClick={() => setPaymentMethod("card")}
+                          className={`flex items-center justify-center gap-2 rounded-xl border-2 p-4 transition-all ${paymentMethod === "card"
                             ? "border-accent bg-accent/5 ring-2 ring-accent/20"
                             : "border-border hover:border-accent/50"
-                        }`}
-                      >
-                        <CreditCard className="h-5 w-5" />
-                        <span className="font-medium">Card</span>
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() => setPaymentMethod("googlepay")}
-                        className={`flex items-center justify-center rounded-xl border-2 p-4 transition-all ${
-                          paymentMethod === "googlepay"
-                            ? "border-accent bg-accent/5 ring-2 ring-accent/20"
-                            : "border-border hover:border-accent/50"
-                        }`}
-                      >
-                        <img
-                          src="/icons/googlepay.svg"
-                          alt="Google Pay"
-                          className="h-6"
-                        />
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() => setPaymentMethod("applepay")}
-                        className={`flex items-center justify-center rounded-xl border-2 p-4 transition-all ${
-                          paymentMethod === "applepay"
-                            ? "border-accent bg-accent/5 ring-2 ring-accent/20"
-                            : "border-border hover:border-accent/50"
-                        }`}
-                      >
-                        <img
-                          src="/icons/applepay.svg"
-                          alt="Apple Pay"
-                          className="h-6"
-                        />
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() => setPaymentMethod("paypal")}
-                        className={`flex items-center justify-center rounded-xl border-2 p-4 transition-all ${
-                          paymentMethod === "paypal"
-                            ? "border-accent bg-accent/5 ring-2 ring-accent/20"
-                            : "border-border hover:border-accent/50"
-                        }`}
-                      >
-                        <img
-                          src="/icons/paypal.svg"
-                          alt="PayPal"
-                          className="h-6"
-                        />
-                      </button>
-                    </div>
-                  </div>
-
-                  <Separator />
-
-                  {/* Contact Information */}
-                  <div>
-                    <h3 className="text-lg font-semibold mb-4">
-                      Contact Information
-                    </h3>
-                    <div className="space-y-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="name">Full Name *</Label>
-                        <Input
-                          id="name"
-                          required
-                          value={donorInfo.name}
-                          onChange={(e) => {
-                            setDonorInfo({
-                              ...donorInfo,
-                              name: e.target.value,
-                            });
-                            if (paymentErrors.name)
-                              setPaymentErrors({ ...paymentErrors, name: "" });
-                          }}
-                          placeholder="John Doe"
-                          className={
-                            paymentErrors.name ? "border-destructive" : ""
-                          }
-                        />
-                        {paymentErrors.name && (
-                          <p className="text-sm text-destructive">
-                            {paymentErrors.name}
-                          </p>
-                        )}
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email Address *</Label>
-                        <Input
-                          id="email"
-                          type="email"
-                          required
-                          value={donorInfo.email}
-                          onChange={(e) => {
-                            setDonorInfo({
-                              ...donorInfo,
-                              email: e.target.value,
-                            });
-                            if (paymentErrors.email)
-                              setPaymentErrors({ ...paymentErrors, email: "" });
-                          }}
-                          placeholder="john@example.com"
-                          className={
-                            paymentErrors.email ? "border-destructive" : ""
-                          }
-                        />
-                        {paymentErrors.email && (
-                          <p className="text-sm text-destructive">
-                            {paymentErrors.email}
-                          </p>
-                        )}
-                        <p className="text-xs text-muted-foreground">
-                          Receipt will be sent to this email
-                        </p>
-                      </div>
-
-                      <div className="flex items-center space-x-2">
-                        <Checkbox
-                          id="returning"
-                          checked={donorInfo.isReturning}
-                          onCheckedChange={(checked: boolean) =>
-                            setDonorInfo({
-                              ...donorInfo,
-                              isReturning: checked as boolean,
-                            })
-                          }
-                        />
-                        <Label
-                          htmlFor="returning"
-                          className="cursor-pointer text-sm"
+                            }`}
                         >
-                          I'm a returning donor
-                        </Label>
-                      </div>
-                    </div>
-                  </div>
-
-                  <Separator />
-
-                  {/* Card Information - Only show for card payments */}
-                  {paymentMethod === "card" && (
-                    <>
-                      <div>
-                        <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                           <CreditCard className="h-5 w-5" />
-                          Card Information
-                        </h3>
-                        <div className="space-y-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="cardNumber">Card Number *</Label>
-                            <Input
-                              id="cardNumber"
-                              value={paymentInfo.cardNumber}
-                              onChange={(e) =>
-                                handlePaymentInputChange(
-                                  "cardNumber",
-                                  e.target.value
-                                )
-                              }
-                              placeholder="1234 5678 9012 3456"
-                              className={
-                                paymentErrors.cardNumber
-                                  ? "border-destructive"
-                                  : ""
-                              }
-                            />
-                            {paymentErrors.cardNumber && (
-                              <p className="text-sm text-destructive">
-                                {paymentErrors.cardNumber}
-                              </p>
-                            )}
-                          </div>
+                          <span className="font-medium">Card</span>
+                        </button>
 
-                          <div className="space-y-2">
-                            <Label htmlFor="cardName">Cardholder Name *</Label>
-                            <Input
-                              id="cardName"
-                              value={paymentInfo.cardName}
-                              onChange={(e) =>
-                                handlePaymentInputChange(
-                                  "cardName",
-                                  e.target.value
-                                )
-                              }
-                              placeholder="John Doe"
-                              className={
-                                paymentErrors.cardName
-                                  ? "border-destructive"
-                                  : ""
-                              }
-                            />
-                            {paymentErrors.cardName && (
-                              <p className="text-sm text-destructive">
-                                {paymentErrors.cardName}
-                              </p>
-                            )}
-                          </div>
+                        <button
+                          type="button"
+                          onClick={() => setPaymentMethod("googlepay")}
+                          className={`flex items-center justify-center rounded-xl border-2 p-4 transition-all ${paymentMethod === "googlepay"
+                            ? "border-accent bg-accent/5 ring-2 ring-accent/20"
+                            : "border-border hover:border-accent/50"
+                            }`}
+                        >
+                          <Image
+                            src="/googlepay.svg"
+                            alt="Google Pay"
+                            width={120}
+                            height={40}
+                            className="h-6 w-auto"
+                          />
+                        </button>
 
-                          <div className="grid grid-cols-2 gap-4">
+                        <button
+                          type="button"
+                          onClick={() => setPaymentMethod("applepay")}
+                          className={`flex items-center justify-center rounded-xl border-2 p-4 transition-all ${paymentMethod === "applepay"
+                            ? "border-accent bg-accent/5 ring-2 ring-accent/20"
+                            : "border-border hover:border-accent/50"
+                            }`}
+                        >
+                          <Image
+                            src="/applepay.svg"
+                            alt="Apple Pay"
+                            width={120}
+                            height={40}
+                            className="h-6 w-auto"
+                          />
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => setPaymentMethod("paypal")}
+                          className={`flex items-center justify-center rounded-xl border-2 p-4 transition-all ${paymentMethod === "paypal"
+                            ? "border-accent bg-accent/5 ring-2 ring-accent/20"
+                            : "border-border hover:border-accent/50"
+                            }`}
+                        >
+                          <Image
+                            src="/paypal.svg"
+                            alt="PayPal"
+                            width={120}
+                            height={40}
+                            className="h-6 w-auto"
+                          />
+                        </button>
+                      </div>
+                    </div>
+
+                    <Separator className="bg-border/40" />
+
+                    {/* Contact Information */}
+                    <div>
+                      <h3 className="text-lg font-semibold mb-4">
+                        Contact Information
+                      </h3>
+                      <div className="space-y-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="name">Full Name *</Label>
+                          <Input
+                            id="name"
+                            required
+                            value={donorInfo.name}
+                            onChange={(e) => {
+                              setDonorInfo({
+                                ...donorInfo,
+                                name: e.target.value,
+                              });
+                              if (paymentErrors.name)
+                                setPaymentErrors({ ...paymentErrors, name: "" });
+                            }}
+                            placeholder="John Doe"
+                            className={
+                              paymentErrors.name ? "border-destructive" : ""
+                            }
+                          />
+                          {paymentErrors.name && (
+                            <p className="text-sm text-destructive">
+                              {paymentErrors.name}
+                            </p>
+                          )}
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="email">Email Address *</Label>
+                          <Input
+                            id="email"
+                            type="email"
+                            required
+                            value={donorInfo.email}
+                            onChange={(e) => {
+                              setDonorInfo({
+                                ...donorInfo,
+                                email: e.target.value,
+                              });
+                              if (paymentErrors.email)
+                                setPaymentErrors({ ...paymentErrors, email: "" });
+                            }}
+                            placeholder="john@example.com"
+                            className={
+                              paymentErrors.email ? "border-destructive" : ""
+                            }
+                          />
+                          {paymentErrors.email && (
+                            <p className="text-sm text-destructive">
+                              {paymentErrors.email}
+                            </p>
+                          )}
+                          <p className="text-xs text-muted-foreground">
+                            Receipt will be sent to this email
+                          </p>
+                        </div>
+
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="returning"
+                            checked={donorInfo.isReturning}
+                            onCheckedChange={(checked: boolean) =>
+                              setDonorInfo({
+                                ...donorInfo,
+                                isReturning: checked as boolean,
+                              })
+                            }
+                          />
+                          <Label
+                            htmlFor="returning"
+                            className="cursor-pointer text-sm"
+                          >
+                            I'm a returning donor
+                          </Label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <Separator className="bg-border/40" />
+
+                    {/* Card Information - Only show for card payments */}
+                    {paymentMethod === "card" && (
+                      <>
+                        <div>
+                          <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                            <CreditCard className="h-5 w-5" />
+                            Card Information
+                          </h3>
+                          <div className="space-y-4">
                             <div className="space-y-2">
-                              <Label htmlFor="expiryDate">Expiry Date *</Label>
+                              <Label htmlFor="cardNumber">Card Number *</Label>
                               <Input
-                                id="expiryDate"
-                                value={paymentInfo.expiryDate}
+                                id="cardNumber"
+                                value={paymentInfo.cardNumber}
                                 onChange={(e) =>
                                   handlePaymentInputChange(
-                                    "expiryDate",
+                                    "cardNumber",
                                     e.target.value
                                   )
                                 }
-                                placeholder="MM/YY"
+                                placeholder="1234 5678 9012 3456"
                                 className={
-                                  paymentErrors.expiryDate
+                                  paymentErrors.cardNumber
                                     ? "border-destructive"
                                     : ""
                                 }
                               />
-                              {paymentErrors.expiryDate && (
+                              {paymentErrors.cardNumber && (
                                 <p className="text-sm text-destructive">
-                                  {paymentErrors.expiryDate}
+                                  {paymentErrors.cardNumber}
                                 </p>
                               )}
                             </div>
 
                             <div className="space-y-2">
-                              <Label htmlFor="cvv">CVV *</Label>
+                              <Label htmlFor="cardName">Cardholder Name *</Label>
                               <Input
-                                id="cvv"
-                                type="password"
-                                value={paymentInfo.cvv}
+                                id="cardName"
+                                value={paymentInfo.cardName}
                                 onChange={(e) =>
                                   handlePaymentInputChange(
-                                    "cvv",
+                                    "cardName",
                                     e.target.value
                                   )
                                 }
-                                placeholder="123"
+                                placeholder="John Doe"
                                 className={
-                                  paymentErrors.cvv ? "border-destructive" : ""
+                                  paymentErrors.cardName
+                                    ? "border-destructive"
+                                    : ""
                                 }
                               />
-                              {paymentErrors.cvv && (
+                              {paymentErrors.cardName && (
                                 <p className="text-sm text-destructive">
-                                  {paymentErrors.cvv}
+                                  {paymentErrors.cardName}
+                                </p>
+                              )}
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                              <div className="space-y-2">
+                                <Label htmlFor="expiryDate">Expiry Date *</Label>
+                                <Input
+                                  id="expiryDate"
+                                  value={paymentInfo.expiryDate}
+                                  onChange={(e) =>
+                                    handlePaymentInputChange(
+                                      "expiryDate",
+                                      e.target.value
+                                    )
+                                  }
+                                  placeholder="MM/YY"
+                                  className={
+                                    paymentErrors.expiryDate
+                                      ? "border-destructive"
+                                      : ""
+                                  }
+                                />
+                                {paymentErrors.expiryDate && (
+                                  <p className="text-sm text-destructive">
+                                    {paymentErrors.expiryDate}
+                                  </p>
+                                )}
+                              </div>
+
+                              <div className="space-y-2">
+                                <Label htmlFor="cvv">CVV *</Label>
+                                <Input
+                                  id="cvv"
+                                  type="password"
+                                  value={paymentInfo.cvv}
+                                  onChange={(e) =>
+                                    handlePaymentInputChange(
+                                      "cvv",
+                                      e.target.value
+                                    )
+                                  }
+                                  placeholder="123"
+                                  className={
+                                    paymentErrors.cvv ? "border-destructive" : ""
+                                  }
+                                />
+                                {paymentErrors.cvv && (
+                                  <p className="text-sm text-destructive">
+                                    {paymentErrors.cvv}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <Separator className="bg-border/40" />
+
+                        {/* Billing Address */}
+                        <div>
+                          <h3 className="text-lg font-semibold mb-4">
+                            Billing Address
+                          </h3>
+                          <div className="space-y-4">
+                            <div className="space-y-2">
+                              <Label htmlFor="address">Street Address *</Label>
+                              <Input
+                                id="address"
+                                value={paymentInfo.address}
+                                onChange={(e) =>
+                                  handlePaymentInputChange(
+                                    "address",
+                                    e.target.value
+                                  )
+                                }
+                                placeholder="123 Main Street"
+                                className={
+                                  paymentErrors.address
+                                    ? "border-destructive"
+                                    : ""
+                                }
+                              />
+                              {paymentErrors.address && (
+                                <p className="text-sm text-destructive">
+                                  {paymentErrors.address}
+                                </p>
+                              )}
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                              <div className="space-y-2">
+                                <Label htmlFor="city">City *</Label>
+                                <Input
+                                  id="city"
+                                  value={paymentInfo.city}
+                                  onChange={(e) =>
+                                    handlePaymentInputChange(
+                                      "city",
+                                      e.target.value
+                                    )
+                                  }
+                                  placeholder="New York"
+                                  className={
+                                    paymentErrors.city ? "border-destructive" : ""
+                                  }
+                                />
+                                {paymentErrors.city && (
+                                  <p className="text-sm text-destructive">
+                                    {paymentErrors.city}
+                                  </p>
+                                )}
+                              </div>
+
+                              <div className="space-y-2">
+                                <Label htmlFor="state">State *</Label>
+                                <Input
+                                  id="state"
+                                  value={paymentInfo.state}
+                                  onChange={(e) =>
+                                    handlePaymentInputChange(
+                                      "state",
+                                      e.target.value
+                                    )
+                                  }
+                                  placeholder="NY"
+                                  className={
+                                    paymentErrors.state
+                                      ? "border-destructive"
+                                      : ""
+                                  }
+                                />
+                                {paymentErrors.state && (
+                                  <p className="text-sm text-destructive">
+                                    {paymentErrors.state}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+
+                            <div className="space-y-2">
+                              <Label htmlFor="zipCode">ZIP Code *</Label>
+                              <Input
+                                id="zipCode"
+                                value={paymentInfo.zipCode}
+                                onChange={(e) =>
+                                  handlePaymentInputChange(
+                                    "zipCode",
+                                    e.target.value
+                                  )
+                                }
+                                placeholder="10001"
+                                className={`max-w-[200px] ${paymentErrors.zipCode
+                                  ? "border-destructive"
+                                  : ""
+                                  }`}
+                              />
+                              {paymentErrors.zipCode && (
+                                <p className="text-sm text-destructive">
+                                  {paymentErrors.zipCode}
                                 </p>
                               )}
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </>
+                    )}
 
-                      <Separator />
-
-                      {/* Billing Address */}
-                      <div>
-                        <h3 className="text-lg font-semibold mb-4">
-                          Billing Address
-                        </h3>
-                        <div className="space-y-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="address">Street Address *</Label>
-                            <Input
-                              id="address"
-                              value={paymentInfo.address}
-                              onChange={(e) =>
-                                handlePaymentInputChange(
-                                  "address",
-                                  e.target.value
-                                )
-                              }
-                              placeholder="123 Main Street"
-                              className={
-                                paymentErrors.address
-                                  ? "border-destructive"
-                                  : ""
-                              }
-                            />
-                            {paymentErrors.address && (
-                              <p className="text-sm text-destructive">
-                                {paymentErrors.address}
-                              </p>
-                            )}
-                          </div>
-
-                          <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                              <Label htmlFor="city">City *</Label>
-                              <Input
-                                id="city"
-                                value={paymentInfo.city}
-                                onChange={(e) =>
-                                  handlePaymentInputChange(
-                                    "city",
-                                    e.target.value
-                                  )
-                                }
-                                placeholder="New York"
-                                className={
-                                  paymentErrors.city ? "border-destructive" : ""
-                                }
-                              />
-                              {paymentErrors.city && (
-                                <p className="text-sm text-destructive">
-                                  {paymentErrors.city}
-                                </p>
-                              )}
-                            </div>
-
-                            <div className="space-y-2">
-                              <Label htmlFor="state">State *</Label>
-                              <Input
-                                id="state"
-                                value={paymentInfo.state}
-                                onChange={(e) =>
-                                  handlePaymentInputChange(
-                                    "state",
-                                    e.target.value
-                                  )
-                                }
-                                placeholder="NY"
-                                className={
-                                  paymentErrors.state
-                                    ? "border-destructive"
-                                    : ""
-                                }
-                              />
-                              {paymentErrors.state && (
-                                <p className="text-sm text-destructive">
-                                  {paymentErrors.state}
-                                </p>
-                              )}
-                            </div>
-                          </div>
-
-                          <div className="space-y-2">
-                            <Label htmlFor="zipCode">ZIP Code *</Label>
-                            <Input
-                              id="zipCode"
-                              value={paymentInfo.zipCode}
-                              onChange={(e) =>
-                                handlePaymentInputChange(
-                                  "zipCode",
-                                  e.target.value
-                                )
-                              }
-                              placeholder="10001"
-                              className={`max-w-[200px] ${
-                                paymentErrors.zipCode
-                                  ? "border-destructive"
-                                  : ""
-                              }`}
-                            />
-                            {paymentErrors.zipCode && (
-                              <p className="text-sm text-destructive">
-                                {paymentErrors.zipCode}
-                              </p>
-                            )}
-                          </div>
+                    {/* Alternative Payment Method Messages */}
+                    {paymentMethod === "googlepay" && (
+                      <div className="space-y-4 rounded-2xl border border-border/50 bg-background/60 px-6 py-8 text-center">
+                        <Image
+                          src="/googlepay.svg"
+                          alt="Google Pay"
+                          width={140}
+                          height={48}
+                          className="mx-auto h-10 w-auto"
+                        />
+                        <div>
+                          <p className="text-lg font-semibold mb-2">
+                            Complete with Google Pay
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            You'll be redirected to complete your donation
+                            securely with Google Pay.
+                          </p>
                         </div>
                       </div>
-                    </>
-                  )}
+                    )}
 
-                  {/* Alternative Payment Method Messages */}
-                  {paymentMethod === "googlepay" && (
-                    <div className="text-center py-8 space-y-4">
-                      <img
-                        src="/icons/googlepay.svg"
-                        alt="Google Pay"
-                        className="h-12 mx-auto"
-                      />
-                      <div>
-                        <p className="text-lg font-semibold mb-2">
-                          Complete with Google Pay
-                        </p>
-                        <p className="text-sm text-muted-foreground">
-                          You'll be redirected to complete your donation
-                          securely with Google Pay.
-                        </p>
+                    {paymentMethod === "applepay" && (
+                      <div className="space-y-4 rounded-2xl border border-border/50 bg-background/60 px-6 py-8 text-center">
+                        <Image
+                          src="/applepay.svg"
+                          alt="Apple Pay"
+                          width={140}
+                          height={48}
+                          className="mx-auto h-10 w-auto"
+                        />
+                        <div>
+                          <p className="text-lg font-semibold mb-2">
+                            Complete with Apple Pay
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            You'll be redirected to complete your donation
+                            securely with Apple Pay.
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {paymentMethod === "paypal" && (
+                      <div className="space-y-4 rounded-2xl border border-border/50 bg-background/60 px-6 py-8 text-center">
+                        <Image
+                          src="/paypal.svg"
+                          alt="PayPal"
+                          width={140}
+                          height={48}
+                          className="mx-auto h-10 w-auto"
+                        />
+                        <div>
+                          <p className="text-lg font-semibold mb-2">
+                            Complete with PayPal
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            You'll be redirected to complete your donation
+                            securely with PayPal.
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    <Separator className="bg-border/40" />
+                  </CardContent>
+
+                  <div className="w-full shrink-0 space-y-4 border-t border-border/40 bg-muted/10 px-6 py-6 md:w-1/3 md:border-l md:border-t-0 md:max-h-full md:overflow-y-auto">
+                    <div className="rounded-2xl bg-gradient-to-br from-primary via-primary/80 to-accent p-6 text-white shadow-lg space-y-3">
+                      <p className="text-xs uppercase tracking-[0.3em] text-white/70">
+                        You&apos;re giving
+                      </p>
+                      <p className="text-4xl font-serif font-bold">
+                        {formatCurrency(selectedTier || customAmount)}
+                      </p>
+                      <p className="text-sm text-white/90">
+                        {impact.description}
+                      </p>
+                      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-white/80">
+                        <Shield className="h-4 w-4" />
+                        256-bit encrypted checkout
                       </div>
                     </div>
-                  )}
 
-                  {paymentMethod === "applepay" && (
-                    <div className="text-center py-8 space-y-4">
-                      <img
-                        src="/icons/applepay.svg"
-                        alt="Apple Pay"
-                        className="h-12 mx-auto"
-                      />
-                      <div>
-                        <p className="text-lg font-semibold mb-2">
-                          Complete with Apple Pay
-                        </p>
-                        <p className="text-sm text-muted-foreground">
-                          You'll be redirected to complete your donation
-                          securely with Apple Pay.
-                        </p>
+                    <div className="rounded-2xl border border-border/60 bg-background p-5 space-y-3">
+                      <p className="text-sm font-semibold text-foreground">
+                        Accepted cards & wallets
+                      </p>
+                      <div className="flex flex-wrap items-center gap-3 text-muted-foreground">
+                        <Image
+                          src="/visaLogo.png"
+                          alt="Visa"
+                          width={64}
+                          height={32}
+                          className="h-6 w-auto opacity-80"
+                        />
+                        <Image
+                          src="/mastercardLogo.png"
+                          alt="Mastercard"
+                          width={64}
+                          height={32}
+                          className="h-6 w-auto opacity-80"
+                        />
+                        <Image
+                          src="/amexLogo.svg"
+                          alt="Amex"
+                          width={64}
+                          height={32}
+                          className="h-6 w-auto opacity-80"
+                        />
+                        <Image
+                          src="/discoverLogo.svg"
+                          alt="Discover"
+                          width={64}
+                          height={32}
+                          className="h-6 w-auto opacity-80"
+                        />
                       </div>
                     </div>
-                  )}
 
-                  {paymentMethod === "paypal" && (
-                    <div className="text-center py-8 space-y-4">
-                      <img
-                        src="/icons/paypal.svg"
-                        alt="PayPal"
-                        className="h-12 mx-auto"
-                      />
-                      <div>
-                        <p className="text-lg font-semibold mb-2">
-                          Complete with PayPal
-                        </p>
-                        <p className="text-sm text-muted-foreground">
-                          You'll be redirected to complete your donation
-                          securely with PayPal.
-                        </p>
-                      </div>
+                    <div className="rounded-2xl border border-dashed border-accent/60 bg-accent/10 p-5 text-sm text-muted-foreground space-y-2">
+                      <p className="font-semibold text-foreground">
+                        Instant tax receipt
+                      </p>
+                      <p>
+                        We&apos;ll automatically email your receipt and impact
+                        statement the moment the donation is processed.
+                      </p>
                     </div>
-                  )}
 
-                  <Separator />
-
-                  {/* Impact Summary */}
-                  <div className="bg-accent/10 p-4 rounded-lg">
-                    <p className="text-sm font-semibold text-foreground mb-2">
-                      Your Impact:
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      {impact.description}
-                    </p>
+                    <div className="rounded-2xl border border-border/50 bg-background p-5 space-y-3 text-sm">
+                      <p className="font-semibold text-foreground">
+                        Need help?
+                      </p>
+                      <p className="text-muted-foreground">
+                        Our donor care team is available 24/7 at
+                        support@athena.org or +1 (800) 555-0147.
+                      </p>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        className="w-full border border-dashed border-border/60 text-sm"
+                      >
+                        Chat with support
+                      </Button>
+                    </div>
                   </div>
+                </div>
 
-                  {/* Security Badge */}
-                  <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                    <Shield className="h-4 w-4" />
-                    <span>Secure 256-bit SSL encryption</span>
-                  </div>
-                </CardContent>
-                <CardContent className="flex gap-3">
+                <CardContent className="flex flex-col gap-3 border-t border-border/40 bg-muted/20 px-6 py-6 md:flex-row">
                   <Button
                     type="button"
                     variant="outline"
@@ -1066,15 +1152,14 @@ export default function Donate() {
                         <Lock className="h-4 w-4" />
                         {paymentMethod === "card"
                           ? `Donate ${formatCurrency(
-                              selectedTier || customAmount
-                            )}`
-                          : `Continue to ${
-                              paymentMethod === "googlepay"
-                                ? "Google Pay"
-                                : paymentMethod === "applepay"
-                                ? "Apple Pay"
-                                : "PayPal"
-                            }`}
+                            selectedTier || customAmount
+                          )}`
+                          : `Continue to ${paymentMethod === "googlepay"
+                            ? "Google Pay"
+                            : paymentMethod === "applepay"
+                              ? "Apple Pay"
+                              : "PayPal"
+                          }`}
                       </>
                     )}
                   </Button>
