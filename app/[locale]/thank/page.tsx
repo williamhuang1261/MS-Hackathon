@@ -1,177 +1,81 @@
 import Certificate from "@/components/Certificate";
+"use client";
+
+import { useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 import StickyHeader from "@/components/LandingPage/StickyHeader";
 import ShareSection from "@/components/ThankYouPage/ShareSection";
 import ThankYouHeader from "@/components/ThankYouPage/ThankYouHeader";
-import YourImpactSection from "@/components/ThankYouPage/YourImpactSection";
-import { Button } from "@/components/ui/button";
-import type { CertificateTier } from "@/lib/donation-utils";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
+import Certificate from "@/components/Certificate";
+import { CERTIFICATE_TIERS, getCertificateTier } from "@/lib/donation-utils";
 
-const featuredCertificate: {
+type DonationSummary = {
   donorName: string;
   amount: number;
-  impactDescription: string;
-  tier: CertificateTier;
-} = {
-  donorName: "Shield of Athena Champion",
-  amount: 250,
-  impactDescription:
-    "two weeks of safe shelter, trauma-informed counselling, and legal advocacy for a family",
-  tier: "safety-champion",
+  impact: string;
+  timestamp?: number;
 };
 
-const gratitudeHighlights = [
-  { label: "Emergency shelter nights", value: "14" },
-  { label: "Counselling sessions", value: "4" },
-  { label: "Groceries & meals", value: "35" },
-  { label: "Legal advocacy hours", value: "3" },
-];
-
-const ImpactProgress = ({ className = "" }: { className?: string }) => {
-  return (
-    <div
-      className={cn(
-        "w-full rounded-3xl bg-primary p-10 text-light-background shadow-2xl space-y-8",
-        className
-      )}
-    >
-      <div className="space-y-3">
-        <p className="text-sm uppercase tracking-[0.25em] text-yellow-200/80">
-          Campaign progress
-        </p>
-        <div className="flex flex-wrap items-end gap-3">
-          <h2 className="text-5xl font-serif">$14,762</h2>
-          <span className="text-yellow-300 font-semibold text-xl">
-            + $100 today
-          </span>
-          <span className="text-lg text-light-background/80">
-            / $50,000 goal
-          </span>
-        </div>
-      </div>
-
-      <p className="text-lg text-light-background/90">
-        Every certificate fuels wraparound care for women and children
-        rebuilding their safety. Thank you for moving us closer to fully funding
-        the shelter.
-      </p>
-
-      <div className="grid grid-cols-2 gap-6">
-        <div>
-          <p className="text-sm uppercase tracking-wide text-light-background/70">
-            Families sheltered
-          </p>
-          <p className="text-3xl font-serif">127</p>
-        </div>
-        <div>
-          <p className="text-sm uppercase tracking-wide text-light-background/70">
-            Counselling sessions
-          </p>
-          <p className="text-3xl font-serif">342</p>
-        </div>
-        <div>
-          <p className="text-sm uppercase tracking-wide text-light-background/70">
-            Legal clinics funded
-          </p>
-          <p className="text-3xl font-serif">48</p>
-        </div>
-        <div>
-          <p className="text-sm uppercase tracking-wide text-light-background/70">
-            Meals served
-          </p>
-          <p className="text-3xl font-serif">4,900</p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const GratitudeCard = () => {
-  return (
-    <div className="relative overflow-hidden rounded-[40px] border border-border/40 bg-gradient-to-br from-primary/5 via-background to-amber-50/40 p-8 sm:p-10 shadow-2xl">
-      <div
-        className="pointer-events-none absolute inset-0 opacity-60"
-        style={{
-          background:
-            "radial-gradient(circle at 20% 20%, rgba(255,255,255,0.6), transparent 40%), radial-gradient(circle at 80% 0%, rgba(253,230,138,0.5), transparent 45%), radial-gradient(circle at 80% 80%, rgba(192,132,252,0.3), transparent 50%)",
-        }}
-      />
-      <div className="relative space-y-8">
-        <ThankYouHeader
-          align="left"
-          compact
-          title={`THANK YOU ${featuredCertificate.donorName.toUpperCase()}!`}
-        />
-        <p className="text-lg text-muted-foreground max-w-2xl">
-          Your generosity gives women and children immediate safety, culturally
-          aware counselling, and long-term support. Here&apos;s a glimpse of
-          what your gift is making possible today.
-        </p>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {gratitudeHighlights.map((highlight) => (
-            <div
-              key={highlight.label}
-              className="rounded-2xl border border-white/60 bg-white/40 px-5 py-4 backdrop-blur-sm"
-            >
-              <p className="text-sm uppercase tracking-wide text-primary/80">
-                {highlight.label}
-              </p>
-              <p className="text-3xl font-serif text-primary">
-                {highlight.value}
-              </p>
-            </div>
-          ))}
-        </div>
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
-          <div className="rounded-3xl border border-white/70 bg-white/70 p-6 shadow-xl">
-            <YourImpactSection />
-          </div>
-          <ImpactProgress className="shadow-xl" />
-        </div>
-        <div className="pt-4 text-center">
-          <Button asChild size="lg" className="rounded-full px-10">
-            <Link href="../">Return to homepage</Link>
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const CertificateSpotlight = () => {
-  return (
-    <div className="w-full rounded-[40px] border border-border/40 bg-card/60 backdrop-blur-xl p-6 sm:p-10 shadow-2xl">
-      <div className="text-center space-y-3">
-        <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground">
-          Your keepsake
-        </p>
-        <h2 className="text-3xl font-serif">
-          Download & share your certificate
-        </h2>
-        <p className="text-muted-foreground">
-          Show friends and family the concrete impact your generosity is
-          unlocking across Montreal.
-        </p>
-      </div>
-      <div className="mt-6">
-        <Certificate
-          donorName={featuredCertificate.donorName}
-          amount={featuredCertificate.amount}
-          impactDescription={featuredCertificate.impactDescription}
-          tier={featuredCertificate.tier}
-          variant="inline"
-        />
-      </div>
-    </div>
-  );
+const FALLBACK_DONATION: DonationSummary = {
+  donorName: "Friend of Athena",
+  amount: 150,
+  impact:
+    "emergency shelter nights, trauma-informed counseling, and legal advocacy for survivors.",
 };
 
 const ThankYouPage = () => {
+  const searchParams = useSearchParams();
+  const paramsKey = useMemo(
+    () => searchParams?.toString() ?? "",
+    [searchParams]
+  );
+
+  const donationData = useMemo<DonationSummary | null>(() => {
+    if (typeof window !== "undefined") {
+      const storedDonation = window.sessionStorage.getItem("latestDonation");
+      if (storedDonation) {
+        try {
+          const parsed = JSON.parse(storedDonation) as DonationSummary;
+          if (parsed?.amount && parsed?.impact) {
+            return parsed;
+          }
+        } catch (error) {
+          console.error("Failed to parse stored donation", error);
+        }
+      }
+    }
+
+    if (!paramsKey) {
+      return null;
+    }
+
+    const fallbackParams = new URLSearchParams(paramsKey);
+    const amountParam = Number(fallbackParams.get("amount"));
+    const impactParam = fallbackParams.get("impact");
+
+    if (!Number.isFinite(amountParam) || !impactParam) {
+      return null;
+    }
+
+    const donorParam = fallbackParams.get("donor");
+
+    return {
+      donorName: donorParam?.trim() ? donorParam.trim() : "Friend of Athena",
+      amount: amountParam,
+      impact: impactParam,
+    };
+  }, [paramsKey]);
+
+  const donorName = donationData?.donorName ?? "Friend of Athena";
+  const donationImpact = donationData?.impact ?? FALLBACK_DONATION.impact;
+  const donationAmount = donationData?.amount ?? FALLBACK_DONATION.amount;
+  const certificateTier = getCertificateTier(Math.max(donationAmount, 10));
+  const certificateTheme = CERTIFICATE_TIERS[certificateTier];
+
   return (
     <div className="bg-background min-h-screen">
       <div className="w-full px-4 md:px-12 lg:px-16 pt-8">
-    <div className="flex min-h-screen flex-col items-center bg-light-background">
+    <div className="flex min-h-screen flex-col bg-light-background">
       <div className="fixed left-0 right-0 top-0 z-20 w-full px-6 pt-6 sm:px-16">
         <StickyHeader />
       </div>
@@ -182,8 +86,45 @@ const ThankYouPage = () => {
         </div>
         <ShareSection />
       </main>
-      <main className="flex w-full flex-1 items-center justify-center px-4 pb-16 pt-40 sm:px-8">
-        <ThankYouHeader />
+      <main className="flex w-full flex-1 justify-center px-4 pb-24 pt-40 sm:px-8 lg:px-12 xl:px-16">
+        <section className="flex w-full max-w-screen-2xl flex-col gap-12">
+          <header className="text-center">
+            <h1 className="text-4xl font-semibold text-primary sm:text-5xl">
+              Your kindness is contagious
+            </h1>
+            <p className="mt-4 text-lg text-accent">
+              Survivors will feel tonight what you chose to give today. Invite
+              your circle to keep the chain of care alive—every shared emoji
+              sparks a new act of courage.
+            </p>
+          </header>
+
+          <div className="grid w-full gap-10 lg:grid-cols-[1.1fr_0.9fr] xl:gap-16 2xl:gap-20">
+            <div className="flex flex-col items-center text-center lg:items-start lg:text-left lg:pr-12 xl:pr-16">
+              <ThankYouHeader
+                primaryColor={certificateTheme.color}
+                accentColor={certificateTheme.badgeAccent}
+                softBackgroundColor={certificateTheme.bgColor}
+                gradientBackground={certificateTheme.badgeGradient}
+              />
+              <p
+                className="mt-6 w-full max-w-3xl text-base"
+                style={{ color: certificateTheme.color, opacity: 0.8 }}
+              >
+                {donorName}, your gift is already at work—{donationImpact}
+              </p>
+            </div>
+            <div className="flex w-full items-start justify-center lg:justify-end lg:pl-12 xl:pl-16">
+              <Certificate
+                inline
+                donorName={donorName}
+                amount={Math.round(donationAmount)}
+                impactDescription={donationImpact}
+                tier={certificateTier}
+              />
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   );

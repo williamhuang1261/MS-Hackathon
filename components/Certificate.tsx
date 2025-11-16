@@ -55,7 +55,9 @@ export default function Certificate({
 
       // Generate the certificate PDF
       if (!certificateId) {
-        alert("Your certificate is still loading. Please try again in a moment.");
+        alert(
+          "Your certificate is still loading. Please try again in a moment."
+        );
         return;
       }
 
@@ -116,12 +118,14 @@ export default function Certificate({
       initial={{ scale: 0.8, y: 50, opacity: 0 }}
       animate={{ scale: 1, y: 0, opacity: 1 }}
       transition={{ type: "spring", duration: 0.8, delay: 0.2 }}
-      className={`relative w-full ${isModalVariant ? "max-w-3xl" : "max-w-4xl"}`}
+      className={`relative w-full ${
+        isModalVariant ? "max-w-3xl" : "max-w-4xl"
+      }`}
       onClick={
         isModalVariant
           ? (e) => {
-            e.stopPropagation();
-          }
+              e.stopPropagation();
+            }
           : undefined
       }
     >
@@ -169,18 +173,29 @@ export default function Certificate({
                   <p className="mt-4 text-sm uppercase tracking-[0.5em] text-black">
                     This certificate is proudly presented to
                   </p>
-                  <p className="mt-4 text-4xl md:text-5xl tracking-[0.25em]" style={{ color: textColor }}>
+                  <p
+                    className="mt-4 text-4xl md:text-5xl tracking-[0.25em]"
+                    style={{ color: textColor }}
+                  >
                     {donorName.toUpperCase()}
                   </p>
                 </motion.div>
 
                 <div className="mx-auto h-[2px] w-48 bg-[#bdb9e5]" />
 
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                >
                   <p className="text-lg leading-relaxed text-[#464375] max-w-2xl mx-auto">
                     In recognition of the outstanding generosity of
-                    <span className="font-semibold"> ${amount.toLocaleString()}</span>,
-                    which provided <span className="font-semibold">{impactDescription}</span>
+                    <span className="font-semibold">
+                      {" "}
+                      ${amount.toLocaleString()}
+                    </span>
+                    , which provided{" "}
+                    <span className="font-semibold">{impactDescription}</span>
                     for women and children in need.
                   </p>
                   <p className="mt-4 text-base text-[#464375]">
@@ -198,7 +213,10 @@ export default function Certificate({
                   className="pt-6"
                 >
                   <div className="mx-auto h-[1px] w-56 bg-[#bdb9e5]" />
-                  <p className="mt-3 text-sm font-semibold" style={{ color: textColor }}>
+                  <p
+                    className="mt-3 text-sm font-semibold"
+                    style={{ color: textColor }}
+                  >
                     Melpa Kamateros
                   </p>
                   <p className="text-xs uppercase tracking-[0.4em] text-black">
