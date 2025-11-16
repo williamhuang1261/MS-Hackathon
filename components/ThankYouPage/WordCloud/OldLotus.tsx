@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface Props {
   progress: number; // The progress percentage (0-100)
 }
 
-const Lotus: React.FC<Props> = ({ progress }) => {
+const OldLotus: React.FC<Props> = ({ progress }) => {
+  const [animatedProgress, setAnimatedProgress] = useState(0);
+
+  useEffect(() => {
+    // Start animation after component mounts
+    const timer = setTimeout(() => {
+      setAnimatedProgress(progress);
+    }, 100); // Small delay to ensure the component is mounted
+
+    return () => clearTimeout(timer);
+  }, [progress]);
+
   // Calculate the Y position for the progress fill (from bottom to top)
-  const progressY = 100 - Math.max(0, Math.min(100, progress)) + "%";
+  const progressY = 100 - Math.max(0, Math.min(100, animatedProgress)) + "%";
 
   return (
     <svg
@@ -28,8 +39,11 @@ const Lotus: React.FC<Props> = ({ progress }) => {
             x="0"
             y={progressY}
             width="100%"
-            height={`${Math.max(0, Math.min(100, progress))}%`}
+            height={`${Math.max(0, Math.min(100, animatedProgress))}%`}
             fill="white"
+            style={{
+              transition: "all 1s ease-out",
+            }}
           />
         </mask>
         <clipPath id="097ce52231">
@@ -805,7 +819,7 @@ const Lotus: React.FC<Props> = ({ progress }) => {
         </clipPath>
       </defs>
 
-      {/* Unfilled lotus (30% opacity) */}
+      {/* Unfilled OldLotus (30% opacity) */}
       <g>
         <g clipPath="url(#7e77c1652b)">
           <g clipPath="url(#0a5b1f6d45)">
@@ -1035,7 +1049,7 @@ const Lotus: React.FC<Props> = ({ progress }) => {
         </g>
       </g>
 
-      {/* Filled lotus (full opacity) with progress mask */}
+      {/* Filled OldLotus (full opacity) with progress mask */}
       <g mask="url(#progressMask)">
         <g clipPath="url(#7e77c1652b)">
           <g clipPath="url(#0a5b1f6d45)">
@@ -1281,4 +1295,4 @@ const Lotus: React.FC<Props> = ({ progress }) => {
   );
 };
 
-export default Lotus;
+export default OldLotus;
