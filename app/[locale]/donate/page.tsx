@@ -1,17 +1,21 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "@/i18n/navigation";
 import {
   calculateImpact,
   getCertificateTier,
   type CertificateTier,
 } from "@/lib/donation-utils";
-import { useRouter } from "@/i18n/navigation";
 import HeroSection from "@/components/DonationPage/HeroSection";
 import LearnMoreSection from "@/components/DonationPage/LearnMoreSection";
 import PaymentModal from "@/components/DonationPage/PaymentModal";
 import HouseAnimation from "@/components/DonationPage/HouseAnimation";
 import CertificateReveal from "@/components/DonationPage/CertificateReveal";
+import StickyHeader from "@/components/LandingPage/StickyHeader";
+import ThankYouHeader from "@/components/ThankYouPage/ThankYouHeader";
+import YourImpactSection from "@/components/ThankYouPage/YourImpactSection";
+import DonorWall from "@/components/ThankYouPage/DonorWall";
 
 // Mock data
 
@@ -49,6 +53,9 @@ export default function Donate() {
   const [paymentErrors, setPaymentErrors] = useState<Record<string, string>>(
     {}
   );
+  const [certificateCTA, setCertificateCTA] = useState<
+    "donate" | "thank"
+  >("donate");
   const [completedDonation, setCompletedDonation] = useState<{
     amount: number;
     impact: string;
@@ -56,6 +63,17 @@ export default function Donate() {
   } | null>(null);
 
   const learnMoreRef = useRef<HTMLDivElement>(null);
+  const animationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  );
+
+  useEffect(() => {
+    return () => {
+      if (animationTimeoutRef.current) {
+        clearTimeout(animationTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const impact = calculateImpact(selectedTier || customAmount);
 
@@ -64,6 +82,13 @@ export default function Donate() {
   };
 
   const handleDonateClick = () => {
+    setShowCertificate(false);
+    setCompletedDonation(null);
+    setShowHouseAnimation(false);
+    setCertificateCTA("donate");
+    if (animationTimeoutRef.current) {
+      clearTimeout(animationTimeoutRef.current);
+    }
     setShowPaymentModal(true);
   };
 
@@ -107,7 +132,8 @@ export default function Donate() {
     // Clear errors for the field
     setPaymentErrors((prev) => {
       if (prev[field]) {
-        const { [field]: removed, ...rest } = prev;
+        const rest = { ...prev };
+        delete rest[field];
         return rest;
       }
       return prev;
@@ -132,13 +158,20 @@ export default function Donate() {
       tier,
     });
 
+    setShowCertificate(false);
     setIsProcessing(false);
     setShowPaymentModal(false);
     setShowHouseAnimation(true);
+    setCertificateCTA("donate");
 
-    // Show certificate after house animation
-    setTimeout(() => {
-      router.push("/thank");
+    if (animationTimeoutRef.current) {
+      clearTimeout(animationTimeoutRef.current);
+    }
+
+    animationTimeoutRef.current = setTimeout(() => {
+      setShowHouseAnimation(false);
+      setShowCertificate(true);
+      setCertificateCTA("thank");
     }, 4000);
   };
 
@@ -156,24 +189,30 @@ export default function Donate() {
     setSelectedTier(null);
   };
 
+  const showThankBackdrop = certificateCTA === "thank";
+
   return (
     <div className="min-h-screen">
-      {/* Hero Section with Progress */}
-      <HeroSection
-        selectedTier={selectedTier}
-        setSelectedTier={setSelectedTier}
-        setSliderAmount={setSliderAmount}
-        setCustomAmount={setCustomAmount}
-        customAmount={customAmount}
-        sliderAmount={sliderAmount}
-        impact={impact}
-        handleCustomAmountChange={handleCustomAmountChange}
-        handleSliderChange={handleSliderChange}
-        handleDonateClick={handleDonateClick}
-        scrollToLearnMore={scrollToLearnMore}
-      />
-      {/* Learn More Section */}
-      <LearnMoreSection learnMoreRef={learnMoreRef} />
+      {showThankBackdrop ? (
+        <ThankYouBackdrop />
+      ) : (
+        <>
+          <HeroSection
+            selectedTier={selectedTier}
+            setSelectedTier={setSelectedTier}
+            setSliderAmount={setSliderAmount}
+            setCustomAmount={setCustomAmount}
+            customAmount={customAmount}
+            sliderAmount={sliderAmount}
+            impact={impact}
+            handleCustomAmountChange={handleCustomAmountChange}
+            handleSliderChange={handleSliderChange}
+            handleDonateClick={handleDonateClick}
+            scrollToLearnMore={scrollToLearnMore}
+          />
+          <LearnMoreSection learnMoreRef={learnMoreRef} />
+        </>
+      )}
 
       {/* Payment Modal */}
       <PaymentModal
@@ -202,7 +241,36 @@ export default function Donate() {
         setShowCertificate={setShowCertificate}
         donorInfo={donorInfo}
         completedDonation={completedDonation}
+        onClose={() => {
+          setCertificateCTA("donate");
+          router.push("/thank");
+        }}
       />
     </div>
   );
 }
+
+const ThankYouBackdrop = () => (
+  <div className="bg-background min-h-screen">
+    <div className="w-full px-8 pt-8">
+      <StickyHeader showDonation={false} />
+    </div>
+    <ThankYouHeader />
+    <div className="flex flex-col gap-8 px-8 pb-16 lg:flex-row">
+      <YourImpactSection />
+      <div className="flex-1 rounded-3xl bg-primary p-8 text-primary-foreground shadow-2xl">
+        <div className="flex flex-col items-center gap-2 text-center">
+          <h2 className="text-4xl font-serif">Goal : 14 762 $</h2>
+          <p className="text-xl font-semibold text-yellow-200">+ 100$</p>
+          <span className="text-lg text-white/80">/ 50 000 $</span>
+          <p className="mt-2 text-white/90">
+            We&apos;ve added you to our donors wall!
+          </p>
+        </div>
+        <div className="mt-8 rounded-2xl bg-white/10 p-4">
+          <DonorWall width={360} height={220} handSize={200} />
+        </div>
+      </div>
+    </div>
+  </div>
+);
