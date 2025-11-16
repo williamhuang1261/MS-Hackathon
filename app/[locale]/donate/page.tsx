@@ -16,6 +16,7 @@ import StickyHeader from "@/components/LandingPage/StickyHeader";
 import ThankYouHeader from "@/components/ThankYouPage/ThankYouHeader";
 import YourImpactSection from "@/components/ThankYouPage/YourImpactSection";
 import DonorWall from "@/components/ThankYouPage/DonorWall";
+import { donationState } from "@/lib/donationState";
 
 // Mock data
 
@@ -151,6 +152,9 @@ export default function Donate() {
     const finalAmount = selectedTier || customAmount;
     const impactCalc = calculateImpact(finalAmount);
     const tier = getCertificateTier(finalAmount);
+
+    // ✅ Update global donation state
+    donationState.addDonation(finalAmount);
 
     setCompletedDonation({
       amount: finalAmount,

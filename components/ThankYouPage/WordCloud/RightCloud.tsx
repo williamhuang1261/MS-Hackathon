@@ -13,9 +13,35 @@ interface Props {
 }
 
 const RightCloud = ({ words, resolveRotate, resolveFonts }: Props) => {
-  const WIDTH = 340;
-  const HEIGHT = 200;
+  const WIDTH = 400;
+  const HEIGHT = 300;
   const defaultFill = "#CACAD7";
+
+  // Crescent mask function - right crescent opens left (like ")" shape)
+  const isInRightCrescent = (x: number, y: number): boolean => {
+    const centerX = WIDTH / 2;
+    const centerY = HEIGHT / 2;
+    
+    // Translate to center origin
+    const dx = x - centerX;
+    const dy = y - centerY;
+    
+    // Distance from center
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    
+    // Only allow points on the right side that form a crescent
+    // Inner radius and outer radius define the crescent thickness
+    // Smaller inner radius = more curved, tighter arc
+    const outerRadius = 140;
+    const innerRadius = 40;
+    
+    // Must be within the crescent ring
+    if (distance < innerRadius || distance > outerRadius) return false;
+    
+    // Only allow right side (x > center) with some tolerance
+    // This creates the ")" shape opening to the left
+    return dx > -15;
+  };
 
   const { computedWords } = useWordCloud({
     words,
@@ -24,15 +50,20 @@ const RightCloud = ({ words, resolveRotate, resolveFonts }: Props) => {
     rotate: resolveRotate,
     font: resolveFonts,
     spiral: "archimedean",
-    padding: 1,
+    padding: 2,
     timeInterval: 2,
   });
+
+  // Filter words to only show those in the crescent region
+  const crescentWords = computedWords.filter(word => 
+    isInRightCrescent(word.x + WIDTH / 2, word.y + HEIGHT / 2)
+  );
 
   return (
     <div className="w-160">
       <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`}>
-        <g transform={`translate(${WIDTH / 2},${HEIGHT / 2}) rotate(330)`}>
-          {computedWords.map((word, index) => (
+        <g transform={`translate(${WIDTH / 2},${HEIGHT / 2}) rotate(-15)`}>
+          {crescentWords.map((word, index) => (
             <text
               key={index}
               textAnchor="middle"
@@ -42,7 +73,6 @@ const RightCloud = ({ words, resolveRotate, resolveFonts }: Props) => {
                 fontFamily: word.font,
                 fontWeight: word.weight,
                 fill: word.fill || defaultFill,
-                transform: `translate(${word.x}, ${word.y}) rotate(${word.rotate})`,
                 transition: "all 0.3s ease",
               }}
             >

@@ -1,0 +1,136 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+
+interface LotusFlowerProps {
+  stage?: number;
+  showCelebration?: boolean;
+  showLabel?: boolean;
+  size?: number;
+}
+
+export default function LotusFlower({ 
+  stage = 0, 
+  showCelebration = false,
+  showLabel = true,
+  size = 600
+}: LotusFlowerProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [currentStage, setCurrentStage] = useState(-1); // Start at -1 to force initial render
+  const [stageName, setStageName] = useState('');
+  const [stageDescription, setStageDescription] = useState('');
+  const rendererRef = useRef<any>(null);
+  const confettiRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !containerRef.current) return;
+    if (rendererRef.current) return; // Already initialized
+
+    let FlowerRenderer: any;
+    let LOTUS_STAGES: any;
+
+    // Dynamic import to avoid SSR issues with canvas
+    const initLotus = async () => {
+      const [flowerModule, lotusModule] = await Promise.all([
+        import('./flower-renderer'),
+        import('./lotus-designs')
+      ]);
+
+      FlowerRenderer = flowerModule.FlowerRenderer;
+      LOTUS_STAGES = lotusModule.LOTUS_STAGES;
+
+      // Initialize renderer
+      if (containerRef.current && !rendererRef.current) {
+        rendererRef.current = new FlowerRenderer(containerRef.current, size);
+        rendererRef.current.setStage(stage);
+        setCurrentStage(stage);
+        
+        // Update labels
+        const stageInfo = LOTUS_STAGES[stage];
+        if (stageInfo) {
+          setStageName(stageInfo.name);
+          setStageDescription(stageInfo.description);
+        }
+      }
+    };
+
+    initLotus();
+
+    return () => {
+      if (rendererRef.current?.destroy) {
+        rendererRef.current.destroy();
+        rendererRef.current = null;
+      }
+      if (confettiRef.current?.stop) {
+        confettiRef.current.stop();
+        confettiRef.current = null;
+      }
+    };
+  }, []); // Only initialize once
+
+  // Update stage when prop changes
+  useEffect(() => {
+    const updateStage = async () => {
+      if (!rendererRef.current) {
+        console.log('⚠️ No renderer yet');
+        return;
+      }
+      if (stage === currentStage) {
+        console.log('✅ Stage already set to', stage);
+        return;
+      }
+
+      console.log('🎨 Updating lotus visual - Stage:', stage);
+      // Update renderer
+      rendererRef.current.setStage(stage);
+      setCurrentStage(stage);
+
+      // Update labels
+      const lotusModule = await import('./lotus-designs');
+      const stageInfo = lotusModule.LOTUS_STAGES[stage];
+      if (stageInfo) {
+        setStageName(stageInfo.name);
+        setStageDescription(stageInfo.description);
+      }
+    };
+
+    updateStage();
+  }, [stage]);
+
+  // Handle celebration separately
+  useEffect(() => {
+    if (!showCelebration) return;
+    if (!containerRef.current) return;
+
+    const triggerCelebration = async () => {
+      // Clean up old confetti if exists
+      if (confettiRef.current?.stop) {
+        confettiRef.current.stop();
+      }
+
+      // Create new confetti
+      const confettiModule = await import('./confetti');
+      confettiRef.current = new confettiModule.Confetti(containerRef.current);
+      confettiRef.current.celebrate();
+    };
+
+    triggerCelebration();
+  }, [showCelebration]);
+
+  return (
+    <div className="lotus-flower-container flex flex-col items-center gap-4 w-full max-w-full overflow-hidden">
+      <div 
+        ref={containerRef} 
+        className="lotus-canvas-wrapper rounded-lg overflow-hidden w-full max-w-full"
+        style={{ width: `${size}px`, height: `${size}px`, maxWidth: '100%' }}
+      />
+      {showLabel && (
+        <div className="text-center space-y-1">
+          <h3 className="text-2xl font-semibold text-gray-800">{stageName}</h3>
+          <p className="text-gray-600 italic">{stageDescription}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+

@@ -19,13 +19,9 @@ const LandingPage = () => {
       <div className="w-full fixed p-16 z-50">
         <StickyHeader />
       </div>
-      <div className="bg-primary flex flex-col items-center">
+      <div className="bg-primary flex flex-col items-center pb-16">
         <LandingBanner />
         <DonorWall height={150} width={600} handSize={150}/>
-        <div className="w-full flex justify-center text-light-background gap-4 pb-16">
-          <h2 className="text-light-background text-3xl">MONTHLY GOAL : 15 972$</h2>
-          <p className="font-serif text-dark-background text-lg mt-2">{" / 50 000$"}</p>
-        </div>
       </div>
       <ProblemSection />
       <StorySection />
