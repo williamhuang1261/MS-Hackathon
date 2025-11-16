@@ -26,6 +26,7 @@ export default function Donate() {
   const [sliderAmount, setSliderAmount] = useState<number>(75);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [showHouseAnimation, setShowHouseAnimation] = useState(false);
+  const [showCertificate, setShowCertificate] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<
     "card" | "googlepay" | "applepay" | "paypal"
@@ -52,9 +53,9 @@ export default function Donate() {
   const [paymentErrors, setPaymentErrors] = useState<Record<string, string>>(
     {}
   );
-  const [certificateCTA, setCertificateCTA] = useState<
-    "donate" | "thank"
-  >("donate");
+  const [certificateCTA, setCertificateCTA] = useState<"donate" | "thank">(
+    "donate"
+  );
   const [completedDonation, setCompletedDonation] = useState<{
     amount: number;
     impact: string;
@@ -148,13 +149,15 @@ export default function Donate() {
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     const finalAmount = selectedTier || customAmount;
+    const tier = getCertificateTier(finalAmount);
     const impactCalc = calculateImpact(finalAmount);
     const donationDetails = {
-      donorName: donorInfo.name?.trim() ? donorInfo.name.trim() : "Friend",
       amount: finalAmount,
       impact: impactCalc.description,
       tier,
-    });
+    };
+
+    setCompletedDonation(donationDetails);
 
     setShowCertificate(false);
     setIsProcessing(false);
