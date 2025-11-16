@@ -1,20 +1,27 @@
+import Image from 'next/image'
 import React from "react";
+import image1 from "@/public/image1_home.png";
+import image2 from "@/public/image2_home.png";
+import image3 from "@/public/image3_home.png";
 
 const cards = [
   {
-    emoji: "😰",
+    imageSrc: "/image1_home.png",
+    alt: "No Safety",
     title: "No Safety",
-    description: "Living in constant fear of violence",
+    description: "Living in constant fear of violence in unsafe environments",
   },
   {
-    emoji: "🚫",
+    imageSrc: "/image2_home.png",
+    alt: "Nowhere to Go",
     title: "Nowhere to Go",
-    description: "Trapped with no emergency shelter",
+    description: "Trapped and at risk of violence at any given moment",
   },
   {
-    emoji: "💔",
+    imageSrc: "/image3_home.png",
+    alt: "No Support",
     title: "No Support",
-    description: "Isolated and without resources",
+    description: "Isolated and without resources to help them escape violence",
   },
 ];
 
@@ -27,17 +34,32 @@ const ProblemSection = () => {
           Tonight, hundreds of women and children in Montréal will sleep in
           fear.
         </h2>
-        <div className="grid md:grid-cols-3 gap-8 text-center">
+        <div className="grid md:grid-cols-3 gap-8">
           {cards.map((item, index) => (
             <div
               key={index}
-              className="p-6 bg-white rounded-lg shadow-md border border-dark-background/50"
+              className="rounded-lg shadow-md border border-dark-background/50 overflow-hidden"
             >
-              <p className="text-6xl mb-4 text-warm-blush">{item.emoji}</p>
-              <p className="text-xl font-semibold mb-2 text-primary">
-                {item.title}
-              </p>
-              <p className="text-soft-charcoal/80">{item.description}</p>
+              <div className="relative h-56 md:h-64">
+                <Image
+                  src={item.imageSrc}
+                  alt={item.alt}
+                  fill
+                  sizes="(min-width: 768px) 33vw, 100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                <div className="absolute inset-0 flex items-end">
+                  <div className="w-full p-4">
+                    <p className="text-white font-bold text-lg md:text-xl">
+                      {item.title}
+                    </p>
+                    <p className="text-white/90 text-sm md:text-base">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
         </div>

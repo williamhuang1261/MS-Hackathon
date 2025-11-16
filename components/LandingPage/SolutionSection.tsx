@@ -1,25 +1,41 @@
 import { ORGANIZATION_STATS } from "@/lib/constants";
+import Image from "next/image";
+import shelter_home from "@/public/Shelter_home.png";
+import meal_home from "@/public/meals_home.png";
+import therapy_home from "@/public/therapy_home.png";
+import legal_home from "@/public/legal_home.png";
+import multisupport_home from "@/public/multisupport_home.png";
 
 const services = [
   {
-    icon: "🏠",
+    imageSrc: shelter_home,
+    alt: "Emergency Shelters",
     title: "Emergency Shelters",
     desc: "Safe, secure beds available 24/7 for women and children escaping violence.",
   },
   {
-    icon: "🍲",
+    imageSrc: meal_home,
+    alt: "Warm Meals",
     title: "Warm Meals",
     desc: "Nutritious food provided daily to ensure basic needs are met.",
   },
   {
-    icon: "🧠",
+    imageSrc: therapy_home,
+    alt: "Therapy & Trauma Support",
     title: "Therapy & Trauma Support",
     desc: "Professional counseling to help heal and rebuild emotional well-being.",
   },
   {
-    icon: "⚖️",
+    imageSrc: legal_home,
+    alt: "Legal Guidance",
     title: "Legal Guidance",
     desc: "Expert legal support to navigate protection orders and custody issues.",
+  },
+  {
+    imageSrc: multisupport_home,
+    alt: "Multilingual Community Outreach",
+    title: "Multilingual Community Outreach",
+    desc: "Support in multiple languages to serve Montreal's diverse community.",
   },
 ];
 
@@ -67,23 +83,33 @@ const SolutionSection = () => {
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-white p-6 rounded-lg shadow-md border border-accent/40"
+              className={`rounded-lg shadow-md border border-accent/40 overflow-hidden ${
+                index === services.length - 1 ? 'md:col-span-2 max-w-3xl mx-auto w-full' : ''
+              }`}
             >
-              <h3 className="text-2xl font-semibold mb-3 text-primary">
-                {service.icon} {service.title}
-              </h3>
-              <p className="text-foreground/80">{service.desc}</p>
+              <div className={`relative ${index === services.length - 1 ? 'h-64 md:h-72' : 'h-56 md:h-64'}`}>
+                <Image
+                  src={service.imageSrc}
+                  alt={service.alt}
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                <div className="absolute inset-0 flex items-end">
+                  <div className="w-full p-4">
+                    <h3 className="text-white font-bold text-xl md:text-2xl">
+                      {service.title}
+                    </h3>
+                    <p className="text-white/90 text-sm md:text-base">
+                      {service.desc}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
-          <div className="bg-white p-6 rounded-lg shadow-md md:col-span-2 border border-accent/40">
-            <h3 className="text-2xl font-semibold mb-3 text-primary">
-              🌍 Multilingual Community Outreach
-            </h3>
-            <p className="text-foreground/80">
-              Support in multiple languages to serve Montreal's diverse
-              community.
-            </p>
-          </div>
+ 
         </div>
 
         <div className="text-center pt-8">
