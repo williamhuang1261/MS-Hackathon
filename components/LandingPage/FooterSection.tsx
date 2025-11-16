@@ -2,7 +2,7 @@ import React from "react";
 
 const FooterSection = () => {
   return (
-    <footer className="bg-primary text-light-background py-16 px-4">
+    <footer className="bg-linear-to-t from-primary to-primary/75 text-light-background py-16 px-4">
       <div className="max-w-6xl mx-auto">
         {/* Emergency Notice */}
         <div className="bg-red-700 text-white p-6 rounded-lg mb-12 text-center shadow-lg">
