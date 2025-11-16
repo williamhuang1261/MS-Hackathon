@@ -52,7 +52,6 @@ const data: Category[] = [
   },
 ]
 
-// Distinguishable violet palette (deep violet, vivid violet, soft lavender)
 const COLORS = ['#4B1F66', '#7C3AED', '#C6B1E7']
 
 export default function BudgetBreakdownChart() {
@@ -79,12 +78,10 @@ export default function BudgetBreakdownChart() {
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="flex flex-col md:flex-row items-center justify-center gap-8">
-          {/* Details panel on the left so it doesn't cover the chart */}
           <div className="w-full md:w-[300px] order-2 md:order-1">
             <div className="rounded-xl border-2 border-athena-violet/20 bg-gradient-to-br from-warm-blush/40 via-lavender-mist/35 to-warm-blush/20 p-5 shadow-sm">
               <p className="text-xs uppercase tracking-wider text-athena-violet/80 mb-1">Category</p>
               <p className="text-2xl font-bold text-athena-violet mb-3">{active.name}</p>
-              {/* Static bullet list for current category */}
               {Array.isArray(active.details) && (
                 <div className="min-h-[56px]">
                   <ul className="space-y-2">
@@ -103,7 +100,6 @@ export default function BudgetBreakdownChart() {
             </div>
           </div>
 
-          {/* Give the chart an explicit width so ResponsiveContainer can calculate sizes */}
           <div className="w-[340px] md:w-[420px] h-[360px] order-1 md:order-2">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -158,7 +154,6 @@ export default function BudgetBreakdownChart() {
                     }}
                   />
                 </Pie>
-                {/* Tooltip removed to prevent overlay on chart; info shown in left panel */}
               </PieChart>
             </ResponsiveContainer>
           </div>
@@ -183,7 +178,6 @@ export default function BudgetBreakdownChart() {
                   style={{ backgroundColor: COLORS[index] }}
                 />
                 <div className="flex-1 text-center md:text-left">
-                  {/* Legend item: name only (no numbers, no subtitles) */}
                   <p className={`font-semibold text-foreground ${activeIndex === index ? 'text-athena-violet' : ''}`}>
                     {item.name}
                   </p>
