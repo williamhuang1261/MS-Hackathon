@@ -1,6 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import facebookLogo from "@/public/facebookLogo.svg";
+import xLogo from "@/public/xLogo.jpg";
+import linkedinLogo from "@/public/linkedinLogo.png";
+import whatsappLogo from "@/public/whatsapp.png";
 import {
   type CSSProperties,
   useCallback,
@@ -98,12 +102,12 @@ const ThankYouHeader = ({
     `linear-gradient(135deg, ${paletteColors[0]}, ${paletteColors[1]})`;
   const themeVariables = useMemo(
     () =>
-      ({
-        "--thank-primary": primaryColor,
-        "--thank-accent": accentColor,
-        "--thank-soft": softBackgroundColor,
-        "--thank-gradient": computedGradient,
-      } as CSSProperties),
+    ({
+      "--thank-primary": primaryColor,
+      "--thank-accent": accentColor,
+      "--thank-soft": softBackgroundColor,
+      "--thank-gradient": computedGradient,
+    } as CSSProperties),
     [accentColor, computedGradient, primaryColor, softBackgroundColor]
   );
 
@@ -196,21 +200,29 @@ const ThankYouHeader = ({
       {
         name: "Share on X",
         icon: "✕",
+        iconImage: xLogo,
+        iconAlt: "X logo",
         href: `https://twitter.com/intent/tweet?text=${encodedMessage}`,
       },
       {
         name: "Share on Facebook",
         icon: "📘",
+        iconImage: facebookLogo,
+        iconAlt: "Facebook logo",
         href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedMessage}`,
       },
       {
         name: "Share on LinkedIn",
         icon: "💼",
+        iconImage: linkedinLogo,
+        iconAlt: "LinkedIn logo",
         href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
       },
       {
         name: "Share on WhatsApp",
         icon: "📱",
+        iconImage: whatsappLogo,
+        iconAlt: "WhatsApp logo",
         href: `https://api.whatsapp.com/send?text=${encodedMessage}`,
       },
     ],
@@ -411,33 +423,29 @@ const ThankYouHeader = ({
             >
               Share with one tap
             </p>
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-4 md:grid-cols-4">
               {shareTargets.map((target) => (
                 <a
                   key={target.name}
                   href={target.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center justify-between rounded-2xl border bg-white px-4 py-4 text-left text-base font-semibold text-[color:var(--thank-primary)] shadow-sm transition hover:-translate-y-0.5 hover:border-[color:var(--thank-primary)] hover:shadow-lg"
+                  aria-label={target.name}
+                  className="flex items-center justify-center rounded-2xl border bg-white p-4 text-[color:var(--thank-primary)] shadow-sm transition hover:-translate-y-0.5 hover:border-[color:var(--thank-primary)] hover:shadow-lg"
                 >
-                  <span className="flex items-center gap-3">
-                    <span aria-hidden>{target.icon}</span>
-                    {target.name}
-                  </span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    className="h-5 w-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M17.25 6.75L6.75 17.25M17.25 6.75H9.75M17.25 6.75V14.25"
+                  {target.iconImage ? (
+                    <Image
+                      src={target.iconImage}
+                      alt={target.iconAlt}
+                      width={36}
+                      height={36}
+                      className="h-9 w-9 object-contain"
                     />
-                  </svg>
+                  ) : (
+                    <span aria-hidden className="text-xl">
+                      {target.icon}
+                    </span>
+                  )}
                 </a>
               ))}
             </div>

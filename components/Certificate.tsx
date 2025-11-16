@@ -1,26 +1,20 @@
 "use client";
 
-import { motion, type MotionProps } from "framer-motion";
-import { Download, Award } from "lucide-react";
+import { motion } from "framer-motion";
+import { Download, Share2, Facebook, MessageCircle, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
   CERTIFICATE_TIERS,
   generateCertificateId,
+  generateShareText,
   type CertificateTier,
 } from "@/lib/donation-utils";
 import {
   generateCertificatePDF,
   downloadCertificatePDF,
 } from "@/lib/certificate-generator";
-import {
-  useEffect,
-  useState,
-  type CSSProperties,
-  type ReactNode,
-  type MouseEventHandler,
-} from "react";
-import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
 
 interface CertificateProps {
   donorName: string;
@@ -29,7 +23,6 @@ interface CertificateProps {
   tier: CertificateTier;
   onClose?: () => void;
   variant?: "modal" | "inline";
-  className?: string;
 }
 
 export default function Certificate({
@@ -39,7 +32,6 @@ export default function Certificate({
   tier,
   onClose,
   variant = "modal",
-  className,
 }: CertificateProps) {
   const isModalVariant = variant === "modal";
   const [certificateId, setCertificateId] = useState<string | null>(null);
@@ -50,36 +42,6 @@ export default function Certificate({
     day: "numeric",
   });
   const [isGenerating, setIsGenerating] = useState(false);
-
-  type MotionDivProps = {
-    children: ReactNode;
-    className?: string;
-    style?: CSSProperties;
-    motionProps?: MotionProps;
-    onClick?: MouseEventHandler<HTMLDivElement>;
-  };
-
-  const MotionDiv = ({
-    children,
-    className,
-    style,
-    motionProps,
-    onClick,
-  }: MotionDivProps) =>
-    isModalVariant ? (
-      <motion.div
-        className={className}
-        style={style}
-        onClick={onClick}
-        {...motionProps}
-      >
-        {children}
-      </motion.div>
-    ) : (
-      <div className={className} style={style} onClick={onClick}>
-        {children}
-      </div>
-    );
 
   useEffect(() => {
     if (!certificateId) {
@@ -93,9 +55,7 @@ export default function Certificate({
 
       // Generate the certificate PDF
       if (!certificateId) {
-        alert(
-          "Your certificate is still loading. Please try again in a moment."
-        );
+        alert("Your certificate is still loading. Please try again in a moment.");
         return;
       }
 
@@ -118,60 +78,63 @@ export default function Certificate({
     }
   };
 
+  const handleShare = (platform: "facebook" | "instagram" | "messages") => {
+    const shareText = generateShareText(amount, tier);
+    const encodedText = encodeURIComponent(shareText);
+
+    let url = "";
+    switch (platform) {
+      case "facebook":
+        url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          window.location.href
+        )}&quote=${encodedText}`;
+        break;
+      case "instagram":
+        // Instagram doesn't have a web share URL, so we copy to clipboard
+        navigator.clipboard.writeText(shareText);
+        alert(
+          "Share text copied to clipboard! Open Instagram to paste and share."
+        );
+        return;
+      case "messages":
+        url = `sms:?&body=${encodedText}`;
+        break;
+    }
+
+    if (url) {
+      window.open(url, "_blank", "width=600,height=400");
+    }
+  };
+
   const textColor = "#464375";
+  const accentColor = "#6f5ed3";
   const certificateTitle = certificateData.title.replace(" Certificate", "");
   const displayCertificateId = certificateId ?? "SOA-XXXXXX-XXXX";
-
-  const certificateWrapperClasses = cn(
-    "relative w-full",
-    isModalVariant ? "max-w-3xl" : "max-w-[1040px]",
-    !isModalVariant && "h-full"
-  );
-
-  const certificateCanvasClasses = cn(
-    "relative w-full",
-    isModalVariant
-      ? "aspect-[11/8.5]"
-      : "min-h-[560px] lg:min-h-[640px] xl:min-h-[680px]"
-  );
-
-  const certificateBodyClasses = cn(
-    "relative z-20 flex h-full w-full flex-col justify-center gap-8 px-6 py-10 font-serif text-center text-[color:#464375] sm:px-12 sm:py-14",
-    !isModalVariant && "gap-10 px-10 py-14 sm:px-16 sm:py-16 lg:px-24"
-  );
+  const recipientDisplayName = donorName?.trim().length
+    ? donorName
+    : "Anonymous Supporter";
+  const certificateMaxWidthClass = "max-w-[1085px]";
 
   const certificateCard = (
-    <MotionDiv
-      className={certificateWrapperClasses}
-      motionProps={
-        isModalVariant
-          ? {
-              initial: { scale: 0.8, y: 50, opacity: 0 },
-              animate: { scale: 1, y: 0, opacity: 1 },
-              transition: { type: "spring", duration: 0.8, delay: 0.2 },
-            }
-          : undefined
-      }
+    <motion.div
+      initial={{ scale: 0.8, y: 50, opacity: 0 }}
+      animate={{ scale: 1, y: 0, opacity: 1 }}
+      transition={{ type: "spring", duration: 0.8, delay: 0.2 }}
+      className={`relative w-full ${certificateMaxWidthClass}`}
       onClick={
         isModalVariant
           ? (e) => {
-              e.stopPropagation();
-            }
+            e.stopPropagation();
+          }
           : undefined
       }
     >
-      <Card
-        className={cn(
-          "relative flex w-full flex-col overflow-visible rounded-3xl border bg-white/95 p-6 sm:p-10 shadow-2xl",
-          !isModalVariant && "h-full"
-        )}
-        style={{ borderColor: certificateData.color, borderWidth: 1 }}
-      >
-        <div className="flex h-full flex-col gap-8">
-          <div className="relative rounded-[32px] border border-[#d8c8ae] bg-[#f9f4e7] p-3 sm:p-5 shadow-xl">
-            <div className={certificateCanvasClasses}>
+      <Card className="relative w-full overflow-visible rounded-[40px] border border-[#dcd2ff] bg-[#f8f5ff]/90 p-4 sm:p-8 shadow-2xl">
+        <div className="space-y-6">
+          <div className="relative rounded-[32px]  shadow-xl overflow-hidden">
+            <div className="relative aspect-[1085/734]">
               <div
-                className="pointer-events-none absolute inset-3 sm:inset-5 rounded-[28px] sm:rounded-[36px] opacity-95 z-0"
+                className="pointer-events-none absolute inset-3 sm:inset-5 opacity-95 z-0"
                 style={{
                   backgroundImage: "url('/certificateborder.png')",
                   backgroundSize: "100% 100%",
@@ -196,130 +159,163 @@ export default function Certificate({
                 />
               </div>
 
-              <div className={certificateBodyClasses}>
-                <MotionDiv
-                  motionProps={
-                    isModalVariant
-                      ? { initial: { opacity: 0 }, animate: { opacity: 1 } }
-                      : undefined
-                  }
+              <div className="relative z-20 h-full px-6 py-10 sm:px-16 sm:py-16 font-serif text-center text-[color:#464375] flex flex-col items-center overflow-hidden">
+                <motion.div
+                  initial={{ opacity: 0, y: -15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex flex-col items-center text-[#6f6aa3]"
                 >
-                  <p
-                    className="text-4xl md:text-5xl uppercase tracking-[0.3em]"
-                    style={{ color: textColor }}
-                  >
-                    Certificate
+                  <p className="text-[clamp(0.6rem,1.4vw,0.85rem)] uppercase tracking-[0.45em]">
+                    Shield of Athena
                   </p>
-                  <p className="mt-2 text-xs uppercase tracking-[0.6em] text-black">
+                  <p className="text-[clamp(1.4rem,2.6vw,2rem)] uppercase tracking-[0.3em] text-black/80">
                     {certificateTitle}
                   </p>
-                  <p className="mt-4 text-sm uppercase tracking-[0.5em] text-black">
-                    This certificate is proudly presented to
+                  <div className="rounded-full border border-[#bdb9e5] bg-white/80 px-5 py-1 my-1 text-[clamp(0.5rem,1.3vw,0.70rem)] uppercase tracking-[0.35em] text-black/70 shadow-sm">
+                    Certificate No. {displayCertificateId}
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15 }}
+                  className="flex flex-col items-center "
+                >
+                  <p className="text-[clamp(0.65rem,1.5vw,0.95rem)] uppercase tracking-[0.4em] text-[#7d79a8]">
+                    This is proudly awarded to
                   </p>
                   <p
-                    className="mt-4 text-4xl md:text-5xl tracking-[0.25em]"
+                    className="text-[clamp(2rem,4vw,3.4rem)] font-semibold tracking-[0.08em]"
                     style={{ color: textColor }}
                   >
-                    {donorName.toUpperCase()}
+                    {recipientDisplayName}
                   </p>
-                </MotionDiv>
-
-                <div className="mx-auto h-[2px] w-48 bg-[#bdb9e5]" />
-
-                <MotionDiv
-                  motionProps={
-                    isModalVariant
-                      ? {
-                          initial: { opacity: 0 },
-                          animate: { opacity: 1 },
-                          transition: { delay: 0.2 },
-                        }
-                      : undefined
-                  }
-                >
-                  <p className="mx-auto max-w-3xl text-lg leading-relaxed text-[#464375]">
+                  <div className="h-px w-44 bg-[#bdb9e5]" />
+                  <p className="max-w-3xl text-[clamp(1rem,2vw,1.2rem)] leading-relaxed text-[#464375]">
                     In recognition of the outstanding generosity of
-                    <span className="font-semibold">
-                      {" "}
-                      ${amount.toLocaleString()}
-                    </span>
-                    , which provided{" "}
-                    <span className="font-semibold">{impactDescription}</span>
-                    for women and children in need.
+                    <span className="font-semibold"> ${amount.toLocaleString()}</span>, which provided
+                    <span className="font-semibold"> {impactDescription}</span> for women and children in need.
                   </p>
-                  <p className="mt-4 text-base text-[#464375]">
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 25 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="flex flex-col items-center"
+                >
+                  <p className="text-[clamp(0.95rem,2vw,1.1rem)]">
                     Awarded on <span className="font-semibold">{date}</span>
                   </p>
-                  <p className="mt-2 text-xs uppercase tracking-[0.4em] text-black">
-                    Certificate ID: {displayCertificateId}
-                  </p>
-                </MotionDiv>
-
-                <MotionDiv
-                  className="pt-6"
-                  motionProps={
-                    isModalVariant
-                      ? {
-                          initial: { opacity: 0 },
-                          animate: { opacity: 1 },
-                          transition: { delay: 0.35 },
-                        }
-                      : undefined
-                  }
-                >
-                  <div className="mx-auto h-[1px] w-56 bg-[#bdb9e5]" />
-                  <p
-                    className="mt-3 text-sm font-semibold"
-                    style={{ color: textColor }}
-                  >
+                  <div className="h-px w-48 bg-[#bdb9e5]" />
+                  <p className="text-[clamp(0.85rem,1.8vw,1rem)] font-semibold" style={{ color: textColor }}>
                     Melpa Kamateros
                   </p>
-                  <p className="text-xs uppercase tracking-[0.4em] text-black">
+                  <p className="text-[clamp(0.55rem,1.4vw,0.8rem)] uppercase tracking-[0.35em] text-[#7d79a8]">
                     Executive Director
                   </p>
-                </MotionDiv>
+                </motion.div>
               </div>
             </div>
           </div>
 
-          <div className="mt-auto flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <Button
-              onClick={handleDownload}
-              size="lg"
-              className="gap-2 rounded-full bg-accent px-8 py-3 text-base font-medium text-light-background shadow-[0_12px_30px_rgba(111,94,211,0.35)] transition hover:opacity-90"
-              disabled={isGenerating || !certificateId}
-            >
-              <Award className="h-5 w-5" />
-              {isGenerating ? "Generating PDF..." : "Download Certificate"}
-              <Download className="h-4 w-4" />
-            </Button>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="relative rounded-[32px] border border-[#dad6f1] bg-[#f6f3ff]/95 px-6 py-6 space-y-5 shadow-lg"
+          >
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Button
+                onClick={handleDownload}
+                size="lg"
+                className="gap-2 rounded-full px-8 text-base bg-accent"
+                style={{
+                  background: "",
+                  color: "white",
+                  boxShadow: "0 12px 30px rgba(111, 94, 211, 0.35)",
+                }}
+                disabled={isGenerating || !certificateId}
+              >
+                <Award className="h-5 w-5" />
+                {isGenerating ? "Generating PDF..." : "Download Certificate"}
+                <Download className="h-4 w-4" />
+              </Button>
+
+              <Button
+                onClick={() => handleShare("facebook")}
+                variant="outline"
+                size="lg"
+                className="gap-2 rounded-full px-8 text-base border-2"
+                style={{ borderColor: accentColor, color: accentColor }}
+              >
+                <Award className="h-5 w-5" />
+                Share Your Impact
+                <Share2 className="h-4 w-4" />
+              </Button>
+            </div>
+
+            <div className="flex flex-wrap gap-2 justify-center pt-2 border-t border-[#e6dcc5]">
+              <Button
+                onClick={() => handleShare("facebook")}
+                variant="ghost"
+                size="sm"
+                className="gap-2 text-[#5f5b97] hover:bg-[#ece9ff]"
+              >
+                <Facebook className="h-4 w-4" />
+                Facebook
+              </Button>
+
+              <Button
+                onClick={() => handleShare("instagram")}
+                variant="ghost"
+                size="sm"
+                className="gap-2 text-[#5f5b97] hover:bg-[#ece9ff]"
+              >
+                <Share2 className="h-4 w-4" />
+                Instagram
+              </Button>
+
+              <Button
+                onClick={() => handleShare("messages")}
+                variant="ghost"
+                size="sm"
+                className="gap-2 text-[#5f5b97] hover:bg-[#ece9ff]"
+              >
+                <MessageCircle className="h-4 w-4" />
+                Messages
+              </Button>
+            </div>
 
             {isModalVariant && onClose && (
-              <Button
-                onClick={onClose}
-                variant="ghost"
-                className="text-[#5f5b97] hover:text-[#40368f]"
-              >
-                Close & Continue
-              </Button>
+              <div className="text-center pt-2">
+                <Button
+                  onClick={onClose}
+                  variant="ghost"
+                  className="text-[#5f5b97] hover:text-[#40368f]"
+                >
+                  Close & Continue
+                </Button>
+              </div>
             )}
-          </div>
+          </motion.div>
         </div>
       </Card>
-    </MotionDiv>
+    </motion.div>
   );
 
   if (!isModalVariant) {
     return (
-      <div className={cn("relative w-full", className)}>
+      <div className="relative w-full">
         <div
-          className="pointer-events-none absolute inset-0 rounded-[48px] blur-3xl"
+          className="absolute inset-0 rounded-[48px] blur-3xl pointer-events-none"
           style={{
             background:
               "radial-gradient(circle at 30% 30%, rgba(111, 94, 211, 0.28), transparent 65%), radial-gradient(circle at 70% 40%, rgba(192, 136, 244, 0.32), transparent 70%), radial-gradient(circle at 50% 80%, rgba(255, 158, 194, 0.25), transparent 75%)",
           }}
         />
-        <div className="relative flex w-full items-center justify-center px-0 py-8 sm:px-4 lg:px-6 xl:px-8">
+        <div className="relative flex items-center justify-center px-4 md:px-8 py-10">
           {certificateCard}
         </div>
       </div>
@@ -331,7 +327,7 @@ export default function Certificate({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className={cn("fixed inset-0 z-50", className)}
+      className="fixed inset-0 z-50"
       onClick={onClose}
     >
       {/* Darkened backdrop */}
