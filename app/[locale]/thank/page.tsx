@@ -76,7 +76,7 @@ const ThankYouPage = () => {
         <StickyHeader />
       </div>
       <main className="flex w-full flex-1 justify-center px-4 pb-24 pt-32 sm:px-8 lg:px-12 xl:px-16">
-        <section className="flex w-full max-w-screen-2xl flex-col gap-12">
+        <section className="flex w-full max-w-[1500px] flex-col gap-12">
           <header className="text-center">
             <h1 className="text-4xl font-semibold text-primary sm:text-5xl">
               Your kindness is contagious
@@ -88,28 +88,29 @@ const ThankYouPage = () => {
             </p>
           </header>
 
-          <div className="grid w-full gap-10 lg:grid-cols-[1.1fr_0.9fr] xl:gap-16 2xl:gap-20">
-            <div className="flex flex-col items-center gap-6 text-center lg:items-start lg:text-left lg:pr-12 xl:pr-16">
+          <div className="grid w-full items-stretch gap-y-10 lg:grid-cols-[minmax(420px,0.9fr)_minmax(660px,1.25fr)] lg:gap-y-0 lg:gap-x-6 xl:gap-x-8">
+            <div className="flex h-full flex-col items-center gap-6 text-center lg:items-start lg:text-left">
               <ThankYouHeader
                 primaryColor={certificateTheme.color}
                 accentColor={certificateTheme.badgeAccent}
                 softBackgroundColor={certificateTheme.bgColor}
                 gradientBackground={certificateTheme.badgeGradient}
               />
-              <p
+              {/* <p
                 className="w-full max-w-3xl text-base"
                 style={{ color: certificateTheme.color, opacity: 0.85 }}
               >
                 {donorName}, your gift is already at work—{donationImpact}
-              </p>
+              </p> */}
             </div>
-            <div className="flex w-full items-start justify-center lg:justify-end lg:pl-12 xl:pl-16">
+            <div className="flex h-full w-full items-stretch justify-center lg:justify-end">
               <Certificate
                 variant="inline"
                 donorName={donorName}
                 amount={Math.round(donationAmount)}
                 impactDescription={donationImpact}
                 tier={certificateTier}
+                className="h-full"
               />
             </div>
           </div>
