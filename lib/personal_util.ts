@@ -1,5 +1,8 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+/**
+ * Utility Functions
+ * Reusable helper functions for the donation platform
+ */
+
 import { DONOR_LEVELS, IMPACT_COST_PER_NIGHT } from './constants';
 
 /**
@@ -23,11 +26,11 @@ export function getNextDonorLevel(amount: number): { level: string; amount: numb
   const currentLevelIndex = DONOR_LEVELS.findIndex(
     (level) => amount >= level.minAmount && amount <= level.maxAmount
   );
-
+  
   if (currentLevelIndex === -1 || currentLevelIndex === DONOR_LEVELS.length - 1) {
     return null;
   }
-
+  
   const nextLevel = DONOR_LEVELS[currentLevelIndex + 1];
   return {
     level: nextLevel.name,
@@ -42,7 +45,7 @@ export function getNextDonorLevel(amount: number): { level: string; amount: numb
  */
 export function getImpactItems(amount: number): string[] {
   const items: string[] = [];
-
+  
   if (amount >= 35) items.push('1 night of shelter');
   if (amount >= 20) {
     items.push('1 warm meal');
@@ -51,7 +54,7 @@ export function getImpactItems(amount: number): string[] {
   if (amount >= 50) items.push('1 therapy session');
   if (amount >= 100) items.push('Full day of support for mother & child');
   if (amount >= 250) items.push('One week of stability and safety');
-
+  
   return items.length > 0 ? items : ['Emergency support contribution'];
 }
 
@@ -62,7 +65,7 @@ export function getImpactItems(amount: number): string[] {
  */
 export function calculateImpact(amount: number): string {
   const nights = Math.floor(amount / IMPACT_COST_PER_NIGHT);
-
+  
   if (nights === 0) return 'provided emergency supplies';
   if (nights === 1) return 'sheltered 1 woman for the night';
   if (nights === 2) return 'sheltered 2 women for the night';
@@ -70,7 +73,7 @@ export function calculateImpact(amount: number): string {
   if (nights <= 7) return `sheltered a mother and child for ${Math.floor(nights / 2)} nights`;
   if (nights <= 14) return 'provided a full week of safety for a family';
   if (nights <= 30) return 'provided 2 weeks of shelter and support';
-
+  
   const weeks = Math.floor(nights / 7);
   return `provided ${weeks} weeks of safety for a family`;
 }
@@ -83,7 +86,7 @@ export function calculateImpact(amount: number): string {
  */
 export function getRandomAmount(min: number, max: number): number {
   const amount = Math.floor(Math.random() * (max - min + 1)) + min;
-
+  
   if (amount < 100) {
     return Math.round(amount / 5) * 5;
   } else if (amount < 500) {
@@ -111,7 +114,7 @@ export function formatCurrency(amount: number): string {
  */
 export function getStorageItem(key: string): string | null {
   if (typeof window === 'undefined') return null;
-
+  
   try {
     return localStorage.getItem(key);
   } catch (error) {
@@ -127,18 +130,11 @@ export function getStorageItem(key: string): string | null {
  */
 export function setStorageItem(key: string, value: string): void {
   if (typeof window === 'undefined') return;
-
+  
   try {
     localStorage.setItem(key, value);
   } catch (error) {
     console.error('Error writing to localStorage:', error);
   }
-}
-
-/**
- * Tailwind-compatible className merger
- */
-export function cn(...inputs: ClassValue[]): string {
-  return twMerge(clsx(inputs));
 }
 

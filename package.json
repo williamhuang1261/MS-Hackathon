@@ -33,6 +33,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "recharts": "^3.4.1",
+    "tailwind-animate": "^0.2.10",
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {

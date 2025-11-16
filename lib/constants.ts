@@ -39,18 +39,22 @@ import type {
 
 // Donation Tiers
 export const ONE_TIME_TIERS = [
-  { amount: 20, label: '$20', description: 'One meal + emergency kit' },
-  { amount: 35, label: '$35', description: 'Safe night in shelter' },
-  { amount: 50, label: '$50', description: 'Therapy session starter' },
-  { amount: 100, label: '$100', description: 'Full day of care for mother & child' },
-  { amount: 250, label: '$250', description: 'One week of stability' },
+  { amount: 20, label: "$20", description: "One meal + emergency kit" },
+  { amount: 35, label: "$35", description: "Safe night in shelter" },
+  { amount: 50, label: "$50", description: "Therapy session starter" },
+  {
+    amount: 100,
+    label: "$100",
+    description: "Full day of care for mother & child",
+  },
+  { amount: 250, label: "$250", description: "One week of stability" },
 ] as const;
 
 export const MONTHLY_TIERS = [
-  { amount: 10, label: '$10/month', description: 'Support-line response' },
-  { amount: 25, label: '$25/month', description: 'Groceries for survivors' },
-  { amount: 50, label: '$50/month', description: 'Monthly therapy session' },
-  { amount: 100, label: '$100/month', description: 'Monthly safe-night fund' },
+  { amount: 10, label: "$10/month", description: "Support-line response" },
+  { amount: 25, label: "$25/month", description: "Groceries for survivors" },
+  { amount: 50, label: "$50/month", description: "Monthly therapy session" },
+  { amount: 100, label: "$100/month", description: "Monthly safe-night fund" },
 ] as const;
 
 // Upsell Options
@@ -61,24 +65,62 @@ export const UPSELL_OPTIONS = [
 ] as const;
 
 export const OPTIONAL_UPSELLS = [
-  { amount: 20, label: 'Add $20', description: 'Provide emergency clothing and essentials' },
-  { amount: 75, label: 'Add $75', description: 'Support a full week of safety and meals' },
+  {
+    amount: 20,
+    label: "Add $20",
+    description: "Provide emergency clothing and essentials",
+  },
+  {
+    amount: 75,
+    label: "Add $75",
+    description: "Support a full week of safety and meals",
+  },
 ] as const;
 
 // Donor Levels
 export const DONOR_LEVELS = [
-  { name: 'Shelter Guardian', minAmount: 0, maxAmount: 99, emoji: '🛡️', level: 1 },
-  { name: 'Safety Ally', minAmount: 100, maxAmount: 499, emoji: '🤝', level: 2 },
-  { name: 'Shelter Champion', minAmount: 500, maxAmount: 1999, emoji: '🏆', level: 3 },
-  { name: 'Family Protector', minAmount: 2000, maxAmount: 4999, emoji: '👨‍👩‍👧', level: 4 },
-  { name: 'Athena Protector', minAmount: 5000, maxAmount: Infinity, emoji: '⭐', level: 5 },
+  {
+    name: "Shelter Guardian",
+    minAmount: 0,
+    maxAmount: 99,
+    emoji: "🛡️",
+    level: 1,
+  },
+  {
+    name: "Safety Ally",
+    minAmount: 100,
+    maxAmount: 499,
+    emoji: "🤝",
+    level: 2,
+  },
+  {
+    name: "Shelter Champion",
+    minAmount: 500,
+    maxAmount: 1999,
+    emoji: "🏆",
+    level: 3,
+  },
+  {
+    name: "Family Protector",
+    minAmount: 2000,
+    maxAmount: 4999,
+    emoji: "👨‍👩‍👧",
+    level: 4,
+  },
+  {
+    name: "Athena Protector",
+    minAmount: 5000,
+    maxAmount: Infinity,
+    emoji: "⭐",
+    level: 5,
+  },
 ] as const;
 
 // Social Proof Stats
 export const ORGANIZATION_STATS = {
-  womenSupported: '1,200+',
-  hotlineAvailability: '24/7',
-  yearsServing: '15+',
+  womenSupported: "1,200+",
+  hotlineAvailability: "24/7",
+  yearsServing: "15+",
 } as const;
 
 export const EMERGENCY_CONTACTS: EmergencyContact[] = [
@@ -160,8 +202,8 @@ export const SERVICES: Service[] = [
   {
     title: 'Emergency Shelter',
     subtitle: "Athena's House",
-  description: '24/7 safe housing for women and children fleeing violence. Confidential location with compassionate support.',
-  icon: Home,
+    description: '24/7 safe housing for women and children fleeing violence. Confidential location with compassionate support.',
+    icon: Home,
     badge: 'Available 24/7',
     ctaText: 'Learn More',
     ctaHref: '/services/shelter',
@@ -169,8 +211,8 @@ export const SERVICES: Service[] = [
   {
     title: 'Individual Services',
     subtitle: 'Montréal & Laval Offices',
-  description: 'Free confidential counseling, legal clinic, home visits, and advocacy in 17+ languages.',
-  icon: Heart,
+    description: 'Free confidential counseling, legal clinic, home visits, and advocacy in 17+ languages.',
+    icon: Heart,
     badge: 'Multilingual',
     ctaText: 'Explore Services',
     ctaHref: '/services/individual',
@@ -178,8 +220,8 @@ export const SERVICES: Service[] = [
   {
     title: 'Sexual Violence Support',
     subtitle: 'Specialized Care',
-  description: 'Dedicated helplines and specialized support for victims of sexual violence with trauma-informed care.',
-  icon: Shield,
+    description: 'Dedicated helplines and specialized support for victims of sexual violence with trauma-informed care.',
+    icon: Shield,
     badge: 'Confidential',
     ctaText: 'Get Help',
     ctaHref: '/services/sexual-violence',
@@ -187,8 +229,8 @@ export const SERVICES: Service[] = [
   {
     title: 'Community Outreach',
     subtitle: 'Education & Prevention',
-  description: 'Awareness sessions, publications, and multilingual programs reaching tens of thousands across cultural communities.',
-  icon: Users,
+    description: 'Awareness sessions, publications, and multilingual programs reaching tens of thousands across cultural communities.',
+    icon: Users,
     badge: 'Free Resources',
     ctaText: 'Learn More',
     ctaHref: '/services/outreach',
@@ -196,8 +238,8 @@ export const SERVICES: Service[] = [
   {
     title: 'Legal Clinic',
     subtitle: 'Free Legal Information',
-  description: 'Supervised law students provide free information on family law, criminal law, and rights. McGill & UdeM partnerships.',
-  icon: Scale,
+    description: 'Supervised law students provide free information on family law, criminal law, and rights. McGill & UdeM partnerships.',
+    icon: Scale,
     badge: 'Free',
     ctaText: 'Book Appointment',
     ctaHref: '/services/legal-clinic',
@@ -205,8 +247,8 @@ export const SERVICES: Service[] = [
   {
     title: 'Second Step Resource',
     subtitle: 'Transitional Housing',
-  description: 'Longer-term housing with support services for women and children transitioning to independence.',
-  icon: Building2,
+    description: 'Longer-term housing with support services for women and children transitioning to independence.',
+    icon: Building2,
     badge: '17 Units',
     ctaText: 'Learn More',
     ctaHref: '/services/second-step',
@@ -361,17 +403,18 @@ export const IMPACT_COST_PER_NIGHT = 35;
 
 // Routes
 export const ROUTES = {
-  home: '/',
-  donate: '/donate',
-  upsell: '/upsell',
-  thankYou: '/thankyou',
+  home: "/",
+  donate: "/donate",
+  upsell: "/upsell",
+  thankYou: "/thankyou",
 } as const;
 
 // Storage Keys
 export const STORAGE_KEYS = {
-  donationAmount: 'donationAmount',
-  donationType: 'donationType',
-  totalDonationAmount: 'totalDonationAmount',
-  additionalAmount: 'additionalAmount',
+  donationAmount: "donationAmount",
+  donationType: "donationType",
+  totalDonationAmount: "totalDonationAmount",
+  additionalAmount: "additionalAmount",
 } as const;
+
 
