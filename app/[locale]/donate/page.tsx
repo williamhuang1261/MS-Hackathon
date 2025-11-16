@@ -16,6 +16,7 @@ import CertificateReveal from "@/components/DonationPage/CertificateReveal";
 // Mock data
 
 export default function Donate() {
+  const router = useRouter();
   const [selectedTier, setSelectedTier] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<number>(75);
   const [sliderAmount, setSliderAmount] = useState<number>(75);
@@ -23,7 +24,6 @@ export default function Donate() {
   const [showCertificate, setShowCertificate] = useState(false);
   const [showHouseAnimation, setShowHouseAnimation] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
-  const router = useRouter();
   const [paymentMethod, setPaymentMethod] = useState<
     "card" | "googlepay" | "applepay" | "paypal"
   >("card");
