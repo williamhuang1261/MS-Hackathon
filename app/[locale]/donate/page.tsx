@@ -511,8 +511,8 @@ export default function Donate() {
                         type="button"
                         onClick={() => setPaymentMethod('card')}
                         className={`flex items-center justify-center gap-2 rounded-xl border-2 p-4 transition-all ${paymentMethod === 'card'
-                            ? 'border-primary bg-primary/5 ring-2 ring-primary/20'
-                            : 'border-border hover:border-primary/50'
+                          ? 'border-primary bg-primary/5 ring-2 ring-primary/20'
+                          : 'border-border hover:border-primary/50'
                           }`}
                       >
                         <CreditCard className="h-5 w-5" />
@@ -523,33 +523,33 @@ export default function Donate() {
                         type="button"
                         onClick={() => setPaymentMethod('googlepay')}
                         className={`flex items-center justify-center rounded-xl border-2 p-4 transition-all ${paymentMethod === 'googlepay'
-                            ? 'border-primary bg-primary/5 ring-2 ring-primary/20'
-                            : 'border-border hover:border-primary/50'
+                          ? 'border-primary bg-primary/5 ring-2 ring-primary/20'
+                          : 'border-border hover:border-primary/50'
                           }`}
                       >
-                        <img src="/icons/googlepay.svg" alt="Google Pay" className="h-6" />
+                        <img src="/googlepay.svg" alt="Google Pay" className="h-6" />
                       </button>
 
                       <button
                         type="button"
                         onClick={() => setPaymentMethod('applepay')}
                         className={`flex items-center justify-center rounded-xl border-2 p-4 transition-all ${paymentMethod === 'applepay'
-                            ? 'border-primary bg-primary/5 ring-2 ring-primary/20'
-                            : 'border-border hover:border-primary/50'
+                          ? 'border-primary bg-primary/5 ring-2 ring-primary/20'
+                          : 'border-border hover:border-primary/50'
                           }`}
                       >
-                        <img src="/icons/applepay.svg" alt="Apple Pay" className="h-6" />
+                        <img src="/applepay.svg" alt="Apple Pay" className="h-6" />
                       </button>
 
                       <button
                         type="button"
                         onClick={() => setPaymentMethod('paypal')}
                         className={`flex items-center justify-center rounded-xl border-2 p-4 transition-all ${paymentMethod === 'paypal'
-                            ? 'border-primary bg-primary/5 ring-2 ring-primary/20'
-                            : 'border-border hover:border-primary/50'
+                          ? 'border-primary bg-primary/5 ring-2 ring-primary/20'
+                          : 'border-border hover:border-primary/50'
                           }`}
                       >
-                        <img src="/icons/paypal.svg" alt="PayPal" className="h-6" />
+                        <img src="/paypal.svg" alt="PayPal" className="h-6" />
                       </button>
                     </div>
                   </div>
@@ -756,7 +756,7 @@ export default function Donate() {
                   {/* Alternative Payment Method Messages */}
                   {paymentMethod === 'googlepay' && (
                     <div className="text-center py-8 space-y-4">
-                      <img src="/icons/googlepay.svg" alt="Google Pay" className="h-12 mx-auto" />
+                      <img src="/googlepay.svg" alt="Google Pay" className="h-12 mx-auto" />
                       <div>
                         <p className="text-lg font-semibold mb-2">Complete with Google Pay</p>
                         <p className="text-sm text-muted-foreground">
@@ -768,7 +768,7 @@ export default function Donate() {
 
                   {paymentMethod === 'applepay' && (
                     <div className="text-center py-8 space-y-4">
-                      <img src="/icons/applepay.svg" alt="Apple Pay" className="h-12 mx-auto" />
+                      <img src="/applepay.svg" alt="Apple Pay" className="h-12 mx-auto" />
                       <div>
                         <p className="text-lg font-semibold mb-2">Complete with Apple Pay</p>
                         <p className="text-sm text-muted-foreground">
@@ -780,7 +780,7 @@ export default function Donate() {
 
                   {paymentMethod === 'paypal' && (
                     <div className="text-center py-8 space-y-4">
-                      <img src="/icons/paypal.svg" alt="PayPal" className="h-12 mx-auto" />
+                      <img src="/paypal.svg" alt="PayPal" className="h-12 mx-auto" />
                       <div>
                         <p className="text-lg font-semibold mb-2">Complete with PayPal</p>
                         <p className="text-sm text-muted-foreground">
