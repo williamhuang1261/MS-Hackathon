@@ -1,8 +1,9 @@
 "use client";
 
 import { FAKE_DONOR_NAMES } from "@/lib/fakeDonors";
-import HandProgressBar from "./HandProgressBar";
-import { WordCloud, WordCloudProps } from "@isoterik/react-word-cloud";
+import { WordCloudProps } from "@isoterik/react-word-cloud";
+import LeftCloud from "./WordCloud/LeftCloud";
+import RightCloud from "./WordCloud/RightCloud";
 
 const formatDonorName = FAKE_DONOR_NAMES.map(({ text, value }) => {
   return {
@@ -11,17 +12,8 @@ const formatDonorName = FAKE_DONOR_NAMES.map(({ text, value }) => {
   };
 });
 
-const resolveRotate: WordCloudProps["rotate"] = () => {
-  return 0;
-};
-
 const resolveFonts: WordCloudProps["font"] = () => {
   return "serif";
-};
-
-// Adjust font size to prevent overlapping
-const adjustedFontSize: WordCloudProps["fontSize"] = (word) => {
-  return Math.min(Math.sqrt(word.value * 0.8), 35); // Cap at 35px for better spacing
 };
 
 // Distribute formatted names by alternating indices: even -> first, odd -> second
@@ -41,29 +33,21 @@ interface Props {
 const DonorWall = ({ width = 400, height = 200, handSize = 200 }: Props) => {
   return (
     <div className="w-full flex p-8 justify-center items-center">
-      <div className="flex gap-16">
-        <div className="w-120">
-          <WordCloud
-            words={firstHalf}
-            width={250}
-            height={160}
-            rotate={resolveRotate}
-            font={resolveFonts}
-            fill={"#CACAD7"}
-            spiral="archimedean"
-          />
-        </div>
-        <div className="w-120">
-          <WordCloud
-            words={secondHalf}
-            width={250}
-            height={160}
-            rotate={resolveRotate}
-            font={resolveFonts}
-            fill={"#CACAD7"}
-            spiral="archimedean"
-          />
-        </div>
+      <div className="flex gap-8">
+        <LeftCloud
+          words={firstHalf}
+          resolveFonts={resolveFonts}
+          resolveRotate={() => {
+            return -30;
+          }}
+        />
+        <RightCloud
+          words={secondHalf}
+          resolveFonts={resolveFonts}
+          resolveRotate={() => {
+            return 30;
+          }}
+        />
       </div>
     </div>
   );

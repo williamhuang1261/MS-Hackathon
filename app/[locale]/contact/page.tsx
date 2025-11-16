@@ -10,7 +10,7 @@ const ContactPage = () => {
       </div>
 
       {/* Hero Section */}
-      <div className="bg-primary text-light-background pt-48 pb-16 px-4">
+      <div className="from-primary to-accent bg-linear-to-b text-light-background pt-48 pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">Contact Us</h1>
           <p className="text-xl md:text-2xl mb-8">
