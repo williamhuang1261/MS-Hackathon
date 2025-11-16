@@ -12,13 +12,14 @@ import SolutionSection from "@/components/LandingPage/SolutionSection";
 import FooterSection from "@/components/LandingPage/FooterSection";
 import DonorWall from "@/components/ThankYouPage/DonorWall";
 import LandingProgressBar from "@/components/LandingPage/LandingProgressBar";
+import LandingTargetSection from "@/components/LandingPage/LandingTargetSection";
 
 const LandingPage = () => {
   const MONTHLY_GOAL_PROGRESS = 65.172; // Example progress value
 
   return (
     <div className="flex flex-col gap-10 w-full relative justify-start">
-      <div className="w-full fixed p-16 z-50">
+      <div className="w-full absolute p-16 z-50">
         <StickyHeader />
       </div>
       <div className="bg-primary flex flex-col items-center">
@@ -29,20 +30,7 @@ const LandingPage = () => {
           handSize={150}
           progress={MONTHLY_GOAL_PROGRESS}
         />
-        <div className="w-full flex flex-col items-center pb-16 gap-4">
-          <div className="w-full flex justify-center text-light-background gap-4">
-            <h2 className="text-light-background text-3xl">MONTHLY GOAL :</h2>
-            <h2 className="text-light-background text-3xl">
-              {(MONTHLY_GOAL_PROGRESS * 1000)
-                .toFixed(0)
-                .replace(/\B(?=(\d{3})+(?!\d))/g, " ")}
-            </h2>
-            <p className="font-serif text-dark-background text-lg mt-2">
-              {" / 100 000$"}
-            </p>
-          </div>
-          <LandingProgressBar progress={MONTHLY_GOAL_PROGRESS} />
-        </div>
+        <LandingTargetSection progress={MONTHLY_GOAL_PROGRESS} />
       </div>
       <ProblemSection />
       <StorySection />
