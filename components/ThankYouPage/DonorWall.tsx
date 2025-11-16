@@ -24,20 +24,26 @@ const adjustedFontSize: WordCloudProps["fontSize"] = (word) => {
   return Math.min(Math.sqrt(word.value * 0.8), 35); // Cap at 35px for better spacing
 };
 
-const DonorWall = () => {
+interface Props {
+  height?: number;
+  width?: number;
+  handSize?: number;
+}
+
+const DonorWall = ({width = 400, height = 200, handSize = 200}: Props) => {
   return (
     <div className="w-full flex p-8 justify-center items-center">
       <WordCloud
         words={formatDonorName}
-        width={400}
-        height={200}
+        width={width}
+        height={height}
         rotate={resolveRotate}
         font={resolveFonts}
         fill={"#CACAD7"}
         spiral="archimedean"
       />
       <div className="absolute ">
-        <HandProgressBar percent={28} increment={1} />
+        <HandProgressBar percent={28} increment={1} handSize={handSize}/>
       </div>
     </div>
   );

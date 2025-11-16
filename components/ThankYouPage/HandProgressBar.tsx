@@ -4,19 +4,22 @@ import Image from "next/image";
 interface Props {
   percent: number;
   increment: number;
+  handSize: number;
 }
 
-const HandProgressBar = ({ percent, increment }: Props) => {
+const HandProgressBar = ({ percent, increment, handSize }: Props) => {
   const totalPercent = Math.min(percent + increment, 100);
 
   return (
-    <div className="relative w-[400px] h-[400px] rounded-full backdrop-blur-xs">
+    <div
+      className={`relative w-[${handSize}px] h-[${handSize}px] rounded-full backdrop-blur-xs`}
+    >
       {/* Background Outline Layer */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="absolute top-0 left-0 icon icon-tabler icon-tabler-hand-stop"
-        width="400"
-        height="400"
+        width={handSize}
+        height={handSize}
         viewBox="0 0 26 24"
         strokeWidth="0.4"
         stroke="#9a9ae3"
@@ -39,8 +42,8 @@ const HandProgressBar = ({ percent, increment }: Props) => {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="absolute top-0 left-0 icon icon-tabler icon-tabler-hand-stop"
-        width="400"
-        height="400"
+        width={handSize}
+        height={handSize}
         viewBox="0 0 26 24"
         strokeWidth="0.4"
         stroke="#9a9ae3"
@@ -66,8 +69,8 @@ const HandProgressBar = ({ percent, increment }: Props) => {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="absolute top-0 left-0 icon icon-tabler icon-tabler-hand-stop"
-        width="400"
-        height="400"
+        width={handSize}
+        height={handSize}
         viewBox="0 0 26 24"
         strokeWidth="0.4"
         stroke="#9a9ae3"

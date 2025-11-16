@@ -7,12 +7,12 @@ import YourImpactSection from "@/components/ThankYouPage/YourImpactSection";
 const ProgressSection = () => {
   return (
     <div className="w-full bg-primary rounded-lg justify-center flex flex-col items-center">
-      <div className="w-full flex justify-center items-start gap-2 p-4">
+      <div className="w-full flex justify-center items-start gap-2 mt-16">
         <div className="flex flex-col items-end justify-end">
-          <h2 className="text-4xl text-light-background">Goal : 14 762 $ </h2>
-          <h4 className="text-yellow-500 font-semibold text-lg">+ 100$</h4>
+          <h2 className="text-5xl text-light-background">Goal : 14 762 $ </h2>
+          <h4 className="text-yellow-500 font-semibold text-xl">+ 100$</h4>
         </div>
-        <span className="font-serif font-semibold text-2xl text-dark-background">
+        <span className="font-serif font-semibold text-2xl mt-3 text-dark-background">
           / 50 000 $
         </span>
       </div>

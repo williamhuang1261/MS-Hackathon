@@ -124,7 +124,7 @@ export const FAKE_DONOR_NAMES: Word[] = [
   { text: "Jade C.", value: 141 },
   { text: "Chloé J.", value: 64 },
   { text: "Lola H.", value: 187 },
-  { text: "Morgan Stanley", value: 900 },
+  { text: "Morgan Stanley", value: 1500 },
   { text: "Nina N.", value: 177 },
   { text: "Aurore E.", value: 54 },
   { text: "Julie-Anne R.", value: 165 },
