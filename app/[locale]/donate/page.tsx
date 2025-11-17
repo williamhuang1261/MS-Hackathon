@@ -7,6 +7,7 @@ import HeroSection from "@/components/DonationPage/HeroSection";
 import LearnMoreSection from "@/components/DonationPage/LearnMoreSection";
 import PaymentModal from "@/components/DonationPage/PaymentModal";
 import HouseAnimation from "@/components/DonationPage/HouseAnimation";
+import UpsellModal from "@/components/DonationPage/UpsellModal";
 
 // Mock data
 
@@ -21,6 +22,11 @@ export default function Donate() {
   const [paymentMethod, setPaymentMethod] = useState<
     "card" | "googlepay" | "applepay" | "paypal"
   >("card");
+  const [showUpsellModal, setShowUpsellModal] = useState(false);
+  const [pendingUpsellAmount, setPendingUpsellAmount] = useState<number | null>(
+    null
+  );
+  const [fundingDestination, setFundingDestination] = useState("most-needed");
   const [donorInfo, setDonorInfo] = useState({
     name: "",
     email: "",
@@ -68,6 +74,34 @@ export default function Donate() {
     if (animationTimeoutRef.current) {
       clearTimeout(animationTimeoutRef.current);
     }
+    const finalAmount = selectedTier || customAmount;
+    if (finalAmount < 75) {
+      setPendingUpsellAmount(finalAmount);
+      setShowUpsellModal(true);
+      return;
+    }
+    setShowPaymentModal(true);
+  };
+
+  const handleUpsellAccept = () => {
+    if (pendingUpsellAmount === null) return;
+    const increase = 75;
+    const updatedAmount = pendingUpsellAmount + increase;
+    setCustomAmount(updatedAmount);
+    setSliderAmount(updatedAmount);
+    setSelectedTier(null);
+    setShowUpsellModal(false);
+    setPendingUpsellAmount(null);
+    setShowPaymentModal(true);
+  };
+
+  const handleUpsellDecline = () => {
+    if (pendingUpsellAmount === null) return;
+    setCustomAmount(pendingUpsellAmount);
+    setSliderAmount(pendingUpsellAmount);
+    setSelectedTier(null);
+    setShowUpsellModal(false);
+    setPendingUpsellAmount(null);
     setShowPaymentModal(true);
   };
 
@@ -135,6 +169,7 @@ export default function Donate() {
       amount: finalAmount,
       impact: impactCalc.description,
       tier,
+      fundingDestination,
     };
 
     if (typeof window !== "undefined") {
@@ -198,6 +233,8 @@ export default function Donate() {
         impact={impact}
         donorInfo={donorInfo}
         paymentInfo={paymentInfo}
+  fundingDestination={fundingDestination}
+  setFundingDestination={setFundingDestination}
         handlePaymentInputChange={handlePaymentInputChange}
         paymentMethod={paymentMethod}
         setPaymentMethod={setPaymentMethod}
@@ -206,12 +243,18 @@ export default function Donate() {
         handlePaymentSubmit={handlePaymentSubmit}
       />
 
+      <UpsellModal
+        show={showUpsellModal}
+        currentAmount={pendingUpsellAmount ?? customAmount}
+        onAccept={handleUpsellAccept}
+        onDecline={handleUpsellDecline}
+      />
+
       <div
-        className={`fixed inset-0 z-40 transition-opacity duration-500 ${
-          showHouseAnimation
+        className={`fixed inset-0 z-40 transition-opacity duration-500 ${showHouseAnimation
             ? "opacity-100 visible"
             : "pointer-events-none opacity-0"
-        }`}
+          }`}
         aria-hidden={!showHouseAnimation}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-primary/15 via-background to-background" />

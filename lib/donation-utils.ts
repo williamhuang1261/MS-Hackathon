@@ -17,13 +17,15 @@ export interface ImpactCalculation {
   counselingSessions: number
   meals: number
   description: string
+  monthsSupported: number
+  familiesHelped: number
   tier: DonationTier
 }
 
 // Certificate tier definitions with Art Deco badge designs
-export const CERTIFICATE_TIERS: Record<CertificateTier, { 
-  color: string; 
-  title: string; 
+export const CERTIFICATE_TIERS: Record<CertificateTier, {
+  color: string;
+  title: string;
   bgColor: string;
   badgeGradient: string;
   badgeAccent: string;
@@ -80,7 +82,7 @@ export const DONATION_TIERS: DonationTier[] = [
     min: 25,
     max: 74,
     title: 'Community Builder',
-    benefits: ['2-3 nights of shelter', '1 counseling session', 'Children\'s care'],
+    benefits: ['Emergency groceries & toiletries', 'One crisis counseling touchpoint', 'A warm meal for a survivor'],
     certificateTier: 'community-builder',
     certificateColor: '#1E3A8A',
     certificateTitle: 'Community Builder Certificate'
@@ -89,7 +91,7 @@ export const DONATION_TIERS: DonationTier[] = [
     min: 75,
     max: 99,
     title: 'One Night of Safety',
-    benefits: ['1 night of shelter', '1 counseling session', 'Children\'s care'],
+    benefits: ['1 night of shelter', 'Counseling session', 'A warm meal'],
     certificateTier: 'community-builder',
     certificateColor: '#1E3A8A',
     certificateTitle: 'Community Builder Certificate'
@@ -116,7 +118,7 @@ export const DONATION_TIERS: DonationTier[] = [
     min: 500,
     max: 999,
     title: 'Month of Stability',
-    benefits: ['30 days shelter', 'Mental health support', 'Childcare', 'Job training'],
+    benefits: ['30 days shelter', 'Mental health support', 'Childcare'],
     certificateTier: 'founders-circle',
     certificateColor: '#e48440ff',
     certificateTitle: "Founder's Circle Certificate"
@@ -132,38 +134,65 @@ export const DONATION_TIERS: DonationTier[] = [
   }
 ]
 
+function formatBenefitsList(benefits: string[]): string {
+  if (!benefits.length) return ''
+  if (benefits.length === 1) return benefits[0]
+  if (benefits.length === 2) return `${benefits[0]} and ${benefits[1]}`
+  const last = benefits[benefits.length - 1]
+  return `${benefits.slice(0, -1).join(', ')}, and ${last}`
+}
+
+const MONTH_OF_SAFETY_COST = 500 // aligns with "Month of Stability" tier
+const FAMILY_FULL_SPONSOR_LEVEL = 2000 // corporate-ready benchmark
+
+function formatMonthsText(months: number): string {
+  if (months >= 12) {
+    const years = months / 12
+    return `${years % 1 === 0 ? years.toFixed(0) : years.toFixed(1)} year${years >= 2 ? 's' : ''}`
+  }
+  if (months >= 1) {
+    return `${months % 1 === 0 ? months.toFixed(0) : months.toFixed(1)} month${months >= 2 ? 's' : ''}`
+  }
+  return `${months.toFixed(2)} month`
+}
+
 // Calculate impact based on donation amount
 export function calculateImpact(amount: number): ImpactCalculation {
   // Find the appropriate tier
   const tier = DONATION_TIERS.find(t => amount >= t.min && amount <= t.max) || DONATION_TIERS[DONATION_TIERS.length - 1]
-  
+
   // Calculate specific impacts (rough estimates)
   const nights = Math.floor(amount / 75) // $75 per night
   const counselingSessions = Math.floor(amount / 50) // $50 per session
   const meals = Math.floor(amount / 5) // $5 per meal
-  
-  // Generate description
-  let description = ''
-  if (amount >= 1000) {
-    description = `${Math.floor(amount / 500)} months of complete shelter, mental health support, childcare, and career training for a family`
-  } else if (amount >= 500) {
-    description = `${nights} nights of shelter, comprehensive mental health support, and childcare for a family in need`
-  } else if (amount >= 100) {
-    description = `${nights} nights of shelter, ${counselingSessions} counseling sessions, and job training workshops`
-  } else if (amount >= 75) {
-    description = `${nights} night${nights > 1 ? 's' : ''} of shelter, counseling session, and children's care`
-  } else if (amount >= 25) {
-    description = `${Math.floor(amount / 25)} nights of meals and children's care supplies`
-  } else {
-    description = `meals and essential supplies for families in crisis`
+
+  const benefitsSummary = formatBenefitsList(tier.benefits)
+  const monthsSupportedRaw = amount / MONTH_OF_SAFETY_COST
+  const monthsSupported = Number(monthsSupportedRaw.toFixed(monthsSupportedRaw >= 10 ? 0 : monthsSupportedRaw >= 1 ? 1 : 2))
+  const familiesHelped = amount >= FAMILY_FULL_SPONSOR_LEVEL ? Math.max(1, Math.floor(amount / FAMILY_FULL_SPONSOR_LEVEL)) : 0
+
+  let description = benefitsSummary
+    ? `Provides ${benefitsSummary}.`
+    : 'Provides essential support for families in crisis.'
+
+  if (monthsSupportedRaw >= 0.5) {
+    description += ` Also covers approximately ${formatMonthsText(monthsSupportedRaw)} of safe housing.`
   }
-  
+
+  if (familiesHelped > 0) {
+    const monthsText = monthsSupportedRaw >= 1 ? formatMonthsText(monthsSupportedRaw) : 'weeks'
+    const extras = benefitsSummary ? ` plus ${benefitsSummary.toLowerCase()}` : ''
+    description = `Fully sponsors ${familiesHelped} famil${familiesHelped > 1 ? 'ies' : 'y'} for about ${monthsText} of wraparound care${extras}.`
+  }
+
   return {
     amount,
     nights,
     counselingSessions,
     meals,
     description,
+    monthsSupported,
+    familiesHelped,
     tier
   }
 }
@@ -203,8 +232,8 @@ export function generateShareText(amount: number, tier: CertificateTier): string
     'founders-circle': "Founder's Circle",
     'changemaker': 'Changemaker'
   }
-  
+
   const date = new Date().toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })
-  
+
   return `🏠 I just became a ${tierNames[tier]} for Shield of Athena Family Services! 💜\n\nMy donation of ${formatCurrency(amount)} helps provide shelter and support for women and children escaping domestic violence.\n\nJoin me in making a difference: [donation link]\n\n#ShieldOfAthena #EndDomesticViolence #MontrealCares\n${date}`
 }
