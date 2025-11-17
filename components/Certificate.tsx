@@ -125,8 +125,8 @@ export default function Certificate({
       onClick={
         isModalVariant
           ? (e) => {
-              e.stopPropagation();
-            }
+            e.stopPropagation();
+          }
           : undefined
       }
     >
