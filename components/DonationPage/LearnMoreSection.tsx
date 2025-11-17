@@ -23,7 +23,7 @@ import {
 
 const THIS_MONTH_IMPACT = [
   { label: "Meals Served", value: "847", icon: Heart },
-  { label: "Families Housed", value: "23", icon: Users },
+  { label: "Families Housed", value: "68", icon: Users },
   { label: "Counseling Sessions", value: "156", icon: TrendingUp },
 ];
 

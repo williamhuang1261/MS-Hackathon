@@ -2,7 +2,8 @@
 
 
 import { formatCurrency } from "@/lib/donation-utils";
-import { Progress } from "@radix-ui/react-progress";
+import { Progress } from "../ui/progress";
+import { Slider } from "../ui/slider";
 import { motion } from "framer-motion";
 import React from "react";
 import StickyHeader from "../LandingPage/StickyHeader";
@@ -18,13 +19,14 @@ import { Input } from "../ui/input";
 import { Badge } from "../ui/badge";
 import { Label } from "../ui/label";
 import { ArrowDown, Heart } from "lucide-react";
-import { Slider } from "../ui/slider";
+
+const FEATURED_TIER_AMOUNT = 100;
 
 const IMPACT_TIERS = [
   {
     amount: 75,
     title: "One Night of Safety",
-    benefits: ["1 night of shelter", "Counseling session", "Children's care"],
+    benefits: ["1 night of shelter", "Counseling session", "A warm meal"],
   },
   {
     amount: 100,
@@ -94,7 +96,7 @@ const HeroSection = ({
                   Monthly Goal Progress
                 </p>
                 <p className="text-muted-foreground">
-                  We're {MONTHLY_GOAL.current}% to our goal of housing{" "}
+                  We&rsquo;re {MONTHLY_GOAL.current}% to our goal of housing{" "}
                   {MONTHLY_GOAL.target} families
                 </p>
               </div>
@@ -117,63 +119,73 @@ const HeroSection = ({
               Choose Your Impact
             </CardTitle>
             <CardDescription className="text-center text-lg">
-              Instead of arbitrary amounts, see the real difference you'll make
+              Instead of arbitrary amounts, see the real difference you&rsquo;ll make
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             {/* Impact Tier Cards */}
             <div className="grid md:grid-cols-3 gap-4">
-              {IMPACT_TIERS.map((tier) => (
-                <motion.div
-                  key={tier.amount}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Card
-                    className={`cursor-pointer transition-all ${
-                      selectedTier === tier.amount
-                        ? "border-accent border-2 shadow-lg"
-                        : "hover:border-accent/50"
-                    }`}
-                    onClick={() => {
-                      setSelectedTier(tier.amount);
-                      setSliderAmount(tier.amount);
-                      setCustomAmount(tier.amount);
-                    }}
+              {IMPACT_TIERS.map((tier) => {
+                const isFeatured = tier.amount === FEATURED_TIER_AMOUNT;
+                return (
+                  <motion.div
+                    key={tier.amount}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="relative"
                   >
-                    <CardHeader>
-                      <div className="flex items-center justify-between">
-                        <CardTitle className="text-2xl">
-                          {formatCurrency(tier.amount)}
-                        </CardTitle>
-                        <div
-                          className={`w-6 h-6 rounded-full border-2 ${
-                            selectedTier === tier.amount
+                    <Card
+                      className={`relative overflow-visible cursor-pointer transition-all ${isFeatured
+                        ? "border-accent/60"
+                        : ""
+                        } ${selectedTier === tier.amount
+                          ? "border-accent border-2 shadow-lg"
+                          : "hover:border-accent/50"
+                        }`}
+                      onClick={() => {
+                        setSelectedTier(tier.amount);
+                        setSliderAmount(tier.amount);
+                        setCustomAmount(tier.amount);
+                      }}
+                    >
+                      {isFeatured && (
+                        <span className="pointer-events-none absolute -top-4 left-6 z-20 inline-flex items-center rounded-full bg-accent px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white shadow-lg">
+                          Most Popular
+                        </span>
+                      )}
+                      <CardHeader className="relative z-10">
+                        <div className="flex items-center justify-between">
+                          <CardTitle className="text-2xl">
+                            {formatCurrency(tier.amount)}
+                          </CardTitle>
+                          <div
+                            className={`w-6 h-6 rounded-full border-2 ${selectedTier === tier.amount
                               ? "bg-accent border-accent"
                               : "border-muted"
-                          }`}
-                        />
-                      </div>
-                      <CardDescription className="font-semibold text-lg text-foreground">
-                        {tier.title}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <ul className="space-y-2">
-                        {tier.benefits.map((benefit, idx) => (
-                          <li
-                            key={idx}
-                            className="flex items-start gap-2 text-sm"
-                          >
-                            <span className="text-primary">→</span>
-                            <span>{benefit}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+                              }`}
+                          />
+                        </div>
+                        <CardDescription className="font-semibold text-lg text-foreground">
+                          {tier.title}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="relative z-10">
+                        <ul className="space-y-2">
+                          {tier.benefits.map((benefit, idx) => (
+                            <li
+                              key={idx}
+                              className="flex items-start gap-2 text-sm"
+                            >
+                              <span className="text-primary">→</span>
+                              <span>{benefit}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                );
+              })}
             </div>
 
             {/* Custom Amount Card */}
@@ -212,8 +224,11 @@ const HeroSection = ({
                       min={75}
                       max={5000}
                       step={25}
-                      className="w-full mt-2"
+                      className="w-full"
                     />
+                    <div className="text-sm font-semibold text-foreground text-center">
+                      {formatCurrency(sliderAmount)}
+                    </div>
                     <div className="flex justify-between text-xs text-muted-foreground">
                       <span>$75</span>
                       <span>$5,000+</span>
@@ -225,8 +240,7 @@ const HeroSection = ({
                 <Card className="bg-accent/10 border-accent/30">
                   <CardContent className="pt-6">
                     <p className="text-lg font-semibold text-foreground mb-2">
-                      Your {formatCurrency(selectedTier || customAmount)}{" "}
-                      provides:
+                      Your {formatCurrency(sliderAmount)} provides:
                     </p>
                     <p className="text-muted-foreground">
                       {impact.description}

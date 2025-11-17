@@ -99,6 +99,7 @@ export const IMPACT_COST_PER_NIGHT = 35;
 export const ROUTES = {
   home: "/",
   donate: "/donate",
+  payment: "/payment",
   upsell: "/upsell",
   thankYou: "/thankyou",
 } as const;

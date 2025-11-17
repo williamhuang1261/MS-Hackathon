@@ -2,20 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "@/i18n/navigation";
-import {
-  calculateImpact,
-  getCertificateTier,
-  type CertificateTier,
-} from "@/lib/donation-utils";
+import { calculateImpact, getCertificateTier } from "@/lib/donation-utils";
 import HeroSection from "@/components/DonationPage/HeroSection";
 import LearnMoreSection from "@/components/DonationPage/LearnMoreSection";
 import PaymentModal from "@/components/DonationPage/PaymentModal";
 import HouseAnimation from "@/components/DonationPage/HouseAnimation";
-import CertificateReveal from "@/components/DonationPage/CertificateReveal";
-import StickyHeader from "@/components/LandingPage/StickyHeader";
-import ThankYouHeader from "@/components/ThankYouPage/ThankYouHeader";
-import YourImpactSection from "@/components/ThankYouPage/YourImpactSection";
-import DonorWall from "@/components/ThankYouPage/DonorWall";
+import UpsellModal from "@/components/DonationPage/UpsellModal";
 
 // Mock data
 
@@ -25,16 +17,20 @@ export default function Donate() {
   const [customAmount, setCustomAmount] = useState<number>(75);
   const [sliderAmount, setSliderAmount] = useState<number>(75);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const [showCertificate, setShowCertificate] = useState(false);
   const [showHouseAnimation, setShowHouseAnimation] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<
     "card" | "googlepay" | "applepay" | "paypal"
   >("card");
+  const [showUpsellModal, setShowUpsellModal] = useState(false);
+  const [pendingUpsellAmount, setPendingUpsellAmount] = useState<number | null>(
+    null
+  );
+  const [fundingDestination, setFundingDestination] = useState("most-needed");
   const [donorInfo, setDonorInfo] = useState({
     name: "",
     email: "",
-    isReturning: false,
+    isReturning: true,
   });
   const [paymentInfo, setPaymentInfo] = useState({
     cardNumber: "",
@@ -53,14 +49,6 @@ export default function Donate() {
   const [paymentErrors, setPaymentErrors] = useState<Record<string, string>>(
     {}
   );
-  const [certificateCTA, setCertificateCTA] = useState<
-    "donate" | "thank"
-  >("donate");
-  const [completedDonation, setCompletedDonation] = useState<{
-    amount: number;
-    impact: string;
-    tier: CertificateTier;
-  } | null>(null);
 
   const learnMoreRef = useRef<HTMLDivElement>(null);
   const animationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
@@ -82,13 +70,38 @@ export default function Donate() {
   };
 
   const handleDonateClick = () => {
-    setShowCertificate(false);
-    setCompletedDonation(null);
     setShowHouseAnimation(false);
-    setCertificateCTA("donate");
     if (animationTimeoutRef.current) {
       clearTimeout(animationTimeoutRef.current);
     }
+    const finalAmount = selectedTier || customAmount;
+    if (finalAmount < 75) {
+      setPendingUpsellAmount(finalAmount);
+      setShowUpsellModal(true);
+      return;
+    }
+    setShowPaymentModal(true);
+  };
+
+  const handleUpsellAccept = () => {
+    if (pendingUpsellAmount === null) return;
+    const increase = 75;
+    const updatedAmount = pendingUpsellAmount + increase;
+    setCustomAmount(updatedAmount);
+    setSliderAmount(updatedAmount);
+    setSelectedTier(null);
+    setShowUpsellModal(false);
+    setPendingUpsellAmount(null);
+    setShowPaymentModal(true);
+  };
+
+  const handleUpsellDecline = () => {
+    if (pendingUpsellAmount === null) return;
+    setCustomAmount(pendingUpsellAmount);
+    setSliderAmount(pendingUpsellAmount);
+    setSelectedTier(null);
+    setShowUpsellModal(false);
+    setPendingUpsellAmount(null);
     setShowPaymentModal(true);
   };
 
@@ -149,20 +162,26 @@ export default function Donate() {
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     const finalAmount = selectedTier || customAmount;
-    const impactCalc = calculateImpact(finalAmount);
     const tier = getCertificateTier(finalAmount);
-
-    setCompletedDonation({
+    const impactCalc = calculateImpact(finalAmount);
+    const donationDetails = {
+      donorName: donorInfo.name?.trim() ? donorInfo.name.trim() : "Friend",
       amount: finalAmount,
       impact: impactCalc.description,
       tier,
-    });
+      fundingDestination,
+    };
 
-    setShowCertificate(false);
+    if (typeof window !== "undefined") {
+      window.sessionStorage.setItem(
+        "latestDonation",
+        JSON.stringify({ ...donationDetails, timestamp: Date.now() })
+      );
+    }
+
     setIsProcessing(false);
     setShowPaymentModal(false);
     setShowHouseAnimation(true);
-    setCertificateCTA("donate");
 
     if (animationTimeoutRef.current) {
       clearTimeout(animationTimeoutRef.current);
@@ -170,8 +189,7 @@ export default function Donate() {
 
     animationTimeoutRef.current = setTimeout(() => {
       setShowHouseAnimation(false);
-      setShowCertificate(true);
-      setCertificateCTA("thank");
+      router.push("/thank");
     }, 4000);
   };
 
@@ -189,32 +207,23 @@ export default function Donate() {
     setSelectedTier(null);
   };
 
-  const showThankBackdrop = certificateCTA === "thank";
-
   return (
-    <div className="min-h-screen">
-      {showThankBackdrop ? (
-        <ThankYouBackdrop />
-      ) : (
-        <>
-          <HeroSection
-            selectedTier={selectedTier}
-            setSelectedTier={setSelectedTier}
-            setSliderAmount={setSliderAmount}
-            setCustomAmount={setCustomAmount}
-            customAmount={customAmount}
-            sliderAmount={sliderAmount}
-            impact={impact}
-            handleCustomAmountChange={handleCustomAmountChange}
-            handleSliderChange={handleSliderChange}
-            handleDonateClick={handleDonateClick}
-            scrollToLearnMore={scrollToLearnMore}
-          />
-          <LearnMoreSection learnMoreRef={learnMoreRef} />
-        </>
-      )}
+    <div className="relative min-h-screen bg-background">
+      <HeroSection
+        selectedTier={selectedTier}
+        setSelectedTier={setSelectedTier}
+        setSliderAmount={setSliderAmount}
+        setCustomAmount={setCustomAmount}
+        customAmount={customAmount}
+        sliderAmount={sliderAmount}
+        impact={impact}
+        handleCustomAmountChange={handleCustomAmountChange}
+        handleSliderChange={handleSliderChange}
+        handleDonateClick={handleDonateClick}
+        scrollToLearnMore={scrollToLearnMore}
+      />
+      <LearnMoreSection learnMoreRef={learnMoreRef} />
 
-      {/* Payment Modal */}
       <PaymentModal
         showPaymentModal={showPaymentModal}
         selectedTier={selectedTier}
@@ -224,6 +233,8 @@ export default function Donate() {
         impact={impact}
         donorInfo={donorInfo}
         paymentInfo={paymentInfo}
+        fundingDestination={fundingDestination}
+        setFundingDestination={setFundingDestination}
         handlePaymentInputChange={handlePaymentInputChange}
         paymentMethod={paymentMethod}
         setPaymentMethod={setPaymentMethod}
@@ -232,45 +243,25 @@ export default function Donate() {
         handlePaymentSubmit={handlePaymentSubmit}
       />
 
-      {/* House Animation */}
-      <HouseAnimation showHouseAnimation={showHouseAnimation} />
-
-      {/* Certificate Reveal */}
-      <CertificateReveal
-        showCertificate={showCertificate}
-        setShowCertificate={setShowCertificate}
-        donorInfo={donorInfo}
-        completedDonation={completedDonation}
-        onClose={() => {
-          setCertificateCTA("donate");
-          router.push("/thank");
-        }}
+      <UpsellModal
+        show={showUpsellModal}
+        currentAmount={pendingUpsellAmount ?? customAmount}
+        onAccept={handleUpsellAccept}
+        onDecline={handleUpsellDecline}
       />
-    </div>
-  );
-}
 
-const ThankYouBackdrop = () => (
-  <div className="bg-background min-h-screen">
-    <div className="w-full px-8 pt-8">
-      <StickyHeader showDonation={false} />
-    </div>
-    <ThankYouHeader />
-    <div className="flex flex-col gap-8 px-8 pb-16 lg:flex-row">
-      <YourImpactSection />
-      <div className="flex-1 rounded-3xl bg-primary p-8 text-primary-foreground shadow-2xl">
-        <div className="flex flex-col items-center gap-2 text-center">
-          <h2 className="text-4xl font-serif">Goal : 14 762 $</h2>
-          <p className="text-xl font-semibold text-yellow-200">+ 100$</p>
-          <span className="text-lg text-white/80">/ 50 000 $</span>
-          <p className="mt-2 text-white/90">
-            We&apos;ve added you to our donors wall!
-          </p>
-        </div>
-        <div className="mt-8 rounded-2xl bg-white/10 p-4">
-          <DonorWall width={360} height={220} handSize={200} />
+      <div
+        className={`fixed inset-0 z-40 transition-opacity duration-500 ${showHouseAnimation
+          ? "opacity-100 visible"
+          : "pointer-events-none opacity-0"
+          }`}
+        aria-hidden={!showHouseAnimation}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/15 via-background to-background" />
+        <div className="relative z-10 flex min-h-screen items-center justify-center">
+          <HouseAnimation showHouseAnimation={showHouseAnimation} />
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+}
