@@ -1,8 +1,12 @@
 "use client";
 
 import { FAKE_DONOR_NAMES } from "@/lib/fakeDonors";
-import HandProgressBar from "./HandProgressBar";
-import { WordCloud, WordCloudProps } from "@isoterik/react-word-cloud";
+import { WordCloudProps } from "@isoterik/react-word-cloud";
+import LeftCloud from "./WordCloud/LeftCloud";
+import RightCloud from "./WordCloud/RightCloud";
+import Lotus from "./WordCloud/OldLotus";
+import LotusVideo from "./WordCloud/LotusVideo";
+import OldLotus from "./WordCloud/OldLotus";
 
 const formatDonorName = FAKE_DONOR_NAMES.map(({ text, value }) => {
   return {
@@ -11,39 +15,47 @@ const formatDonorName = FAKE_DONOR_NAMES.map(({ text, value }) => {
   };
 });
 
-const resolveRotate: WordCloudProps["rotate"] = () => {
-  return 0;
-};
-
 const resolveFonts: WordCloudProps["font"] = () => {
   return "serif";
 };
 
-// Adjust font size to prevent overlapping
-const adjustedFontSize: WordCloudProps["fontSize"] = (word) => {
-  return Math.min(Math.sqrt(word.value * 0.8), 35); // Cap at 35px for better spacing
-};
+// Distribute formatted names by alternating indices: even -> first, odd -> second
+const firstHalf = [] as typeof formatDonorName;
+const secondHalf = [] as typeof formatDonorName;
+for (let i = 0; i < formatDonorName.length; i++) {
+  if (i % 2 === 0) firstHalf.push(formatDonorName[i]);
+  else secondHalf.push(formatDonorName[i]);
+}
 
 interface Props {
   height?: number;
   width?: number;
   handSize?: number;
+  progress?: number;
 }
 
-const DonorWall = ({width = 400, height = 200, handSize = 200}: Props) => {
+const DonorWall = ({ width = 400, height = 200, handSize = 200, progress = 80}: Props) => {
   return (
     <div className="w-full flex p-8 justify-center items-center">
-      <WordCloud
-        words={formatDonorName}
-        width={width}
-        height={height}
-        rotate={resolveRotate}
-        font={resolveFonts}
-        fill={"#CACAD7"}
-        spiral="archimedean"
-      />
-      <div className="absolute ">
-        <HandProgressBar percent={28} increment={1} handSize={handSize}/>
+      <div className="flex relative h-100 items-end">
+        <LeftCloud
+          words={firstHalf}
+          resolveFonts={resolveFonts}
+          resolveRotate={() => {
+            return -30;
+          }}
+        />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <LotusVideo progress={progress} />
+          {/* <OldLotus progress={80} /> */}
+        </div>
+        <RightCloud
+          words={secondHalf}
+          resolveFonts={resolveFonts}
+          resolveRotate={() => {
+            return 30;
+          }}
+        />
       </div>
     </div>
   );
