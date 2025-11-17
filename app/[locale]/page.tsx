@@ -18,7 +18,7 @@ const LandingPage = () => {
   const MONTHLY_GOAL_PROGRESS = 65.172; // Example progress value
 
   return (
-    <div className="flex flex-col gap-10 w-full relative justify-start">
+    <div className="flex bg-muted/30 flex-col gap-0 w-full relative justify-start">
       <div className="w-full absolute p-16 z-50">
         <StickyHeader />
       </div>

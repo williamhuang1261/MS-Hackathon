@@ -104,12 +104,12 @@ const ThankYouHeader = ({
     `linear-gradient(135deg, ${paletteColors[0]}, ${paletteColors[1]})`;
   const themeVariables = useMemo(
     () =>
-      ({
-        "--thank-primary": primaryColor,
-        "--thank-accent": accentColor,
-        "--thank-soft": softBackgroundColor,
-        "--thank-gradient": computedGradient,
-      } as CSSProperties),
+    ({
+      "--thank-primary": primaryColor,
+      "--thank-accent": accentColor,
+      "--thank-soft": softBackgroundColor,
+      "--thank-gradient": computedGradient,
+    } as CSSProperties),
     [accentColor, computedGradient, primaryColor, softBackgroundColor]
   );
 

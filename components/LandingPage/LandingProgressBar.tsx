@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Progress } from "@/components/ui/progress";
 
 interface Props {
   progress: number;
@@ -28,14 +29,8 @@ const LandingProgressBar = ({ progress }: Props) => {
   }, [target]);
 
   return (
-    <div className="w-full max-w-xl h-1 bg-gray-600 rounded-lg overflow-hidden outline-2 outline-primary flex items-center relative">
-      <div
-        className="h-full bg-yellow-500 transition-all duration-1000"
-        style={{ width: `${percent}%` }}
-      />
-      {/* <span className="absolute left-1/2 -translate-x-1/2 text-xs font-bold text-primary drop-shadow">
-        {percent.toFixed(1)}%
-      </span> */}
+    <div className="w-full max-w-xl">
+      <Progress value={percent} className="h-3" />
     </div>
   );
 };
