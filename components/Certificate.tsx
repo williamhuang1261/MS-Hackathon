@@ -164,15 +164,15 @@ export default function Certificate({
                 <motion.div
                   initial={{ opacity: 0, y: -15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="flex flex-col items-center text-[#6f6aa3]"
+                  className="flex flex-col items-center text-[#6f6aa3] mb-4"
                 >
-                  <p className="text-[clamp(0.6rem,1.4vw,0.85rem)] uppercase tracking-[0.45em]">
+                  <p className="text-[clamp(0.6rem,1.4vw,0.85rem)] uppercase tracking-[0.45em] mb-1">
                     Shield of Athena
                   </p>
-                  <p className="text-[clamp(1.4rem,2.6vw,2rem)] uppercase tracking-[0.3em] text-black/80">
+                  <p className="text-[clamp(1.4rem,2.6vw,2rem)] uppercase tracking-[0.3em] text-black/80 mb-2">
                     {certificateTitle}
                   </p>
-                  <div className="rounded-full border border-[#bdb9e5] bg-white/80 px-5 py-1 my-1 text-[clamp(0.5rem,1.3vw,0.70rem)] uppercase tracking-[0.35em] text-black/70 shadow-sm">
+                  <div className="rounded-full border border-[#bdb9e5] bg-white/80 px-5 py-1 text-[clamp(0.5rem,1.3vw,0.70rem)] uppercase tracking-[0.35em] text-black/70 shadow-sm">
                     Certificate No. {displayCertificateId}
                   </div>
                 </motion.div>
@@ -181,19 +181,19 @@ export default function Certificate({
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15 }}
-                  className="flex flex-col items-center "
+                  className="flex flex-col items-center my-4"
                 >
-                  <p className="text-[clamp(0.65rem,1.5vw,0.95rem)] uppercase tracking-[0.4em] text-[#7d79a8]">
+                  <p className="text-[clamp(0.65rem,1.5vw,0.95rem)] uppercase tracking-[0.4em] text-[#7d79a8] mb-2">
                     This is proudly awarded to
                   </p>
                   <p
-                    className="text-[clamp(2rem,4vw,3.4rem)] font-semibold tracking-[0.08em]"
+                    className="text-[clamp(2rem,4vw,3.4rem)] font-semibold tracking-[0.08em] mb-2"
                     style={{ color: textColor }}
                   >
                     {recipientDisplayName}
                   </p>
-                  <div className="h-px w-44 bg-[#bdb9e5]" />
-                  <p className="max-w-3xl text-[clamp(1rem,2vw,1.2rem)] leading-relaxed text-[#464375]">
+                  <div className="h-px w-44 bg-[#bdb9e5] mb-4" />
+                  <p className="max-w-3xl text-[clamp(1rem,2vw,1.2rem)] leading-relaxed text-[#464375] px-4">
                     In recognition of the outstanding generosity of
                     <span className="font-semibold">
                       {" "}
@@ -212,14 +212,14 @@ export default function Certificate({
                   initial={{ opacity: 0, y: 25 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
-                  className="flex flex-col items-center"
+                  className="flex flex-col items-center mt-4"
                 >
-                  <p className="text-[clamp(0.95rem,2vw,1.1rem)]">
+                  <p className="text-[clamp(0.95rem,2vw,1.1rem)] mb-2">
                     Awarded on <span className="font-semibold">{date}</span>
                   </p>
-                  <div className="h-px w-48 bg-[#bdb9e5]" />
+                  <div className="h-px w-48 bg-[#bdb9e5] mb-2" />
                   <p
-                    className="text-[clamp(0.85rem,1.8vw,1rem)] font-semibold"
+                    className="text-[clamp(0.85rem,1.8vw,1rem)] font-semibold mb-1"
                     style={{ color: textColor }}
                   >
                     Melpa Kamateros

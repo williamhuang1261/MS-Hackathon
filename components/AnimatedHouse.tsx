@@ -257,8 +257,9 @@ export default function AnimatedHouse() {
                         fill="url(#lampGlow)"
                         stroke="#f6c75d"
                         strokeWidth="1.5"
-                        animate={isAnimating ? { opacity: [0, 0.9, 0.7, 1] } : {}}
-                        transition={{ duration: 1.2, delay: 1.4, repeat: Infinity, repeatType: 'reverse' }}
+                        initial={{ opacity: 0 }}
+                        animate={isAnimating ? { opacity: 1 } : { opacity: 0 }}
+                        transition={{ duration: 1.5, delay: 1.4, ease: "easeIn" }}
                     />
 
                     <motion.ellipse
@@ -269,8 +270,9 @@ export default function AnimatedHouse() {
                         fill="#ffe37a"
                         opacity="0"
                         filter="blur(15px)"
-                        animate={isAnimating ? { opacity: [0, 0.5, 0.2, 0.6] } : {}}
-                        transition={{ duration: 1.2, delay: 1.4, repeat: Infinity, repeatType: 'reverse' }}
+                        initial={{ opacity: 0 }}
+                        animate={isAnimating ? { opacity: 0.5 } : { opacity: 0 }}
+                        transition={{ duration: 1.5, delay: 1.4, ease: "easeIn" }}
                     />
 
                     <motion.ellipse
@@ -280,8 +282,9 @@ export default function AnimatedHouse() {
                         ry="20"
                         fill="#fff5c7"
                         opacity="0"
-                        animate={isAnimating ? { opacity: [0, 0.4, 0.2, 0.5] } : {}}
-                        transition={{ duration: 1.4, delay: 1.6, repeat: Infinity, repeatType: 'reverse' }}
+                        initial={{ opacity: 0 }}
+                        animate={isAnimating ? { opacity: 0.4 } : { opacity: 0 }}
+                        transition={{ duration: 1.5, delay: 1.6, ease: "easeIn" }}
                     />
                 </g>
 
