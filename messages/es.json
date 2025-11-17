@@ -1,3 +1,683 @@
 {
-  "welcome": "Bienvenido"
+  "welcome": "Bienvenido",
+
+  "about": {
+    "title": "Acerca de Shield of Athena",
+    "heroSubtitle": "Durante más de 15 años, hemos sido un salvavidas para mujeres y niños que escapan de la violencia familiar en las diversas comunidades de Montreal.",
+    "mission": {
+      "title": "Nuestra misión",
+      "description1": "Shield of Athena es una organización sin fines de lucro dedicada a apoyar a las víctimas de violencia familiar. Ofrecemos refugio de emergencia y servicios profesionales a mujeres y sus hijos, con apoyo cultural y lingüísticamente adaptado para servir a las principales comunidades etnoculturales de Montreal.",
+      "description2": "Creemos que toda mujer y niño merecen vivir libres de violencia, con acceso a seguridad, dignidad y los recursos necesarios para reconstruir sus vidas."
+    },
+    "vision": {
+      "title": "Nuestra visión",
+      "description": "Una sociedad donde todas las mujeres y los niños vivan libres de violencia, apoyados por comunidades que reconocen, previenen y responden de forma eficaz a la violencia familiar en todos los contextos culturales."
+    },
+    "impact": {
+      "title": "Nuestro impacto",
+      "womenSupported": "Mujeres y niños atendidos anualmente",
+      "hotlineAvailability": "Disponibilidad de la línea de emergencia",
+      "languagesSupported": "Idiomas atendidos"
+    },
+    "services": {
+      "title": "Nuestros tres servicios integrados",
+      "professional": {
+        "title": "Servicios profesionales",
+        "description": "Nuestras oficinas en Laval y Montreal ofrecen servicios multilingües por trabajadoras sociales profesionales, mediadores culturales capacitados y estudiantes de derecho supervisados."
+      },
+      "shelter": {
+        "title": "Casa de Atenea",
+        "description": "Nuestro refugio de emergencia proporciona alojamiento seguro a mujeres y sus hijos 24/7, ofreciendo un entorno seguro y empoderador cuando más lo necesitan."
+      },
+      "outreach": {
+        "title": "Alcance comunitario",
+        "description": "En Montreal y Laval, nuestro programa de alcance comunitario ofrece información vital a hombres y mujeres en su propio idioma y contexto cultural."
+      }
+    },
+    "values": {
+      "title": "Nuestros valores fundamentales",
+      "culturalSensitivity": {
+        "title": "Sensibilidad cultural",
+        "description": "Reconocemos que la experiencia de cada mujer con la violencia está influida por su contexto cultural. Nuestros servicios se adaptan específicamente para atender las necesidades de las diversas comunidades etnoculturales de Montreal."
+      },
+      "multilingualSupport": {
+        "title": "Apoyo multilingüe",
+        "description": "Brindamos servicios en varios idiomas, incluidos inglés, francés, árabe, español, armenio, griego, ruso, persa, urdu y bengalí para garantizar que ninguna mujer sea rechazada por barreras lingüísticas."
+      },
+      "empowerment": {
+        "title": "Empoderamiento",
+        "description": "Creemos en empoderar a las mujeres para que tomen sus propias decisiones y reconstruyan sus vidas con dignidad. Nuestro enfoque se centra en apoyar la fuerza y la resiliencia de las mujeres durante su proceso de recuperación."
+      },
+      "comprehensiveCare": {
+        "title": "Atención integral",
+        "description": "Desde refugio de emergencia y orientación legal hasta terapia y apoyo comunitario, ofrecemos servicios holísticos que abordan las necesidades complejas de las sobrevivientes y sus hijos."
+      }
+    },
+    "emergency": {
+      "title": "¿Necesita ayuda? Estamos aquí 24/7",
+      "montrealOffice": "Oficina de Montreal",
+      "lavalOffice": "Oficina de Laval",
+      "tollFree": "(Línea gratuita)",
+      "sexualViolenceHelp": "Línea de ayuda por violencia sexual: 450-688-2117",
+      "emergencyInfo": "¿Emergencia? Llame al 9-1-1 | Línea provincial de violencia: 1-800-363-9010",
+      "getSupportButton": "Obtener ayuda ahora"
+    },
+    "cta": {
+      "title": "Únase a nosotros para marcar la diferencia",
+      "description": "Cada donación nos ayuda a proporcionar seguridad, apoyo y esperanza a mujeres y niños cuando más lo necesitan.",
+      "donateButton": "Donar ahora",
+      "learnMoreButton": "Más información"
+    }
+  },
+
+  "contact": {
+    "title": "Contáctenos",
+    "heroSubtitle": "Estamos aquí para ayudar. Comuníquese para obtener apoyo, información o para involucrarse.",
+    "confidentialNotice": "Todas las comunicaciones son confidenciales y seguras.",
+    "crisis": {
+      "title": "🚨 ¿EN CRISIS? OBTENGA AYUDA INMEDIATA",
+      "emergency": "Emergencia",
+      "crisisLine": "Línea de crisis 24/7",
+      "shieldOfAthena": "Shield of Athena"
+    },
+    "getInTouch": {
+      "title": "Póngase en contacto",
+      "description": "Shield of Athena ofrece servicios de apoyo multilingües a víctimas de violencia doméstica. Contáctenos para asistencia confidencial, información sobre nuestros programas o para saber cómo puede ayudar."
+    },
+    "offices": {
+      "montreal": {
+        "title": "Oficina de Montreal",
+        "address": "Dirección: [Dirección de Montreal]",
+        "phone": "Teléfono: 514-274-8117",
+        "tollFree": "Línea gratuita: 1-877-274-8117",
+        "hours": "Horario: Lun-Vie 9am-5pm"
+      },
+      "laval": {
+        "title": "Oficina de Laval",
+        "address": "Dirección: [Dirección de Laval]",
+        "phone": "Teléfono: 450-688-6584",
+        "sexualViolence": "Violencia sexual: 450-688-2117"
+      }
+    },
+    "digital": {
+      "title": "Contacto digital",
+      "website": "Sitio web: shieldofathena.com",
+      "email": "Correo: info@shieldofathena.com",
+      "newsletter": "Boletín: Suscríbase para recibir actualizaciones"
+    },
+    "languages": {
+      "title": "Idiomas que hablamos",
+      "description": "Nuestro personal multilingüe brinda servicios en los siguientes idiomas:"
+    },
+    "form": {
+      "title": "Envíenos un mensaje",
+      "description": "Complete el formulario a continuación y le responderemos lo antes posible. Toda la información se mantiene estrictamente confidencial.",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "inquiryType": "Tipo de consulta",
+      "inquiryTypes": {
+        "select": "Seleccione tipo de consulta...",
+        "crisis": "Necesita apoyo en crisis",
+        "shelter": "Información sobre refugio de emergencia",
+        "counseling": "Servicios de consejería",
+        "legal": "Asistencia legal",
+        "volunteer": "Oportunidades de voluntariado",
+        "donation": "Información de donaciones",
+        "general": "Información general"
+      },
+      "language": "Idioma preferido para la respuesta",
+      "message": "Mensaje",
+      "messagePlaceholder": "Describa cómo podemos ayudarle...",
+      "privacy": "Entiendo que toda la información proporcionada se mantendrá confidencial y se utilizará solo para responder a mi consulta.",
+      "submit": "Enviar mensaje",
+      "requiredFields": "* Campos obligatorios | Tiempo de respuesta: 24-48 horas en días laborales"
+    },
+    "otherWays": {
+      "title": "Otras formas de contactar",
+      "visitOffices": {
+        "title": "Visite nuestras oficinas",
+        "description": "Atendemos sin cita durante el horario de oficina. No es necesario cita para apoyo en crisis.",
+        "note": "Ubicaciones en Montreal y Laval disponibles"
+      },
+      "supportLines": {
+        "title": "Líneas de apoyo 24/7",
+        "description": "Apoyo en crisis disponible en todo momento a través de nuestras organizaciones asociadas.",
+        "note": "Soporte multilingüe disponible"
+      },
+      "events": {
+        "title": "Eventos comunitarios",
+        "description": "Conozca a nuestro equipo en eventos de divulgación comunitaria y sesiones informativas.",
+        "note": "Consulte nuestro calendario para eventos próximos"
+      }
+    },
+    "finalCta": {
+      "title": "¿Listo para recibir ayuda o involucrarse?",
+      "description": "No espere. Comuníquese hoy para apoyo confidencial o para saber cómo puede marcar la diferencia.",
+      "callButton": "Llamar ahora: 514-274-8117",
+      "resourcesButton": "Recursos de emergencia"
+    }
+  },
+
+  "resources": {
+    "title": "¿Es usted una víctima?",
+    "heroSubtitle": "Obtenga ayuda y apoyo inmediato. No está sola.",
+    "legalNotice": "La violencia doméstica es un delito en Canadá. Tiene derecho a vivir sin violencia.",
+    "emergency": {
+      "title": "NÚMEROS DE EMERGENCIA IMPORTANTES",
+      "immediate": {
+        "title": "Emergencia inmediata",
+        "police": "Policía",
+        "sosViolence": "S.O.S. Violencia conyugal"
+      },
+      "shieldOfAthena": {
+        "title": "Shield of Athena",
+        "montreal": "Oficina de Montreal",
+        "laval": "Oficina de Laval"
+      },
+      "sexualViolence": {
+        "title": "Apoyo multilingüe para violencia sexual",
+        "montreal": "Montreal",
+        "laval": "Laval"
+      },
+      "confidentialNotice": "Todas las llamadas son confidenciales y gratuitas • Disponible en varios idiomas"
+    },
+    "quickHelp": {
+      "title": "Obtenga ayuda ahora - Pregúntese",
+      "emergency": {
+        "title": "🚨 ¿Es una situación de emergencia?",
+        "description": "Si está en peligro inmediato o alguien la amenaza ahora mismo.",
+        "callImmediately": "LLAME INMEDIATAMENTE:",
+        "policeNote": "La policía está preparada para manejar situaciones violentas y no la culpará."
+      },
+      "shelter": {
+        "title": "🏠 ¿Necesita refugio de emergencia?",
+        "description": "Alojamiento seguro para usted y sus hijos, disponible hasta dos meses.",
+        "officeHours": "HORARIO DE OFICINA (Lun-Vie, 9am-5pm):",
+        "afterHours": "Fuera de horario: Llame a S.O.S. Violencia conyugal al 514-873-9010"
+      },
+      "talk": {
+        "title": "💬 ¿Necesita hablar con alguien?",
+        "description": "Consejería profesional y grupos de apoyo en varios idiomas.",
+        "counselingAvailable": "CONSEJERÍA DISPONIBLE EN:",
+        "languages": "Árabe • Armenio • Inglés • Francés • Español • Griego • Ruso • Farsi • Turco • Urdu • Italiano • Rumano • Hindi • Punjabi • Criollo"
+      },
+      "children": {
+        "title": "👶 ¿Sufren sus hijos?",
+        "description": "Programas y actividades especializadas para ayudar a niños afectados por la violencia familiar.",
+        "services": "SERVICIOS PARA NIÑOS:",
+        "servicesList": "Cuidado infantil seguro • Actividades educativas • Consejería por trauma • Apoyo apropiado para la edad"
+      }
+    },
+    "safety": {
+      "title": "Guía de planificación de seguridad",
+      "description": "Tener un plan de protección puede ayudarle a reaccionar rápida y seguramente en situaciones peligrosas.",
+      "afterLeaving": {
+        "title": "Si ya no está con su pareja",
+        "steps": {
+          "0": "Notifique a vecinos y al propietario que su pareja ya no vive con usted",
+          "1": "Cambie sus cerraduras inmediatamente",
+          "2": "Asegure todos los puntos de entrada (ventanas, puertas)",
+          "3": "Consiga un número de teléfono confidencial",
+          "4": "Encuéntrese con su expareja sólo en lugares públicos",
+          "5": "Organice lugares neutrales para visitas de los niños",
+          "6": "Informe a la escuela/guardería sobre las personas autorizadas para recoger a sus hijos"
+        }
+      },
+      "stillTogether": {
+        "title": "Si todavía está con su pareja",
+        "steps": {
+          "0": "Planifique a dónde ir en caso de emergencia (amigo, familiar, refugio)",
+          "1": "Cree una palabra clave con alguien de confianza",
+          "2": "Abra una cuenta bancaria secreta",
+          "3": "Memorice números de refugio y líneas de crisis",
+          "4": "Reconozca señales de advertencia de escalada de violencia",
+          "5": "Nunca se vaya sin sus hijos",
+          "6": "Prepare y oculte un kit de salida"
+        }
+      },
+      "departureKit": {
+        "title": "Kit de salida de emergencia",
+        "description": "Mantenga estos artículos en un lugar seguro (casa de un amigo, familiar o lugar seguro):",
+        "legal": {
+          "title": "Documentos legales",
+          "items": {
+            "0": "Certificado de matrimonio",
+            "1": "Certificados de nacimiento",
+            "2": "Tarjetas de seguro social",
+            "3": "Tarjetas Medicare",
+            "4": "Documentos de inmigración",
+            "5": "Escrituras/contrato de alquiler/hipoteca"
+          }
+        },
+        "essentials": {
+          "title": "Esenciales",
+          "items": {
+            "0": "Dinero en efectivo",
+            "1": "Libretas bancarias y tarjetas de crédito",
+            "2": "Llaves de casa y coche",
+            "3": "Medicamentos",
+            "4": "Ropa para usted y los niños"
+          }
+        },
+        "personal": {
+          "title": "Objetos personales",
+          "items": {
+            "0": "Números de teléfono importantes",
+            "1": "Juguetes favoritos de los niños",
+            "2": "Joyas/fotos valiosas",
+            "3": "Objetos de consuelo"
+          }
+        }
+      }
+    },
+    "finalMessage": {
+      "title": "No estás sola",
+      "description": "Apoyo profesional y multilingüe disponible 24/7. Da el primer paso hacia la seguridad.",
+      "emergencyButton": "Emergencia: Llame al 9-1-1",
+      "shieldButton": "Shield of Athena: 514-274-8117",
+      "confidentialNote": "Todos los servicios son confidenciales y están disponibles en varios idiomas"
+    }
+  },
+
+  "thank": {
+    "title": "Tu generosidad es contagiosa",
+    "subtitle": "Las sobrevivientes sentirán esta noche lo que elegiste dar hoy. Invita a tu círculo a mantener viva la cadena de cuidado—cada emoji compartido despierta un nuevo acto de coraje."
+  },
+
+  "landing": {
+    "banner": {
+      "donorTypes": {
+        "familyProtector": "👨‍👩‍👧Protector Familiar",
+        "hopeGiver": "🌟Donante de Esperanza",
+        "changeMaker": "💪Agente de Cambio"
+      },
+      "donationMessage": "acaba de donar",
+      "safetyWeeksMessage": "y ha proporcionado {weeks} semanas de seguridad a una familia ✨",
+      "mainHeading": "LEVANTA LA MANO",
+      "subHeading": "y di no a la violencia contra las mujeres",
+      "description": "Protege a una mujer esta noche. La violencia doméstica no espera al mañana. Tu apoyo brinda seguridad, comida y esperanza — ahora."
+    },
+    "cta": {
+      "title": "No esperes. Alguien te necesita esta noche.",
+      "description": "Tu donación proporciona seguridad, comida y esperanza inmediatas.",
+      "buttonText": "Protege a una mujer esta noche",
+      "tagline": "Personas como tú protegen a las mujeres."
+    },
+    "target": {
+      "monthlyGoal": "META MENSUAL :",
+      "goalSuffix": " / 100 000$"
+    }
+  },
+
+  "donation": {
+    "hero": {
+      "monthlyGoal": "Progreso de la meta mensual",
+      "goalDescription": "Hemos alcanzado {percentage}% de nuestra meta de alojar a {target} familias",
+      "donationsThisWeek": "{count} donaciones esta semana",
+      "familiesHelped": "{current} de {target} familias ayudadas este mes",
+      "chooseImpact": "Elige tu impacto",
+      "impactDescription": "En lugar de cantidades arbitrarias, vea la diferencia real que hará",
+      "customAmount": "Cantidad personalizada - Tu impacto",
+      "customDescription": "Elige cualquier monto y ve tu impacto personalizado",
+      "amountLabel": "Monto (CAD):",
+      "sliderLabel": "O usa el control deslizante:",
+      "yourImpactProvides": "Tu {amount} proporciona:",
+      "donateNow": "Donar ahora",
+      "learnMore": "Más información",
+      "oneNightSafety": "Una noche de seguridad",
+      "oneNightBenefits": [
+        "1 noche de refugio",
+        "Sesión de consejería",
+        "Una comida caliente"
+      ],
+      "weekTransformation": "Semana de transformación",
+      "weekBenefits": [
+        "7 noches de refugio",
+        "Taller de formación laboral",
+        "Consulta legal"
+      ],
+      "monthStability": "Mes de estabilidad",
+      "monthBenefits": [
+        "30 días de refugio",
+        "Apoyo de salud mental",
+        "Cuidado infantil"
+      ],
+      "mostPopular": "Más popular"
+    },
+    "animation": {
+      "title": "Llevas luz a la hora más oscura de alguien",
+      "message": "Gracias por hacer un hogar seguro esta noche..."
+    },
+    "learnMore": {
+      "thisMonth": "Impacto de este mes",
+      "thisMonthDescription": "Resultados en tiempo real gracias a la generosidad de tu comunidad",
+      "mealsServed": "Comidas servidas",
+      "familiesHoused": "Familias alojadas",
+      "counselingSessions": "Sesiones de consejería",
+      "whyTrustUs": "Por qué confiar en nosotros",
+      "awardWinner": "Ganador del Premio de Impacto Comunitario 2023",
+      "mediaFeatures": "Visto en CBC, CTV, Montreal Gazette",
+      "yearsService": "34 años de servicio confiable",
+      "statistic": "1 de cada 3 mujeres experimenta violencia doméstica (Stats Canada, 2022)",
+      "donateNow": "Donar ahora"
+    },
+    "upsell": {
+      "yourCareMatters": "Tu cuidado importa",
+      "stayWithHer": "¿Quedarte con ella un poco más?",
+      "empathy1": "Te vemos presentarte, incluso cuando es difícil.",
+      "empathy2": "Cada dólar es un salvavidas para una sobreviviente esta noche.",
+      "empathy3": "Tu compasión mantiene las puertas abiertas y las luces encendidas.",
+      "encouragementText": "Tu donación de {currentAmount} mantiene a una sobreviviente segura por un momento. Añadir {additionalAmount} cubre otra noche de calor, una comida y consejería.",
+      "extraBenefitsTitle": "Lo que puede ofrecer $75 extra:",
+      "benefit1": "Una cama cálida y comidas nutritivas para una madre y su hijo.",
+      "benefit2": "Dos sesiones de consejería informadas en trauma.",
+      "benefit3": "Transporte a un apartamento seguro o asistencia en tribunal.",
+      "togetherText": "Juntos, podemos convertir {currentAmount} en {newAmount} y cubrir su semana completa de cuidados.",
+      "makeChange": "Haz la diferencia",
+      "keepCurrent": "No, mantén mi {amount}"
+    },
+    "payment": {
+      "changeDonation": "Cambiar tu donación",
+      "monthlyProcessing": "Procesaremos ${amount} mensualmente + tarifas, a menos que canceles.",
+      "oneTimeDonation": "Donación única de ${amount}",
+      "yourImpact": "Tu impacto:",
+      "youChoseSupport": "Elegiste apoyar:",
+      "donorInfo": "Información del donante",
+      "paymentMethod": "Método de pago",
+      "fundingDestination": "Dirigir mi donación a",
+      "paymentDetails": "Detalles de pago",
+      "destinationMostNeeded": "Donde más se necesita",
+      "destinationMostNeededHelper": "Dirigiremos tu donación a los casos más urgentes hoy.",
+      "destinationMeals": "Comidas y nutrición",
+      "destinationMealsHelper": "Proporciona comidas calientes, comestibles y artículos básicos.",
+      "destinationCounselling": "Consejería",
+      "destinationCounsellingHelper": "Financia terapia informada en trauma y consejería en crisis.",
+      "destinationChildcare": "Cuidado infantil",
+      "destinationChildcareHelper": "Cubre cuidado infantil seguro mientras las madres asisten a citas.",
+      "destinationHousing": "Alojamiento seguro",
+      "destinationHousingHelper": "Apoya noches en refugio, depósitos y mudanzas seguras.",
+      "demoDataHint": "Ctrl+P",
+      "processingDonation": "Procesando tu donación...",
+      "completeDonation": "Completar donación",
+      "contactInfo": "Información de contacto",
+      "yourSupport": "Tu apoyo",
+      "supportDescription": "Ayudando a las sobrevivientes a encontrar seguridad y esperanza",
+      "yourDonation": "Tu donación:",
+      "total": "Total:",
+      "cancel": "Cancelar",
+      "donateNow": "Donar ahora"
+    },
+    "certificate": {
+      "anonymousSupporter": "Donante anónimo"
+    }
+  },
+
+  "problem": {
+    "title": "Esta noche, cientos de mujeres y niños en Montreal dormirán con miedo.",
+    "cards": {
+      "noSafety": {
+        "title": "Sin seguridad",
+        "description": "Vivir con temor constante a la violencia en entornos inseguros"
+      },
+      "nowhereToGo": {
+        "title": "Sin lugar a donde ir",
+        "description": "Atrapadas y en riesgo de violencia en cualquier momento"
+      },
+      "noSupport": {
+        "title": "Sin apoyo",
+        "description": "Aisladas y sin recursos para ayudarlas a escapar de la violencia"
+      }
+    },
+    "summary": "Muchas no tienen a dónde ir. Sin seguridad. Sin comida. Sin apoyo.",
+    "cta": "Ayúdalas ahora",
+    "tagline": "Eres del tipo de persona que no mira hacia otro lado."
+  },
+
+  "product": {
+    "title": "Tu donación crea una noche de seguridad.",
+    "subtitle": "Cada dólar apoya directamente a una mujer necesitada.",
+    "impactBadge": {
+      "percentage": "El 80% de los fondos van directamente a programas",
+      "description": "El 20% restante sostiene las operaciones (personal, instalaciones, línea de ayuda)"
+    },
+    "tiers": {
+      "oneNight": {
+        "amount": "$35",
+        "title": "Una noche segura",
+        "description": "Una cama caliente en un refugio seguro"
+      },
+      "therapy": {
+        "amount": "$50",
+        "title": "Sesión inicial de terapia",
+        "description": "Comienza el camino de la sanación"
+      },
+      "family": {
+        "amount": "$100",
+        "title": "Apoyo para una familia",
+        "description": "Un día completo para madre y niño"
+      }
+    },
+    "cta": "Haz tu impacto hoy",
+    "tagline": "Eres del tipo de persona que no mira hacia otro lado."
+  },
+
+  "solution": {
+    "title": "Casa de Atenea: Un salvavidas para las sobrevivientes.",
+    "subtitle": "Brindamos apoyo inmediato y completo cuando más importa.",
+    "stats": {
+      "womenSupported": "Mujeres atendidas el año pasado",
+      "hotlineAvailability": "Línea de emergencia disponible",
+      "yearsServing": "Años sirviendo a Montreal"
+    },
+    "services": {
+      "shelter": {
+        "title": "Refugios de emergencia",
+        "description": "Camas seguras disponibles 24/7 para mujeres y niños que huyen de la violencia."
+      },
+      "meals": {
+        "title": "Comidas calientes",
+        "description": "Comida nutritiva ofrecida diariamente para satisfacer necesidades básicas."
+      },
+      "therapy": {
+        "title": "Terapia y apoyo por trauma",
+        "description": "Consejería profesional para ayudar a sanar y reconstruir el bienestar emocional."
+      },
+      "legal": {
+        "title": "Orientación legal",
+        "description": "Apoyo legal experto para navegar órdenes de protección y asuntos de custodia."
+      },
+      "outreach": {
+        "title": "Alcance comunitario multilingüe",
+        "description": "Apoyo en varios idiomas para servir a la comunidad diversa de Montreal."
+      }
+    },
+    "cta": "Ofrece una noche de seguridad",
+    "tagline": "Personas como tú protegen a las mujeres."
+  },
+
+  "footer": {
+    "emergency": {
+      "title": "NÚMEROS IMPORTANTES",
+      "police": "Policía",
+      "sosViolence": "S.O.S. Violencia conyugal",
+      "shieldMontrealOffice": "Oficina Shield of Athena en Montreal",
+      "shieldLavalOffice": "Oficina Shield of Athena en Laval",
+      "multilingualSupport": "Líneas de apoyo multilingües para violencia sexual del Shield",
+      "confidentialNotice": "Todas las llamadas son confidenciales y gratuitas | Varios idiomas disponibles"
+    },
+    "organization": {
+      "name": "Shield of Athena",
+      "subtitle": "Bouclier d'Athéna | Fundada 1991",
+      "description": "Una organización sin fines de lucro registrada que brinda servicios integrales de apoyo a sobrevivientes de violencia doméstica y sus hijos. Ofrecemos refugio de emergencia, consejería profesional, defensa legal y recursos comunitarios en un entorno seguro y confidencial.",
+      "montrealOffice": "Oficina de Montreal:",
+      "lavalOffice": "Oficina de Laval:",
+      "email": "Correo:",
+      "languages": "Idiomas:",
+      "languagesList": "Inglés, Francés, Español, Árabe, Griego"
+    },
+    "services": {
+      "title": "Nuestros servicios",
+      "emergencyShelter": "Refugio de emergencia (24/7)",
+      "professionalCounseling": "Consejería profesional",
+      "legalAdvocacy": "Defensa legal",
+      "childrensPrograms": "Programas para niños",
+      "safetyPlanning": "Planificación de seguridad",
+      "communityOutreach": "Alcance comunitario"
+    },
+    "information": {
+      "title": "Información",
+      "aboutMission": "Sobre nuestra misión",
+      "safetyResources": "Recursos de seguridad",
+      "makeDonation": "Haz una donación",
+      "volunteerOpportunities": "Oportunidades de voluntariado",
+      "getInTouch": "Ponte en contacto",
+      "privacySafety": "Privacidad y seguridad"
+    },
+    "legal": {
+      "copyright": "© 2024 Shield of Athena / Bouclier d'Athéna. Todos los derechos reservados.",
+      "privacyPolicy": "Política de privacidad",
+      "termsOfService": "Términos de servicio",
+      "accessibility": "Accesibilidad",
+      "mediaInquiries": "Consultas de medios",
+      "trustMessage": "Confidencial. Profesional. Confiable.",
+      "priorityMessage": "Su seguridad y privacidad son nuestras máximas prioridades."
+    }
+  },
+  "navigation": {
+    "home": "Inicio",
+    "aboutUs": "Sobre nosotros",
+    "resources": "Recursos",
+    "contact": "Contacto",
+    "donate": "Donar ahora"
+  },
+  "stories": {
+    "title": "Historias de esperanza",
+    "subtitle": "Historias reales de sobrevivientes a quienes ayudamos a reconstruir sus vidas",
+    "carousel": {
+      "story1": {
+        "name": "La historia de Amina",
+        "quote": "La semana pasada, Amina llegó a nuestro refugio temblando y descalza después de escapar de una situación peligrosa. Su donación le dio una cama caliente y una puerta cerrada con llave que nadie pudo forzar."
+      },
+      "story2": {
+        "name": "La historia de Sarah",
+        "quote": "Sarah apareció a medianoche con sus dos hijos, sin otro lugar a donde acudir. Gracias a donantes como usted, teníamos una habitación lista — segura, cálida y en espera."
+      },
+      "story3": {
+        "name": "La historia de Fatima",
+        "quote": "Fatima llamó a nuestra línea desde un estacionamiento a las 3 AM, aterrorizada de volver a casa. Su generosidad hizo posible que nuestro equipo la llevara a un lugar seguro en menos de 20 minutos."
+      }
+    }
+  },
+  "thankYou": {
+    "chart": {
+      "title": "Tu impacto",
+      "description": "Así es como se utilizará su dinero",
+      "amountLabel": "Monto",
+      "categories": {
+        "shelter": "Refugio",
+        "food": "Comida",
+        "multilingualServices": "Servicios multilingües",
+        "publicAwareness": "Concienciación pública"
+      }
+    },
+    "share": {
+      "title": "Comparte tu impacto",
+      "facebook": "Facebook",
+      "twitter": "X",
+      "linkedin": "LinkedIn",
+      "instagram": "Instagram"
+    },
+    "header": {
+      "hopeBlossom": "Hope Blossom desbloqueado",
+      "copySticker": "Copiar sticker y mensaje",
+      "copiedSuccess": "Copiado al portapapeles ✨",
+      "shareOneTap": "Compartir con un toque",
+      "shareFromDevice": "Compartir desde este dispositivo",
+      "summoning": "Invocando un nuevo Blossom...",
+      "fallbackMessage": "No pudimos crear un Blossom fresco. Mostrando uno clásico en su lugar.",
+      "clipboardError": "El portapapeles no está disponible en este dispositivo",
+      "copyError": "No se pudo copiar el mensaje. Intente otra opción de compartir.",
+      "shareError": "El intercambio se interrumpió. Intente nuevamente o copie el mensaje.",
+      "shareMessage": "Acabo de desbloquear {label} {emoji} ({trait}) con Athena Network para que más familias puedan sentirse seguras esta noche. Únete a mí y enciende otro acto de cuidado: {url}",
+      "tipMessage": "💡 Consejo: Publica el Blossom en tus historias con #HopeBlossoms para que podamos celebrarte públicamente (con tu permiso).",
+      "paletteLabel": "Paleta",
+      "shareTargets": {
+        "x": "Compartir en X",
+        "facebook": "Compartir en Facebook",
+        "linkedin": "Compartir en LinkedIn",
+        "whatsapp": "Compartir en WhatsApp"
+      }
+    }
+  },
+  "budgetChart": {
+    "title": "Lo que apoya tu donación",
+    "description": "Desglose transparente de cómo usamos tus donaciones para apoyar nuestra misión.",
+    "viewReport": "Ver informe financiero completo",
+    "categoryLabel": "Categoría",
+    "categories": {
+      "directServices": {
+        "name": "Servicios directos",
+        "details": [
+          "Refugio de emergencia para mujeres y niños",
+          "Intervención en crisis",
+          "Consejería / terapia",
+          "Apoyo multilingüe",
+          "Seguimiento por trabajadora social",
+          "Planificación de seguridad y manejo de casos"
+        ]
+      },
+      "operations": {
+        "name": "Operaciones y administración",
+        "details": [
+          "Salarios del personal (admin, finanzas, RRHH)",
+          "Costos de edificios para refugios y oficinas",
+          "Servicios, transporte, seguros",
+          "Coordinación de voluntarios",
+          "Sistemas de TI",
+          "Cumplimiento financiero y legal"
+        ]
+      },
+      "outreach": {
+        "name": "Alcance y prevención",
+        "details": [
+          "Campañas de concienciación comunitaria",
+          "Programas educativos en escuelas",
+          "Capacitación para líderes comunitarios",
+          "Material de divulgación multilingüe",
+          "Construcción de alianzas",
+          "Trabajo de prevención y defensa"
+        ]
+      }
+    }
+  },
+  "certificate": {
+    "downloadPdf": "Descargar certificado",
+    "downloading": "Generando...",
+    "shareImpact": "Comparte tu impacto",
+    "socialMedia": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "messages": "Mensajes"
+    },
+    "loading": "Su certificado aún se está cargando. Por favor, inténtelo de nuevo en un momento.",
+    "generateError": "Error al generar el certificado. Por favor, inténtelo de nuevo.",
+    "instagramCopyMessage": "Texto para compartir copiado al portapapeles. Abra Instagram para pegar y compartir.",
+    "close": "Cerrar",
+    "anonymousSupporter": "Donante anónimo"
+  },
+  "common": {
+    "donateNow": "Donar ahora",
+    "logoAlt": "Logo de Atenea"
+  },
+  "donationForm": {
+    "title": "Formulario de donación",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "email": "Correo electrónico",
+    "amount": "Monto",
+    "donate": "Donar",
+    "submitted": "¡Donación enviada!"
+  }
 }
