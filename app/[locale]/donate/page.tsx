@@ -228,7 +228,7 @@ export default function Donate() {
         showPaymentModal={showPaymentModal}
         selectedTier={selectedTier}
         customAmount={customAmount}
-        setPaymentErrors={setPaymentErrors}
+        // setPaymentErrors={setPaymentErrors}
         setShowPaymentModal={setShowPaymentModal}
         impact={impact}
         donorInfo={donorInfo}

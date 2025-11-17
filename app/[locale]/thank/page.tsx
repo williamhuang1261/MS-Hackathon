@@ -110,7 +110,6 @@ const ThankYouPage = () => {
                 amount={Math.round(donationAmount)}
                 impactDescription={donationImpact}
                 tier={certificateTier}
-                className="h-full"
               />
             </div>
           </div>
