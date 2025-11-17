@@ -1,92 +1,110 @@
-'use client'
+"use client";
 
-import React from 'react'
-import { PieChart, Pie, Cell, ResponsiveContainer, Label, Sector } from 'recharts'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
-import { Button } from './ui/button'
-import { FileText } from 'lucide-react'
-import type { PieSectorDataItem } from 'recharts/types/polar/Pie'
+import React from "react";
+import { useTranslations } from "next-intl";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  Label,
+  Sector,
+} from "recharts";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { Button } from "./ui/button";
+import { FileText } from "lucide-react";
+import type { PieSectorDataItem } from "recharts/types/polar/Pie";
 
 type Category = {
-  name: string
-  value: number
-  details: string[]
-}
-
-const data: Category[] = [
-  { 
-    name: 'Direct Services', 
-    value: 70, 
-    details: [
-      'Emergency shelter for women & children',
-      'Crisis intervention',
-      'Counselling / therapy',
-      'Multilingual support',
-      'Social worker follow-ups',
-      'Safety planning & case management',
-    ],
-  },
-  { 
-    name: 'Operations & Administration', 
-    value: 18, 
-    details: [
-      'Staff salaries (admin, finance, HR)',
-      'Building costs for shelters and offices',
-      'Utilities, transportation, insurance',
-      'Volunteer coordination',
-      'IT systems',
-      'Financial and legal compliance',
-    ],
-  },
-  { 
-    name: 'Outreach & Prevention', 
-    value: 12, 
-    details: [
-      'Community awareness campaigns',
-      'Educational programs in schools',
-      'Training for community leaders',
-      'Multilingual awareness material',
-      'Partnership building',
-      'Prevention & advocacy work',
-    ],
-  },
-]
+  name: string;
+  value: number;
+  details: string[];
+};
 
 // Distinguishable violet palette (deep violet, vivid violet, soft lavender)
-const COLORS = ['#4B1F66', '#7C3AED', '#C6B1E7']
+const COLORS = ["#4B1F66", "#7C3AED", "#C6B1E7"];
 
 export default function BudgetBreakdownChart() {
-  const [activeIndex, setActiveIndex] = React.useState(0)
-  const active = React.useMemo(() => data[activeIndex], [activeIndex])
+  const t = useTranslations("budgetChart");
+  const [activeIndex, setActiveIndex] = React.useState(0);
 
-  const onSliceEnter = (_: unknown, index: number) => setActiveIndex(index)
+  const data: Category[] = [
+    {
+      name: t("categories.directServices.name"),
+      value: 70,
+      details: [
+        t("categories.directServices.details.0"),
+        t("categories.directServices.details.1"),
+        t("categories.directServices.details.2"),
+        t("categories.directServices.details.3"),
+        t("categories.directServices.details.4"),
+        t("categories.directServices.details.5"),
+      ],
+    },
+    {
+      name: t("categories.operations.name"),
+      value: 18,
+      details: [
+        t("categories.operations.details.0"),
+        t("categories.operations.details.1"),
+        t("categories.operations.details.2"),
+        t("categories.operations.details.3"),
+        t("categories.operations.details.4"),
+        t("categories.operations.details.5"),
+      ],
+    },
+    {
+      name: t("categories.outreach.name"),
+      value: 12,
+      details: [
+        t("categories.outreach.details.0"),
+        t("categories.outreach.details.1"),
+        t("categories.outreach.details.2"),
+        t("categories.outreach.details.3"),
+        t("categories.outreach.details.4"),
+        t("categories.outreach.details.5"),
+      ],
+    },
+  ];
+
+  const active = React.useMemo(() => data[activeIndex], [activeIndex, data]);
+
+  const onSliceEnter = (_: unknown, index: number) => setActiveIndex(index);
 
   // Rotate the active category every 3 seconds
   React.useEffect(() => {
     const id = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % data.length)
-    }, 3000)
-    return () => clearInterval(id)
-  }, [])
+      setActiveIndex((prev) => (prev + 1) % data.length);
+    }, 3000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle className="text-2xl font-serif">What Your Donation Supports</CardTitle>
-        <CardDescription>
-          Transparent breakdown of how we use your donations to support our mission.
-        </CardDescription>
+        <CardTitle className="text-2xl font-serif">{t("title")}</CardTitle>
+        <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="flex flex-col md:flex-row items-center justify-center gap-8">
           {/* Details panel on the left so it doesn't cover the chart */}
           <div className="w-full md:w-[300px] order-2 md:order-1">
-            <div className="rounded-xl border-2 border-athena-violet/20 bg-gradient-to-br from-warm-blush/40 via-lavender-mist/35 to-warm-blush/20 p-5 shadow-sm">
-              <p className="text-xs uppercase tracking-wider text-athena-violet/80 mb-1">Category</p>
-              <p className="text-2xl font-bold text-athena-violet mb-3">{active.name}</p>
+            <div className="rounded-xl border-2 border-athena-violet/20 bg-linear-to-br from-warm-blush/40 via-lavender-mist/35 to-warm-blush/20 p-5 shadow-sm">
+              <p className="text-xs uppercase tracking-wider text-athena-violet/80 mb-1">
+                {t("categoryLabel")}
+              </p>
+              <p className="text-2xl font-bold text-athena-violet mb-3">
+                {active.name}
+              </p>
               {/* Static bullet list for current category */}
               {Array.isArray(active.details) && (
-                <div className="min-h-[56px]">
+                <div className="min-h-14">
                   <ul className="space-y-2">
                     {active.details.map((d, i) => (
                       <li key={i} className="flex items-start gap-2">
@@ -94,7 +112,9 @@ export default function BudgetBreakdownChart() {
                           className="mt-2 inline-block h-2 w-2 rounded-full"
                           style={{ backgroundColor: COLORS[activeIndex] }}
                         />
-                        <p className="text-sm leading-relaxed text-soft-charcoal">{d}</p>
+                        <p className="text-sm leading-relaxed text-soft-charcoal">
+                          {d}
+                        </p>
                       </li>
                     ))}
                   </ul>
@@ -119,7 +139,10 @@ export default function BudgetBreakdownChart() {
                   onMouseEnter={onSliceEnter}
                   {...({
                     activeIndex,
-                    activeShape: ({ outerRadius = 0, ...props }: PieSectorDataItem) => (
+                    activeShape: ({
+                      outerRadius = 0,
+                      ...props
+                    }: PieSectorDataItem) => (
                       <g>
                         <Sector {...props} outerRadius={outerRadius + 10} />
                         <Sector
@@ -132,11 +155,14 @@ export default function BudgetBreakdownChart() {
                   } as any)}
                 >
                   {data.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={COLORS[index % COLORS.length]}
+                    />
                   ))}
                   <Label
                     content={({ viewBox }) => {
-                      if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
+                      if (viewBox && "cx" in viewBox && "cy" in viewBox) {
                         return (
                           <text
                             x={viewBox.cx}
@@ -152,9 +178,9 @@ export default function BudgetBreakdownChart() {
                               {active.value}%
                             </tspan>
                           </text>
-                        )
+                        );
                       }
-                      return null
+                      return null;
                     }}
                   />
                 </Pie>
@@ -168,23 +194,31 @@ export default function BudgetBreakdownChart() {
               <div
                 key={item.name}
                 className={`flex items-center gap-3 cursor-pointer select-none px-2 py-1 rounded-md transition
-                  ${activeIndex === index ? 'bg-lavender-mist/30 ring-1 ring-athena-violet/30' : 'hover:bg-lavender-mist/20'}`}
+                  ${
+                    activeIndex === index
+                      ? "bg-lavender-mist/30 ring-1 ring-athena-violet/30"
+                      : "hover:bg-lavender-mist/20"
+                  }`}
                 onMouseEnter={() => setActiveIndex(index)}
                 onClick={() => setActiveIndex(index)}
                 tabIndex={0}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') setActiveIndex(index)
+                  if (e.key === "Enter" || e.key === " ") setActiveIndex(index);
                 }}
                 aria-pressed={activeIndex === index}
                 role="button"
               >
                 <div
-                  className="w-4 h-4 rounded-full flex-shrink-0"
+                  className="w-4 h-4 rounded-full shrink-0"
                   style={{ backgroundColor: COLORS[index] }}
                 />
                 <div className="flex-1 text-center md:text-left">
                   {/* Legend item: name only (no numbers, no subtitles) */}
-                  <p className={`font-semibold text-foreground ${activeIndex === index ? 'text-athena-violet' : ''}`}>
+                  <p
+                    className={`font-semibold text-foreground ${
+                      activeIndex === index ? "text-athena-violet" : ""
+                    }`}
+                  >
                     {item.name}
                   </p>
                 </div>
@@ -194,12 +228,16 @@ export default function BudgetBreakdownChart() {
         </div>
 
         <Button variant="outline" className="w-full" asChild>
-          <a href="/financial-report.pdf" target="_blank" rel="noopener noreferrer">
+          <a
+            href="/financial-report.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <FileText className="mr-2 h-4 w-4" />
-            View Full Financial Report
+            {t("viewReport")}
           </a>
         </Button>
       </CardContent>
     </Card>
-  )
+  );
 }

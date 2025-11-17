@@ -1,7 +1,8 @@
-"use client"
+"use client";
 
 import { AnimatePresence } from "framer-motion";
 import React from "react";
+import { useTranslations } from "next-intl";
 import Certificate from "../Certificate";
 import { CertificateTier } from "@/lib/certificate-generator";
 
@@ -28,11 +29,13 @@ const CertificateReveal = ({
   completedDonation,
   onClose,
 }: Props) => {
+  const t = useTranslations("donation.certificate");
+
   return (
     <AnimatePresence>
       {showCertificate && completedDonation && (
         <Certificate
-          donorName={donorInfo.name || "Anonymous Supporter"}
+          donorName={donorInfo.name || t("anonymousSupporter")}
           amount={completedDonation.amount}
           impactDescription={completedDonation.impact}
           tier={completedDonation.tier}

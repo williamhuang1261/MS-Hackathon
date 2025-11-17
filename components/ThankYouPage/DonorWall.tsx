@@ -2,11 +2,11 @@
 
 import { FAKE_DONOR_NAMES } from "@/lib/fakeDonors";
 import { WordCloudProps } from "@isoterik/react-word-cloud";
-import LeftCloud from "./WordCloud/LeftCloud";
-import RightCloud from "./WordCloud/RightCloud";
-import Lotus from "./WordCloud/OldLotus";
-import LotusVideo from "./WordCloud/LotusVideo";
-import OldLotus from "./WordCloud/OldLotus";
+import LeftCloud from "../LandingPage/WordCloud/LeftCloud";
+import RightCloud from "../LandingPage/WordCloud/RightCloud";
+import Lotus from "../LandingPage/WordCloud/OldLotus";
+import LotusVideo from "../LandingPage/WordCloud/LotusVideo";
+import OldLotus from "../LandingPage/WordCloud/OldLotus";
 
 const formatDonorName = FAKE_DONOR_NAMES.map(({ text, value }) => {
   return {
@@ -34,7 +34,12 @@ interface Props {
   progress?: number;
 }
 
-const DonorWall = ({ width = 400, height = 200, handSize = 200, progress = 80}: Props) => {
+const DonorWall = ({
+  width = 400,
+  height = 200,
+  handSize = 200,
+  progress = 80,
+}: Props) => {
   return (
     <div className="w-full flex p-8 justify-center items-center">
       <div className="flex relative h-100 items-end">

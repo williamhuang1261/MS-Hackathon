@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import facebookLogo from "@/public/facebookLogo.svg";
 import xLogo from "@/public/xLogo.jpg";
 import linkedinLogo from "@/public/linkedinLogo.png";
@@ -68,6 +69,7 @@ const ThankYouHeader = ({
   softBackgroundColor = FALLBACK_PALETTE.colors[0],
   gradientBackground,
 }: ThankYouHeaderProps) => {
+  const t = useTranslations("thankYou.header");
   const searchParams = useSearchParams();
   const defaultShareUrl = useMemo(() => {
     const origin = process.env.NEXT_PUBLIC_SITE_URL || FALLBACK_SITE_URL;
@@ -102,12 +104,12 @@ const ThankYouHeader = ({
     `linear-gradient(135deg, ${paletteColors[0]}, ${paletteColors[1]})`;
   const themeVariables = useMemo(
     () =>
-    ({
-      "--thank-primary": primaryColor,
-      "--thank-accent": accentColor,
-      "--thank-soft": softBackgroundColor,
-      "--thank-gradient": computedGradient,
-    } as CSSProperties),
+      ({
+        "--thank-primary": primaryColor,
+        "--thank-accent": accentColor,
+        "--thank-soft": softBackgroundColor,
+        "--thank-gradient": computedGradient,
+      } as CSSProperties),
     [accentColor, computedGradient, primaryColor, softBackgroundColor]
   );
 
@@ -165,9 +167,7 @@ const ThankYouHeader = ({
         }
         console.error("Unable to load sticker", error);
         setSticker(FALLBACK_STICKER);
-        setStickerError(
-          "We couldn't craft a fresh Blossom. Showing a classic instead."
-        );
+        setStickerError(t("fallbackMessage"));
       } finally {
         setIsStickerLoading(false);
       }
@@ -185,8 +185,13 @@ const ThankYouHeader = ({
 
   const shareMessage = useMemo(
     () =>
-      `I just unlocked the ${sticker.label} ${heroEmoji} (${leadingTrait}) with Athena Network so more families can feel safe tonight. Join me and spark another act of care: ${shareUrl}`,
-    [heroEmoji, leadingTrait, shareUrl, sticker.label]
+      t("shareMessage", {
+        label: sticker.label,
+        emoji: heroEmoji,
+        trait: leadingTrait,
+        url: shareUrl,
+      }),
+    [t, heroEmoji, leadingTrait, shareUrl, sticker.label]
   );
 
   const encodedMessage = useMemo(
@@ -198,40 +203,40 @@ const ThankYouHeader = ({
   const shareTargets = useMemo(
     () => [
       {
-        name: "Share on X",
+        name: t("shareTargets.x"),
         icon: "✕",
         iconImage: xLogo,
         iconAlt: "X logo",
         href: `https://twitter.com/intent/tweet?text=${encodedMessage}`,
       },
       {
-        name: "Share on Facebook",
+        name: t("shareTargets.facebook"),
         icon: "📘",
         iconImage: facebookLogo,
         iconAlt: "Facebook logo",
         href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedMessage}`,
       },
       {
-        name: "Share on LinkedIn",
+        name: t("shareTargets.linkedin"),
         icon: "💼",
         iconImage: linkedinLogo,
         iconAlt: "LinkedIn logo",
         href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
       },
       {
-        name: "Share on WhatsApp",
+        name: t("shareTargets.whatsapp"),
         icon: "📱",
         iconImage: whatsappLogo,
         iconAlt: "WhatsApp logo",
         href: `https://api.whatsapp.com/send?text=${encodedMessage}`,
       },
     ],
-    [encodedMessage, encodedUrl]
+    [t, encodedMessage, encodedUrl]
   );
 
   const handleCopy = useCallback(async () => {
     if (typeof navigator === "undefined" || !navigator.clipboard) {
-      setShareError("Clipboard is unavailable on this device");
+      setShareError(t("clipboardError"));
       return;
     }
 
@@ -242,9 +247,9 @@ const ThankYouHeader = ({
       setTimeout(() => setCopied(false), 2500);
     } catch (error) {
       console.error("Unable to copy share message", error);
-      setShareError("Could not copy message. Try a different share option.");
+      setShareError(t("copyError"));
     }
-  }, [shareMessage]);
+  }, [shareMessage, t]);
 
   const handleNativeShare = useCallback(async () => {
     if (typeof navigator === "undefined" || !navigator.share) {
@@ -261,12 +266,10 @@ const ThankYouHeader = ({
     } catch (error) {
       if ((error as DOMException)?.name !== "AbortError") {
         console.error("Native share failed", error);
-        setShareError(
-          "Sharing was interrupted. Try again or copy the message."
-        );
+        setShareError(t("shareError"));
       }
     }
-  }, [handleCopy, shareMessage, shareUrl]);
+  }, [handleCopy, shareMessage, shareUrl, t]);
 
   return (
     <section
@@ -291,11 +294,11 @@ const ThankYouHeader = ({
         <span className="text-2xl" aria-hidden>
           {heroEmoji}
         </span>
-        Hope Blossom Unlocked
+        {t("hopeBlossom")}
       </div>
 
       <div
-        className="w-full max-w-4xl rounded-3xl border bg-white/90 p-8 shadow-2xl"
+        className="w-full rounded-3xl border bg-white/90 p-8 shadow-2xl"
         style={{ borderColor: "var(--thank-primary)" }}
       >
         <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]">
@@ -307,7 +310,7 @@ const ThankYouHeader = ({
             }}
           >
             <div
-              className="rounded-[32px] p-[3px]"
+              className="rounded-4xl p-[3px]"
               style={{ backgroundImage: "var(--thank-gradient)" }}
             >
               <div className="rounded-[28px] bg-white p-4">
@@ -361,7 +364,7 @@ const ThankYouHeader = ({
               className="mt-4 text-xs uppercase tracking-[0.3em]"
               style={{ color: "var(--thank-accent)" }}
             >
-              Palette
+              {t("paletteLabel")}
               <span
                 className="ml-2 font-semibold tracking-normal"
                 style={{ color: "var(--thank-primary)" }}
@@ -379,7 +382,7 @@ const ThankYouHeader = ({
                 style={{ color: "var(--thank-primary)", opacity: 0.8 }}
                 aria-live="polite"
               >
-                Summoning a fresh Blossom...
+                {t("summoning")}
               </p>
             )}
             {stickerError && (
@@ -388,15 +391,15 @@ const ThankYouHeader = ({
                 style={{ color: "var(--thank-primary)" }}
                 aria-live="assertive"
               >
-                {stickerError}
+                {t("fallbackMessage")}
               </p>
             )}
             <button
               type="button"
               onClick={handleCopy}
-              className="mt-6 w-full rounded-full bg-accent px-6 py-3 text-base font-semibold text-light-background shadow-md transition hover:bg-[color:var(--thank-primary)] hover:text-white"
+              className="mt-6 w-full rounded-full bg-accent px-6 py-3 text-base font-semibold text-light-background shadow-md transition hover:bg-primary hover:text-white"
             >
-              {copied ? "Copied to clipboard ✨" : "Copy sticker & message"}
+              {copied ? t("copiedSuccess") : t("copySticker")}
             </button>
             {shareError && (
               <p
@@ -421,7 +424,7 @@ const ThankYouHeader = ({
               className="text-left text-sm font-semibold uppercase tracking-widest"
               style={{ color: "var(--thank-primary)" }}
             >
-              Share with one tap
+              {t("shareOneTap")}
             </p>
             <div className="grid gap-4 md:grid-cols-4">
               {shareTargets.map((target) => (
@@ -431,7 +434,17 @@ const ThankYouHeader = ({
                   target="_blank"
                   rel="noreferrer"
                   aria-label={target.name}
-                  className="flex items-center justify-center rounded-2xl border bg-white p-4 text-[color:var(--thank-primary)] shadow-sm transition hover:-translate-y-0.5 hover:border-[color:var(--thank-primary)] hover:shadow-lg"
+                  className="flex items-center justify-center rounded-2xl border bg-white p-4 shadow-sm transition hover:-translate-y-0.5"
+                  style={{
+                    color: "var(--thank-primary)",
+                    borderColor: "transparent",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = "var(--thank-primary)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = "transparent";
+                  }}
                 >
                   {target.iconImage ? (
                     <Image
@@ -453,16 +466,22 @@ const ThankYouHeader = ({
             <button
               type="button"
               onClick={handleNativeShare}
-              className="mt-2 flex items-center justify-center gap-2 rounded-2xl border px-4 py-4 text-base font-semibold transition hover:bg-[color:var(--thank-soft)]"
+              className="mt-2 flex items-center justify-center gap-2 rounded-2xl border px-4 py-4 text-base font-semibold transition"
               style={{
                 borderColor: "var(--thank-primary)",
                 color: "var(--thank-primary)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "var(--thank-soft)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "transparent";
               }}
             >
               <span role="img" aria-hidden>
                 🚀
               </span>
-              Share from this device
+              {t("shareFromDevice")}
             </button>
 
             <div
@@ -473,8 +492,7 @@ const ThankYouHeader = ({
                 backgroundColor: "var(--thank-soft)",
               }}
             >
-              💡 Tip: Drop the Blossom into your stories with #HopeBlossoms so
-              we can celebrate you publicly (with your permission).
+              {t("tipMessage")}
             </div>
           </div>
         </div>

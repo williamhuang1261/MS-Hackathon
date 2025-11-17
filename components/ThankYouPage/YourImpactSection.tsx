@@ -1,6 +1,6 @@
-import React from 'react'
-import ChartPieLegend from '../Other/ChartPieLegend';
-import ShareSection from './ShareSection';
+import React from "react";
+import ChartPieLegend from "../Other/ChartPieLegend";
+import ShareSection from "./ShareSection";
 
 const YourImpactSection = () => {
   return (
@@ -11,4 +11,4 @@ const YourImpactSection = () => {
   );
 };
 
-export default YourImpactSection
+export default YourImpactSection;

@@ -1,7 +1,7 @@
-"use client"
-
+"use client";
 
 import { formatCurrency } from "@/lib/donation-utils";
+import { useTranslations } from "next-intl";
 import { Progress } from "../ui/progress";
 import { Slider } from "../ui/slider";
 import { motion } from "framer-motion";
@@ -21,28 +21,6 @@ import { Label } from "../ui/label";
 import { ArrowDown, Heart } from "lucide-react";
 
 const FEATURED_TIER_AMOUNT = 100;
-
-const IMPACT_TIERS = [
-  {
-    amount: 75,
-    title: "One Night of Safety",
-    benefits: ["1 night of shelter", "Counseling session", "A warm meal"],
-  },
-  {
-    amount: 100,
-    title: "Week of Transformation",
-    benefits: [
-      "7 nights shelter",
-      "Job training workshop",
-      "Legal consultation",
-    ],
-  },
-  {
-    amount: 500,
-    title: "Month of Stability",
-    benefits: ["30 days shelter", "Mental health support", "Childcare"],
-  },
-];
 
 const MONTHLY_GOAL = {
   target: 100,
@@ -81,6 +59,25 @@ const HeroSection = ({
   handleDonateClick,
   scrollToLearnMore,
 }: Props) => {
+  const t = useTranslations("donation.hero");
+
+  const IMPACT_TIERS = [
+    {
+      amount: 75,
+      title: t("oneNightSafety"),
+      benefits: t.raw("oneNightBenefits") as string[],
+    },
+    {
+      amount: 100,
+      title: t("weekTransformation"),
+      benefits: t.raw("weekBenefits") as string[],
+    },
+    {
+      amount: 500,
+      title: t("monthStability"),
+      benefits: t.raw("monthBenefits") as string[],
+    },
+  ];
   return (
     <section className="bg-linear-to-br from-primary/10 via-background to-secondary/10 py-12">
       <div className="px-16 mb-8">
@@ -93,21 +90,25 @@ const HeroSection = ({
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-2xl font-serif font-bold text-foreground">
-                  Monthly Goal Progress
+                  {t("monthlyGoal")}
                 </p>
                 <p className="text-muted-foreground">
-                  We&rsquo;re {MONTHLY_GOAL.current}% to our goal of housing{" "}
-                  {MONTHLY_GOAL.target} families
+                  {t("goalDescription", {
+                    percentage: MONTHLY_GOAL.current,
+                    target: MONTHLY_GOAL.target,
+                  })}
                 </p>
               </div>
               <Badge variant="default" className="text-lg px-4 py-2">
-                {WEEKLY_DONATIONS} donations this week
+                {t("donationsThisWeek", { count: WEEKLY_DONATIONS })}
               </Badge>
             </div>
             <Progress value={MONTHLY_GOAL.current} className="h-3" />
             <p className="text-sm text-muted-foreground text-right">
-              {MONTHLY_GOAL.families} of {MONTHLY_GOAL.target} families helped
-              this month
+              {t("familiesHelped", {
+                current: MONTHLY_GOAL.families,
+                target: MONTHLY_GOAL.target,
+              })}
             </p>
           </CardContent>
         </Card>
@@ -116,10 +117,10 @@ const HeroSection = ({
         <Card className="bg-accent/5 border-primary/20">
           <CardHeader>
             <CardTitle className="text-3xl font-serif text-center">
-              Choose Your Impact
+              {t("chooseImpact")}
             </CardTitle>
             <CardDescription className="text-center text-lg">
-              Instead of arbitrary amounts, see the real difference you&rsquo;ll make
+              {t("impactDescription")}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -135,13 +136,13 @@ const HeroSection = ({
                     className="relative"
                   >
                     <Card
-                      className={`relative overflow-visible cursor-pointer transition-all ${isFeatured
-                        ? "border-accent/60"
-                        : ""
-                        } ${selectedTier === tier.amount
+                      className={`relative overflow-visible cursor-pointer transition-all ${
+                        isFeatured ? "border-accent/60" : ""
+                      } ${
+                        selectedTier === tier.amount
                           ? "border-accent border-2 shadow-lg"
                           : "hover:border-accent/50"
-                        }`}
+                      }`}
                       onClick={() => {
                         setSelectedTier(tier.amount);
                         setSliderAmount(tier.amount);
@@ -150,7 +151,7 @@ const HeroSection = ({
                     >
                       {isFeatured && (
                         <span className="pointer-events-none absolute -top-4 left-6 z-20 inline-flex items-center rounded-full bg-accent px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white shadow-lg">
-                          Most Popular
+                          {t("mostPopular")}
                         </span>
                       )}
                       <CardHeader className="relative z-10">
@@ -159,10 +160,11 @@ const HeroSection = ({
                             {formatCurrency(tier.amount)}
                           </CardTitle>
                           <div
-                            className={`w-6 h-6 rounded-full border-2 ${selectedTier === tier.amount
-                              ? "bg-accent border-accent"
-                              : "border-muted"
-                              }`}
+                            className={`w-6 h-6 rounded-full border-2 ${
+                              selectedTier === tier.amount
+                                ? "bg-accent border-accent"
+                                : "border-muted"
+                            }`}
                           />
                         </div>
                         <CardDescription className="font-semibold text-lg text-foreground">
@@ -191,10 +193,8 @@ const HeroSection = ({
             {/* Custom Amount Card */}
             <Card className="border-2">
               <CardHeader>
-                <CardTitle>Custom Amount - Your Impact</CardTitle>
-                <CardDescription>
-                  Choose any amount and see your personalized impact
-                </CardDescription>
+                <CardTitle>{t("customAmount")}</CardTitle>
+                <CardDescription>{t("customDescription")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-4">
@@ -203,7 +203,7 @@ const HeroSection = ({
                       htmlFor="custom-amount"
                       className="whitespace-nowrap"
                     >
-                      Amount (CAD):
+                      {t("amountLabel")}
                     </Label>
                     <Input
                       id="custom-amount"
@@ -217,14 +217,14 @@ const HeroSection = ({
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Or use the slider:</Label>
+                    <Label>{t("sliderLabel")}</Label>
                     <Slider
                       value={[sliderAmount]}
                       onValueChange={handleSliderChange}
                       min={75}
                       max={5000}
                       step={25}
-                      className="w-full"
+                      className="w-full mt-2"
                     />
                     <div className="text-sm font-semibold text-foreground text-center">
                       {formatCurrency(sliderAmount)}
@@ -240,7 +240,9 @@ const HeroSection = ({
                 <Card className="bg-accent/10 border-accent/30">
                   <CardContent className="pt-6">
                     <p className="text-lg font-semibold text-foreground mb-2">
-                      Your {formatCurrency(sliderAmount)} provides:
+                      {t("yourImpactProvides", {
+                        amount: formatCurrency(sliderAmount),
+                      })}
                     </p>
                     <p className="text-muted-foreground">
                       {impact.description}
@@ -258,7 +260,7 @@ const HeroSection = ({
                 onClick={handleDonateClick}
               >
                 <Heart className="mr-2 h-5 w-5" />
-                Donate Now
+                {t("donateNow")}
               </Button>
               <Button
                 size="lg"
@@ -266,7 +268,7 @@ const HeroSection = ({
                 className="text-lg px-8 py-6"
                 onClick={scrollToLearnMore}
               >
-                Learn More
+                {t("learnMore")}
                 <ArrowDown className="ml-2 h-5 w-5" />
               </Button>
             </div>

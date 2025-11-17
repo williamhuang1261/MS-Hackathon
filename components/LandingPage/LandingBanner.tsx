@@ -1,27 +1,29 @@
 import React, { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import DonateButton from "../DonateButton";
 
-const THANK_YOU_MESSAGES = [
-  {
-    name: "👨‍👩‍👧Family Protector",
-    amount: 100,
-    weeksOfSafety: 1,
-  },
-  {
-    name: "🌟Hope Giver",
-    amount: 250,
-    weeksOfSafety: 3,
-  },
-  {
-    name: "💪Change Maker",
-    amount: 500,
-    weeksOfSafety: 6,
-  },
-];
-
 const LandingBanner = () => {
+  const t = useTranslations("landing.banner");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fade, setFade] = useState(true);
+
+  const THANK_YOU_MESSAGES = [
+    {
+      name: t("donorTypes.familyProtector"),
+      amount: 100,
+      weeksOfSafety: 1,
+    },
+    {
+      name: t("donorTypes.hopeGiver"),
+      amount: 250,
+      weeksOfSafety: 3,
+    },
+    {
+      name: t("donorTypes.changeMaker"),
+      amount: 500,
+      weeksOfSafety: 6,
+    },
+  ];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -45,24 +47,20 @@ const LandingBanner = () => {
           fade ? "opacity-100" : "opacity-30"
         }`}
       >
-        <span>{currentMessage.name} just donated </span>
+        <span>
+          {currentMessage.name} {t("donationMessage")}{" "}
+        </span>
         <span className="text-yellow-500 font-bold">{`$${currentMessage.amount}`}</span>
         <span>
-          and has provided {currentMessage.weeksOfSafety} weeks of safety for a
-          family ✨
+          {t("safetyWeeksMessage", { weeks: currentMessage.weeksOfSafety })}
         </span>
       </div>
       <div className="flex flex-col items-center justify-between gap-10 px-16 pt-16">
         <div className="w-full flex flex-col items-center justify-center gap-2">
-          <h1 className="text-7xl font-bold">RAISE YOUR HAND</h1>
-          <p className="text-3xl font-semibold">
-            and say no to violence against women
-          </p>
+          <h1 className="text-7xl font-bold">{t("mainHeading")}</h1>
+          <p className="text-3xl font-semibold">{t("subHeading")}</p>
         </div>
-        <p className="w-160 text-center text-lg">
-          Protect a Woman Tonight. Domestic violence doesn't wait for tomorrow.
-          Your support gives safety, food, and hope — right now.
-        </p>
+        <p className="w-160 text-center text-lg">{t("description")}</p>
         <div className="">
           <DonateButton />
         </div>

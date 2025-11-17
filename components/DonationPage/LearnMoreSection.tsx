@@ -1,5 +1,4 @@
-"use client"
-
+"use client";
 
 import {
   Award,
@@ -11,6 +10,7 @@ import {
   Users,
 } from "lucide-react";
 import React from "react";
+import { useTranslations } from "next-intl";
 import BudgetBreakdownChart from "../BudgetBreakdownChart";
 import { Button } from "../ui/button";
 import {
@@ -21,32 +21,34 @@ import {
   CardContent,
 } from "../ui/card";
 
-const THIS_MONTH_IMPACT = [
-  { label: "Meals Served", value: "847", icon: Heart },
-  { label: "Families Housed", value: "68", icon: Users },
-  { label: "Counseling Sessions", value: "156", icon: TrendingUp },
-];
-
-const CREDIBILITY_ITEMS = [
-  { type: "award", text: "2023 Community Impact Award Winner", icon: Award },
-  {
-    type: "media",
-    text: "As seen in CBC, CTV, Montreal Gazette",
-    icon: Newspaper,
-  },
-  { type: "years", text: "34 years of trusted service", icon: Building2 },
-  {
-    type: "stat",
-    text: "1 in 3 women experience domestic violence (Stats Canada, 2022)",
-    icon: Calendar,
-  },
-];
-
 interface Props {
   learnMoreRef: React.RefObject<HTMLElement | null>;
 }
 
 const LearnMoreSection = ({ learnMoreRef }: Props) => {
+  const t = useTranslations("donation.learnMore");
+
+  const THIS_MONTH_IMPACT = [
+    { label: t("mealsServed"), value: "847", icon: Heart },
+    { label: t("familiesHoused"), value: "68", icon: Users },
+    { label: t("counselingSessions"), value: "156", icon: TrendingUp },
+  ];
+
+  const CREDIBILITY_ITEMS = [
+    { type: "award", text: t("awardWinner"), icon: Award },
+    {
+      type: "media",
+      text: t("mediaFeatures"),
+      icon: Newspaper,
+    },
+    { type: "years", text: t("yearsService"), icon: Building2 },
+    {
+      type: "stat",
+      text: t("statistic"),
+      icon: Calendar,
+    },
+  ];
+
   return (
     <section ref={learnMoreRef} className="py-16 bg-muted/30">
       <div className="container max-w-6xl mx-auto px-4 space-y-12">
@@ -57,11 +59,9 @@ const LearnMoreSection = ({ learnMoreRef }: Props) => {
         <Card>
           <CardHeader>
             <CardTitle className="text-2xl font-serif">
-              This Month's Impact
+              {t("thisMonth")}
             </CardTitle>
-            <CardDescription>
-              Real-time results from your community's generosity
-            </CardDescription>
+            <CardDescription>{t("thisMonthDescription")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-3 gap-6">
@@ -84,7 +84,9 @@ const LearnMoreSection = ({ learnMoreRef }: Props) => {
         {/* Credibility Carousel */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-2xl font-serif">Why Trust Us</CardTitle>
+            <CardTitle className="text-2xl font-serif">
+              {t("whyTrustUs")}
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-2 gap-4">
@@ -95,7 +97,7 @@ const LearnMoreSection = ({ learnMoreRef }: Props) => {
                     key={idx}
                     className="flex items-start gap-3 p-4 rounded-lg bg-muted/50"
                   >
-                    <Icon className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+                    <Icon className="h-6 w-6 text-primary shrink-0 mt-1" />
                     <p className="text-foreground">{item.text}</p>
                   </div>
                 );
@@ -112,7 +114,7 @@ const LearnMoreSection = ({ learnMoreRef }: Props) => {
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             <Heart className="mr-2 h-5 w-5" />
-            Donate Now
+            {t("donateNow")}
           </Button>
         </div>
       </div>

@@ -1,26 +1,28 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import type { SurvivorStory } from "@/lib/types";
 
-const stories: SurvivorStory[] = [
-  {
-    text: "Last week, Amina arrived at our shelter shaking and barefoot after escaping a dangerous situation. Your donation gave her a warm bed and a locked door that no one could break through.",
-    name: "Amina's Story",
-  },
-  {
-    text: "Sarah showed up at midnight with her two children, nowhere else to turn. Because of supporters like you, we had a room ready — safe, warm, and waiting.",
-    name: "Sarah's Story",
-  },
-  {
-    text: "Fatima called our hotline from a parking lot at 3 AM, terrified to go home. Your generosity made it possible for our team to bring her to safety within 20 minutes.",
-    name: "Fatima's Story",
-  },
-];
-
 export default function SurvivorStoryCarousel() {
+  const t = useTranslations("stories.carousel");
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isVisible, setIsVisible] = useState<boolean>(true);
+
+  const stories: SurvivorStory[] = [
+    {
+      text: t("story1.quote"),
+      name: t("story1.name"),
+    },
+    {
+      text: t("story2.quote"),
+      name: t("story2.name"),
+    },
+    {
+      text: t("story3.quote"),
+      name: t("story3.name"),
+    },
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {

@@ -1,4 +1,5 @@
 import { ORGANIZATION_STATS } from "@/lib/constants";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import shelter_home from "@/public/Shelter_home.png";
 import meal_home from "@/public/meals_home.png";
@@ -6,49 +7,48 @@ import therapy_home from "@/public/therapy_home.png";
 import legal_home from "@/public/legal_home.png";
 import multisupport_home from "@/public/multisupport_home.png";
 
-const services = [
-  {
-    imageSrc: shelter_home,
-    alt: "Emergency Shelters",
-    title: "Emergency Shelters",
-    desc: "Safe, secure beds available 24/7 for women and children escaping violence.",
-  },
-  {
-    imageSrc: meal_home,
-    alt: "Warm Meals",
-    title: "Warm Meals",
-    desc: "Nutritious food provided daily to ensure basic needs are met.",
-  },
-  {
-    imageSrc: therapy_home,
-    alt: "Therapy & Trauma Support",
-    title: "Therapy & Trauma Support",
-    desc: "Professional counseling to help heal and rebuild emotional well-being.",
-  },
-  {
-    imageSrc: legal_home,
-    alt: "Legal Guidance",
-    title: "Legal Guidance",
-    desc: "Expert legal support to navigate protection orders and custody issues.",
-  },
-  {
-    imageSrc: multisupport_home,
-    alt: "Multilingual Community Outreach",
-    title: "Multilingual Community Outreach",
-    desc: "Support in multiple languages to serve Montreal's diverse community.",
-  },
-];
-
 const SolutionSection = () => {
+  const t = useTranslations("solution");
+
+  const services = [
+    {
+      imageSrc: shelter_home,
+      alt: t("services.shelter.title"),
+      title: t("services.shelter.title"),
+      desc: t("services.shelter.description"),
+    },
+    {
+      imageSrc: meal_home,
+      alt: t("services.meals.title"),
+      title: t("services.meals.title"),
+      desc: t("services.meals.description"),
+    },
+    {
+      imageSrc: therapy_home,
+      alt: t("services.therapy.title"),
+      title: t("services.therapy.title"),
+      desc: t("services.therapy.description"),
+    },
+    {
+      imageSrc: legal_home,
+      alt: t("services.legal.title"),
+      title: t("services.legal.title"),
+      desc: t("services.legal.description"),
+    },
+    {
+      imageSrc: multisupport_home,
+      alt: t("services.outreach.title"),
+      title: t("services.outreach.title"),
+      desc: t("services.outreach.description"),
+    },
+  ];
   return (
     <section className="py-16 px-4 bg-background">
       <div className="max-w-4xl mx-auto space-y-8">
         <h2 className="text-4xl md:text-5xl font-bold text-center text-primary">
-          Athena's House: A lifeline for survivors.
+          {t("title")}
         </h2>
-        <p className="text-xl text-center text-foreground">
-          We provide immediate, comprehensive support when it matters most.
-        </p>
+        <p className="text-xl text-center text-foreground">{t("subtitle")}</p>
 
         {/* Social Proof Stats */}
         <div className="flex flex-wrap justify-center gap-6 md:gap-12 py-6">
@@ -57,7 +57,7 @@ const SolutionSection = () => {
               {ORGANIZATION_STATS.womenSupported}
             </p>
             <p className="text-foreground/80 font-semibold mt-1">
-              Women supported last year
+              {t("stats.womenSupported")}
             </p>
           </div>
           <div className="text-center">
@@ -65,7 +65,7 @@ const SolutionSection = () => {
               {ORGANIZATION_STATS.hotlineAvailability}
             </p>
             <p className="text-foreground/80 font-semibold mt-1">
-              Emergency hotline available
+              {t("stats.hotlineAvailability")}
             </p>
           </div>
           <div className="text-center">
@@ -73,7 +73,7 @@ const SolutionSection = () => {
               {ORGANIZATION_STATS.yearsServing}
             </p>
             <p className="text-foreground/80 font-semibold mt-1">
-              Years serving Montréal
+              {t("stats.yearsServing")}
             </p>
           </div>
         </div>
@@ -84,10 +84,18 @@ const SolutionSection = () => {
             <div
               key={index}
               className={`rounded-lg shadow-md border border-accent/40 overflow-hidden ${
-                index === services.length - 1 ? 'md:col-span-2 max-w-3xl mx-auto w-full' : ''
+                index === services.length - 1
+                  ? "md:col-span-2 max-w-3xl mx-auto w-full"
+                  : ""
               }`}
             >
-              <div className={`relative ${index === services.length - 1 ? 'h-64 md:h-72' : 'h-56 md:h-64'}`}>
+              <div
+                className={`relative ${
+                  index === services.length - 1
+                    ? "h-64 md:h-72"
+                    : "h-56 md:h-64"
+                }`}
+              >
                 <Image
                   src={service.imageSrc}
                   alt={service.alt}
@@ -95,7 +103,7 @@ const SolutionSection = () => {
                   sizes="(min-width: 768px) 50vw, 100vw"
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
                 <div className="absolute inset-0 flex items-end">
                   <div className="w-full p-4">
                     <h3 className="text-white font-bold text-xl md:text-2xl">
@@ -109,7 +117,6 @@ const SolutionSection = () => {
               </div>
             </div>
           ))}
- 
         </div>
 
         <div className="text-center pt-8">
@@ -117,10 +124,10 @@ const SolutionSection = () => {
             href="/donate"
             className="bg-yellow-400 text-foreground hover:bg-[#f5d785] px-6 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-lg"
           >
-            Provide a Night of Safety
+            {t("cta")}
           </a>
           <p className="text-base text-primary font-semibold mt-4 italic">
-            People like you protect women.
+            {t("tagline")}
           </p>
         </div>
       </div>

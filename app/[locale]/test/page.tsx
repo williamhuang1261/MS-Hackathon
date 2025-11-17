@@ -1,6 +1,6 @@
 "use client";
 
-import LotusVideo from "@/components/ThankYouPage/WordCloud/LotusVideo";
+import LotusVideo from "@/components/LandingPage/WordCloud/LotusVideo";
 import React from "react";
 
 const page = () => {

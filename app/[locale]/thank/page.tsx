@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import StickyHeader from "@/components/LandingPage/StickyHeader";
 import ThankYouHeader from "@/components/ThankYouPage/ThankYouHeader";
 import Certificate from "@/components/Certificate";
@@ -22,6 +23,7 @@ const FALLBACK_DONATION: DonationSummary = {
 };
 
 const ThankYouPage = () => {
+  const t = useTranslations("thank");
   const searchParams = useSearchParams();
   const paramsKey = useMemo(
     () => searchParams?.toString() ?? "",
@@ -79,17 +81,13 @@ const ThankYouPage = () => {
         <section className="flex w-full max-w-[1500px] flex-col gap-12">
           <header className="text-center mt-8">
             <h1 className="text-4xl font-semibold text-primary sm:text-5xl">
-              Your kindness is contagious
+              {t("title")}
             </h1>
-            <p className="mt-4 text-lg text-accent">
-              Survivors will feel tonight what you chose to give today. Invite
-              your circle to keep the chain of care alive—every shared emoji
-              sparks a new act of courage.
-            </p>
+            <p className="mt-4 text-lg text-accent">{t("subtitle")}</p>
           </header>
 
           <div className="flex flex-col gap-8 items-center">
-            <div className="flex h-full flex-col items-center gap-6 text-center lg:items-start lg:text-left p-8">
+            <div className="flex h-full flex-col items-center gap-6 text-center w-full lg:items-start lg:text-left p-8">
               <ThankYouHeader
                 primaryColor={certificateTheme.color}
                 accentColor={certificateTheme.badgeAccent}

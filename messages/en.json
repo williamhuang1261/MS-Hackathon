@@ -281,6 +281,222 @@
     }
   },
 
+  "thank": {
+    "title": "Your kindness is contagious",
+    "subtitle": "Survivors will feel tonight what you chose to give today. Invite your circle to keep the chain of care alive—every shared emoji sparks a new act of courage."
+  },
+
+  "landing": {
+    "banner": {
+      "donorTypes": {
+        "familyProtector": "👨‍👩‍👧Family Protector",
+        "hopeGiver": "🌟Hope Giver",
+        "changeMaker": "💪Change Maker"
+      },
+      "donationMessage": "just donated",
+      "safetyWeeksMessage": "and has provided {weeks} weeks of safety for a family ✨",
+      "mainHeading": "RAISE YOUR HAND",
+      "subHeading": "and say no to violence against women",
+      "description": "Protect a Woman Tonight. Domestic violence doesn't wait for tomorrow. Your support gives safety, food, and hope — right now."
+    },
+    "cta": {
+      "title": "Don't wait. Someone needs you tonight.",
+      "description": "Your donation provides immediate safety, food, and hope.",
+      "buttonText": "Protect a Woman Tonight",
+      "tagline": "People like you protect women."
+    },
+    "target": {
+      "monthlyGoal": "MONTHLY GOAL :",
+      "goalSuffix": " / 100 000$"
+    }
+  },
+
+  "donation": {
+    "hero": {
+      "monthlyGoal": "Monthly Goal Progress",
+      "goalDescription": "We're {percentage}% to our goal of housing {target} families",
+      "donationsThisWeek": "{count} donations this week",
+      "familiesHelped": "{current} of {target} families helped this month",
+      "chooseImpact": "Choose Your Impact",
+      "impactDescription": "Instead of arbitrary amounts, see the real difference you'll make",
+      "customAmount": "Custom Amount - Your Impact",
+      "customDescription": "Choose any amount and see your personalized impact",
+      "amountLabel": "Amount (CAD):",
+      "sliderLabel": "Or use the slider:",
+      "yourImpactProvides": "Your {amount} provides:",
+      "donateNow": "Donate Now",
+      "learnMore": "Learn More",
+      "oneNightSafety": "One Night of Safety",
+      "oneNightBenefits": [
+        "1 night of shelter",
+        "Counseling session",
+        "A warm meal"
+      ],
+      "weekTransformation": "Week of Transformation",
+      "weekBenefits": [
+        "7 nights shelter",
+        "Job training workshop",
+        "Legal consultation"
+      ],
+      "monthStability": "Month of Stability",
+      "monthBenefits": [
+        "30 days shelter",
+        "Mental health support",
+        "Childcare"
+      ],
+      "mostPopular": "Most Popular"
+    },
+    "animation": {
+      "title": "You're Bringing Light to Someone's Darkest Hour",
+      "message": "Thank you for making a home safe tonight..."
+    },
+    "learnMore": {
+      "thisMonth": "This Month's Impact",
+      "thisMonthDescription": "Real-time results from your community's generosity",
+      "mealsServed": "Meals Served",
+      "familiesHoused": "Families Housed",
+      "counselingSessions": "Counseling Sessions",
+      "whyTrustUs": "Why Trust Us",
+      "awardWinner": "2023 Community Impact Award Winner",
+      "mediaFeatures": "As seen in CBC, CTV, Montreal Gazette",
+      "yearsService": "34 years of trusted service",
+      "statistic": "1 in 3 women experience domestic violence (Stats Canada, 2022)",
+      "donateNow": "Donate Now"
+    },
+    "upsell": {
+      "yourCareMatters": "Your care matters",
+      "stayWithHer": "Stay with her a little longer?",
+      "empathy1": "We see you showing up, even when it's hard.",
+      "empathy2": "Every dollar is a lifeline for a survivor tonight.",
+      "empathy3": "Your compassion keeps doors open and lights on.",
+      "encouragementText": "Your gift of {currentAmount} keeps a survivor safe for a moment. Adding {additionalAmount} covers another night of warmth, a meal, and counselling.",
+      "extraBenefitsTitle": "What an extra $75 can unlock:",
+      "benefit1": "A warm bed and nourishing meals for a mother and child.",
+      "benefit2": "Two trauma-informed counselling sessions.",
+      "benefit3": "Transportation to a secure apartment or court appearance.",
+      "togetherText": "Together, we can turn {currentAmount} into {newAmount} and cover her full week of care.",
+      "makeChange": "Make a Change",
+      "keepCurrent": "No, keep my {amount}"
+    },
+    "payment": {
+      "changeDonation": "Change your donation",
+      "monthlyProcessing": "We will process ${amount} monthly + processing fees, unless you cancel.",
+      "oneTimeDonation": "One-time donation of ${amount}",
+      "yourImpact": "Your Impact:",
+      "youChoseSupport": "You chose to support:",
+      "donorInfo": "Donor Information",
+      "paymentMethod": "Payment Method",
+      "fundingDestination": "Direct my gift to",
+      "paymentDetails": "Payment Details",
+      "destinationMostNeeded": "Where it's needed most",
+      "destinationMostNeededHelper": "We'll direct your gift to the most urgent cases today.",
+      "destinationMeals": "Meals & nutrition",
+      "destinationMealsHelper": "Provide warm meals, groceries, and kitchen staples.",
+      "destinationCounselling": "Counselling",
+      "destinationCounsellingHelper": "Fund trauma-informed therapy and crisis counselling.",
+      "destinationChildcare": "Childcare",
+      "destinationChildcareHelper": "Cover safe childcare while moms attend appointments.",
+      "destinationHousing": "Safe housing",
+      "destinationHousingHelper": "Support shelter nights, deposits, and secure moves.",
+      "demoDataHint": "Ctrl+P",
+      "processingDonation": "Processing your donation...",
+      "completeDonation": "Complete Donation",
+      "contactInfo": "Contact Information",
+      "yourSupport": "Your Support",
+      "supportDescription": "Helping survivors find safety and hope",
+      "yourDonation": "Your donation:",
+      "total": "Total:",
+      "cancel": "Cancel",
+      "donateNow": "Donate Now"
+    },
+    "certificate": {
+      "anonymousSupporter": "Anonymous Supporter"
+    }
+  },
+
+  "problem": {
+    "title": "Tonight, hundreds of women and children in Montréal will sleep in fear.",
+    "cards": {
+      "noSafety": {
+        "title": "No Safety",
+        "description": "Living in constant fear of violence in unsafe environments"
+      },
+      "nowhereToGo": {
+        "title": "Nowhere to Go",
+        "description": "Trapped and at risk of violence at any given moment"
+      },
+      "noSupport": {
+        "title": "No Support",
+        "description": "Isolated and without resources to help them escape violence"
+      }
+    },
+    "summary": "Many have nowhere to go. No safety. No food. No support.",
+    "cta": "Help Them Right Now",
+    "tagline": "You're the kind of person who doesn't look away."
+  },
+
+  "product": {
+    "title": "Your donation creates a night of safety.",
+    "subtitle": "Every dollar directly supports a woman in need.",
+    "impactBadge": {
+      "percentage": "80% of funds go directly to programs",
+      "description": "The other 20% powers operations (staff, facilities, hotline)"
+    },
+    "tiers": {
+      "oneNight": {
+        "amount": "$35",
+        "title": "One Safe Night",
+        "description": "A warm bed in a secure shelter"
+      },
+      "therapy": {
+        "amount": "$50",
+        "title": "Therapy Starter Session",
+        "description": "Begin the healing journey"
+      },
+      "family": {
+        "amount": "$100",
+        "title": "Support for a Family",
+        "description": "Full day for mother & child"
+      }
+    },
+    "cta": "Make Your Impact Today",
+    "tagline": "You're the kind of person who doesn't look away."
+  },
+
+  "solution": {
+    "title": "Athena's House: A lifeline for survivors.",
+    "subtitle": "We provide immediate, comprehensive support when it matters most.",
+    "stats": {
+      "womenSupported": "Women supported last year",
+      "hotlineAvailability": "Emergency hotline available",
+      "yearsServing": "Years serving Montréal"
+    },
+    "services": {
+      "shelter": {
+        "title": "Emergency Shelters",
+        "description": "Safe, secure beds available 24/7 for women and children escaping violence."
+      },
+      "meals": {
+        "title": "Warm Meals",
+        "description": "Nutritious food provided daily to ensure basic needs are met."
+      },
+      "therapy": {
+        "title": "Therapy & Trauma Support",
+        "description": "Professional counseling to help heal and rebuild emotional well-being."
+      },
+      "legal": {
+        "title": "Legal Guidance",
+        "description": "Expert legal support to navigate protection orders and custody issues."
+      },
+      "outreach": {
+        "title": "Multilingual Community Outreach",
+        "description": "Support in multiple languages to serve Montreal's diverse community."
+      }
+    },
+    "cta": "Provide a Night of Safety",
+    "tagline": "People like you protect women."
+  },
+
   "footer": {
     "emergency": {
       "title": "IMPORTANT NUMBERS",
@@ -328,5 +544,140 @@
       "trustMessage": "Confidential. Professional. Trusted.",
       "priorityMessage": "Your safety and privacy are our highest priorities."
     }
+  },
+  "navigation": {
+    "home": "Home",
+    "aboutUs": "About Us",
+    "resources": "Resources",
+    "contact": "Contact",
+    "donate": "Donate Now"
+  },
+  "stories": {
+    "title": "Stories of Hope",
+    "subtitle": "Real stories from survivors we've helped rebuild their lives",
+    "carousel": {
+      "story1": {
+        "name": "Amina's Story",
+        "quote": "Last week, Amina arrived at our shelter shaking and barefoot after escaping a dangerous situation. Your donation gave her a warm bed and a locked door that no one could break through."
+      },
+      "story2": {
+        "name": "Sarah's Story",
+        "quote": "Sarah showed up at midnight with her two children, nowhere else to turn. Because of supporters like you, we had a room ready — safe, warm, and waiting."
+      },
+      "story3": {
+        "name": "Fatima's Story",
+        "quote": "Fatima called our hotline from a parking lot at 3 AM, terrified to go home. Your generosity made it possible for our team to bring her to safety within 20 minutes."
+      }
+    }
+  },
+  "thankYou": {
+    "chart": {
+      "title": "Your Impact",
+      "description": "Here is how your money will be used",
+      "amountLabel": "Amount",
+      "categories": {
+        "shelter": "Shelter",
+        "food": "Food",
+        "multilingualServices": "Multilingual services",
+        "publicAwareness": "Public awareness"
+      }
+    },
+    "share": {
+      "title": "Share Your Impact",
+      "facebook": "Facebook",
+      "twitter": "X",
+      "linkedin": "LinkedIn",
+      "instagram": "Instagram"
+    },
+    "header": {
+      "hopeBlossom": "Hope Blossom Unlocked",
+      "copySticker": "Copy sticker & message",
+      "copiedSuccess": "Copied to clipboard ✨",
+      "shareOneTap": "Share with one tap",
+      "shareFromDevice": "Share from this device",
+      "summoning": "Summoning a fresh Blossom...",
+      "fallbackMessage": "We couldn't craft a fresh Blossom. Showing a classic instead.",
+      "clipboardError": "Clipboard is unavailable on this device",
+      "copyError": "Could not copy message. Try a different share option.",
+      "shareError": "Sharing was interrupted. Try again or copy the message.",
+      "shareMessage": "I just unlocked the {label} {emoji} ({trait}) with Athena Network so more families can feel safe tonight. Join me and spark another act of care: {url}",
+      "tipMessage": "💡 Tip: Drop the Blossom into your stories with #HopeBlossoms so we can celebrate you publicly (with your permission).",
+      "paletteLabel": "Palette",
+      "shareTargets": {
+        "x": "Share on X",
+        "facebook": "Share on Facebook",
+        "linkedin": "Share on LinkedIn",
+        "whatsapp": "Share on WhatsApp"
+      }
+    }
+  },
+  "budgetChart": {
+    "title": "What Your Donation Supports",
+    "description": "Transparent breakdown of how we use your donations to support our mission.",
+    "viewReport": "View Full Financial Report",
+    "categoryLabel": "Category",
+    "categories": {
+      "directServices": {
+        "name": "Direct Services",
+        "details": [
+          "Emergency shelter for women & children",
+          "Crisis intervention",
+          "Counselling / therapy",
+          "Multilingual support",
+          "Social worker follow-ups",
+          "Safety planning & case management"
+        ]
+      },
+      "operations": {
+        "name": "Operations & Administration",
+        "details": [
+          "Staff salaries (admin, finance, HR)",
+          "Building costs for shelters and offices",
+          "Utilities, transportation, insurance",
+          "Volunteer coordination",
+          "IT systems",
+          "Financial and legal compliance"
+        ]
+      },
+      "outreach": {
+        "name": "Outreach & Prevention",
+        "details": [
+          "Community awareness campaigns",
+          "Educational programs in schools",
+          "Training for community leaders",
+          "Multilingual awareness material",
+          "Partnership building",
+          "Prevention & advocacy work"
+        ]
+      }
+    }
+  },
+  "certificate": {
+    "downloadPdf": "Download Certificate",
+    "downloading": "Generating...",
+    "shareImpact": "Share Your Impact",
+    "socialMedia": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "messages": "Messages"
+    },
+    "loading": "Your certificate is still loading. Please try again in a moment.",
+    "generateError": "Failed to generate certificate. Please try again.",
+    "instagramCopyMessage": "Share text copied to clipboard! Open Instagram to paste and share.",
+    "close": "Close",
+    "anonymousSupporter": "Anonymous Supporter"
+  },
+  "common": {
+    "donateNow": "Donate Now",
+    "logoAlt": "Athena Logo"
+  },
+  "donationForm": {
+    "title": "Donation Form",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "amount": "Amount",
+    "donate": "Donate",
+    "submitted": "Donation submitted!"
   }
 }

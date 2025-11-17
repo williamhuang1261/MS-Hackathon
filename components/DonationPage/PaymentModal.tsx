@@ -1,6 +1,7 @@
 "use client";
 
 import { formatCurrency } from "@/lib/donation-utils";
+import { useTranslations } from "next-intl";
 import { Checkbox } from "../ui/checkbox";
 import { AnimatePresence, motion } from "framer-motion";
 import { Lock } from "lucide-react";
@@ -126,10 +127,41 @@ const PaymentModal = ({
   handlePaymentInputChange,
   paymentErrors,
 }: Props) => {
+  const t = useTranslations("donation.payment");
   const totalAmount = selectedTier || customAmount;
+
+  const FUNDING_DESTINATIONS = [
+    {
+      value: "most-needed",
+      label: t("destinationMostNeeded"),
+      helper: t("destinationMostNeededHelper"),
+    },
+    {
+      value: "meals",
+      label: t("destinationMeals"),
+      helper: t("destinationMealsHelper"),
+    },
+    {
+      value: "counselling",
+      label: t("destinationCounselling"),
+      helper: t("destinationCounsellingHelper"),
+    },
+    {
+      value: "childcare",
+      label: t("destinationChildcare"),
+      helper: t("destinationChildcareHelper"),
+    },
+    {
+      value: "housing",
+      label: t("destinationHousing"),
+      helper: t("destinationHousingHelper"),
+    },
+  ];
+
   const selectedDestination =
-    FUNDING_DESTINATIONS.find((option) => option.value === fundingDestination) ||
-    FUNDING_DESTINATIONS[0];
+    FUNDING_DESTINATIONS.find(
+      (option) => option.value === fundingDestination
+    ) || FUNDING_DESTINATIONS[0];
 
   useEffect(() => {
     // Handle Ctrl+P for mock data
@@ -189,7 +221,7 @@ const PaymentModal = ({
                   onClick={() => setShowPaymentModal(false)}
                   className="flex items-center text-white/80 hover:text-white mb-6 transition-colors"
                 >
-                  <span className="mr-2">←</span> Change your donation
+                  <span className="mr-2">←</span> {t("changeDonation")}
                 </button>
 
                 <div className="text-5xl font-bold mb-2">
@@ -198,10 +230,8 @@ const PaymentModal = ({
 
                 <div className="text-white/80 mb-8">
                   {donorInfo.isReturning
-                    ? `We will process $${totalAmount.toFixed(
-                      2
-                    )} monthly + processing fees, unless you cancel.`
-                    : `One-time donation of $${totalAmount.toFixed(2)}`}
+                    ? t("monthlyProcessing", { amount: totalAmount.toFixed(2) })
+                    : t("oneTimeDonation", { amount: totalAmount.toFixed(2) })}
                 </div>
 
                 {/* Donation Breakdown */}
@@ -211,21 +241,21 @@ const PaymentModal = ({
                       <span className="text-xl">💜</span>
                     </div>
                     <div>
-                      <div className="font-semibold">Your Support</div>
+                      <div className="font-semibold">{t("yourSupport")}</div>
                       <div className="text-sm text-white/70">
-                        Helping survivors find safety and hope
+                        {t("supportDescription")}
                       </div>
                     </div>
                   </div>
 
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span>Your donation:</span>
+                      <span>{t("yourDonation")}</span>
                       <span>${totalAmount.toFixed(2)}</span>
                     </div>
                     <div className="border-t border-white/20 pt-2">
                       <div className="flex justify-between font-semibold">
-                        <span>Total:</span>
+                        <span>{t("total")}</span>
                         <span>${totalAmount.toFixed(2)}</span>
                       </div>
                     </div>
@@ -235,13 +265,13 @@ const PaymentModal = ({
                 {/* Impact Summary */}
                 <div className="bg-white/20 rounded-xl p-4">
                   <p className="text-sm font-semibold text-white mb-2">
-                    Your Impact:
+                    {t("yourImpact")}
                   </p>
                   <p className="text-sm text-white/80">{impact.description}</p>
                 </div>
 
                 <div className="mt-6 rounded-xl bg-white/10 p-4 text-sm">
-                  <p className="text-white/70">You chose to support:</p>
+                  <p className="text-white/70">{t("youChoseSupport")}</p>
                   <p className="text-lg font-semibold text-white">
                     {selectedDestination.label}
                   </p>
@@ -255,23 +285,24 @@ const PaymentModal = ({
                   <div>
                     <h2 className="text-2xl font-bold flex items-center gap-2 mb-2">
                       <Lock className="h-6 w-6" />
-                      Complete Your Donation
+                      {t("donateNow")}
                     </h2>
                   </div>
 
                   {/* Payment Method */}
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-3">
-                      Payment method
+                      {t("paymentMethod")}
                     </label>
                     <div className="grid grid-cols-4 gap-2">
                       <button
                         type="button"
                         onClick={() => setPaymentMethod("card")}
-                        className={`p-3 rounded-lg border-2 text-center transition-all ${paymentMethod === "card"
-                          ? "border-blue-500 bg-blue-50"
-                          : "border-gray-200 hover:border-gray-300"
-                          }`}
+                        className={`p-3 rounded-lg border-2 text-center transition-all ${
+                          paymentMethod === "card"
+                            ? "border-blue-500 bg-blue-50"
+                            : "border-gray-200 hover:border-gray-300"
+                        }`}
                       >
                         <div className="text-xs font-medium">
                           Credit or Debit card
@@ -280,10 +311,11 @@ const PaymentModal = ({
                       <button
                         type="button"
                         onClick={() => setPaymentMethod("paypal")}
-                        className={`p-3 rounded-lg border-2 text-center transition-all flex items-center justify-center ${paymentMethod === "paypal"
-                          ? "border-blue-500 bg-blue-50"
-                          : "border-gray-200 hover:border-gray-300"
-                          }`}
+                        className={`p-3 rounded-lg border-2 text-center transition-all flex items-center justify-center ${
+                          paymentMethod === "paypal"
+                            ? "border-blue-500 bg-blue-50"
+                            : "border-gray-200 hover:border-gray-300"
+                        }`}
                       >
                         <Image
                           src={paypalIcon}
@@ -296,10 +328,11 @@ const PaymentModal = ({
                       <button
                         type="button"
                         onClick={() => setPaymentMethod("applepay")}
-                        className={`p-3 rounded-lg border-2 text-center transition-all flex items-center justify-center ${paymentMethod === "applepay"
-                          ? "border-blue-500 bg-blue-50"
-                          : "border-gray-200 hover:border-gray-300"
-                          }`}
+                        className={`p-3 rounded-lg border-2 text-center transition-all flex items-center justify-center ${
+                          paymentMethod === "applepay"
+                            ? "border-blue-500 bg-blue-50"
+                            : "border-gray-200 hover:border-gray-300"
+                        }`}
                       >
                         <Image
                           src={applePayIcon}
@@ -312,10 +345,11 @@ const PaymentModal = ({
                       <button
                         type="button"
                         onClick={() => setPaymentMethod("googlepay")}
-                        className={`p-3 rounded-lg border-2 text-center transition-all flex items-center justify-center ${paymentMethod === "googlepay"
-                          ? "border-blue-500 bg-blue-50"
-                          : "border-gray-200 hover:border-gray-300"
-                          }`}
+                        className={`p-3 rounded-lg border-2 text-center transition-all flex items-center justify-center ${
+                          paymentMethod === "googlepay"
+                            ? "border-blue-500 bg-blue-50"
+                            : "border-gray-200 hover:border-gray-300"
+                        }`}
                       >
                         <Image
                           src={googlePayIcon}
@@ -331,7 +365,7 @@ const PaymentModal = ({
                   {/* Funding Destination */}
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      Direct my gift to
+                      {t("fundingDestination")}
                     </label>
                     <Select
                       value={fundingDestination}
@@ -356,7 +390,7 @@ const PaymentModal = ({
                   {/* Contact Information */}
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-3">
-                      Contact Information
+                      {t("contactInfo")}
                     </label>
                     <div className="space-y-4">
                       <div className="space-y-2">
@@ -369,8 +403,9 @@ const PaymentModal = ({
                             handlePaymentInputChange("name", e.target.value);
                           }}
                           placeholder="John Doe"
-                          className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 ${paymentErrors.name ? "border-red-500" : ""
-                            }`}
+                          className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 ${
+                            paymentErrors.name ? "border-red-500" : ""
+                          }`}
                         />
                         {paymentErrors.name && (
                           <p className="text-sm text-red-500">
@@ -390,8 +425,9 @@ const PaymentModal = ({
                             handlePaymentInputChange("email", e.target.value);
                           }}
                           placeholder="john@example.com"
-                          className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 ${paymentErrors.email ? "border-red-500" : ""
-                            }`}
+                          className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 ${
+                            paymentErrors.email ? "border-red-500" : ""
+                          }`}
                         />
                         {paymentErrors.email && (
                           <p className="text-sm text-red-500">
@@ -709,7 +745,7 @@ const PaymentModal = ({
                       onClick={() => setShowPaymentModal(false)}
                       disabled={isProcessing}
                     >
-                      Cancel
+                      {t("cancel")}
                     </Button>
                     <button
                       type="submit"
@@ -719,19 +755,20 @@ const PaymentModal = ({
                       {isProcessing ? (
                         <>
                           <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                          Processing...
+                          {t("processingDonation")}
                         </>
                       ) : (
                         <>
                           <Lock className="h-4 w-4" />
                           {paymentMethod === "card"
                             ? `Donate ${formatCurrency(totalAmount)}`
-                            : `Continue to ${paymentMethod === "googlepay"
-                              ? "Google Pay"
-                              : paymentMethod === "applepay"
-                                ? "Apple Pay"
-                                : "PayPal"
-                            }`}
+                            : `Continue to ${
+                                paymentMethod === "googlepay"
+                                  ? "Google Pay"
+                                  : paymentMethod === "applepay"
+                                  ? "Apple Pay"
+                                  : "PayPal"
+                              }`}
                         </>
                       )}
                     </button>

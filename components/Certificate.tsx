@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
 import { motion } from "framer-motion";
 import { Download, Share2, Facebook, MessageCircle, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -33,6 +35,7 @@ export default function Certificate({
   onClose,
   variant = "modal",
 }: CertificateProps) {
+  const t = useTranslations("certificate");
   const isModalVariant = variant === "modal";
   const [certificateId, setCertificateId] = useState<string | null>(null);
   const certificateData = CERTIFICATE_TIERS[tier];
@@ -55,7 +58,7 @@ export default function Certificate({
 
       // Generate the certificate PDF
       if (!certificateId) {
-        alert("Your certificate is still loading. Please try again in a moment.");
+        alert(t("loading"));
         return;
       }
 
@@ -72,7 +75,7 @@ export default function Certificate({
       downloadCertificatePDF(pdfBytes, certificateId);
     } catch (error) {
       console.error("Failed to generate certificate:", error);
-      alert("Failed to generate certificate. Please try again.");
+      alert(t("generateError"));
     } finally {
       setIsGenerating(false);
     }
@@ -92,9 +95,7 @@ export default function Certificate({
       case "instagram":
         // Instagram doesn't have a web share URL, so we copy to clipboard
         navigator.clipboard.writeText(shareText);
-        alert(
-          "Share text copied to clipboard! Open Instagram to paste and share."
-        );
+        alert(t("instagramCopyMessage"));
         return;
       case "messages":
         url = `sms:?&body=${encodedText}`;
@@ -112,8 +113,8 @@ export default function Certificate({
   const displayCertificateId = certificateId ?? "SOA-XXXXXX-XXXX";
   const recipientDisplayName = donorName?.trim().length
     ? donorName
-    : "Anonymous Supporter";
-  const certificateMaxWidthClass = "max-w-[1085px]";
+    : t("anonymousSupporter");
+  const certificateMaxWidthClass = "";
 
   const certificateCard = (
     <motion.div
@@ -124,15 +125,15 @@ export default function Certificate({
       onClick={
         isModalVariant
           ? (e) => {
-            e.stopPropagation();
-          }
+              e.stopPropagation();
+            }
           : undefined
       }
     >
       <Card className="relative w-full overflow-visible rounded-[40px] border border-[#dcd2ff] bg-[#f8f5ff]/90 p-4 sm:p-8 shadow-2xl">
         <div className="space-y-6">
-          <div className="relative rounded-[32px]  shadow-xl overflow-hidden">
-            <div className="relative aspect-[1085/734]">
+          <div className="relative rounded-4xl shadow-xl overflow-hidden">
+            <div className="relative aspect-[1.478]">
               <div
                 className="pointer-events-none absolute inset-3 sm:inset-5 opacity-95 z-0"
                 style={{
@@ -159,7 +160,7 @@ export default function Certificate({
                 />
               </div>
 
-              <div className="relative z-20 h-full px-6 py-10 sm:px-16 sm:py-16 font-serif text-center text-[color:#464375] flex flex-col items-center overflow-hidden">
+              <div className="relative z-20 h-full px-6 py-10 sm:px-16 sm:py-16 font-serif text-center text-[#464375] flex flex-col items-center overflow-hidden">
                 <motion.div
                   initial={{ opacity: 0, y: -15 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -194,8 +195,16 @@ export default function Certificate({
                   <div className="h-px w-44 bg-[#bdb9e5]" />
                   <p className="max-w-3xl text-[clamp(1rem,2vw,1.2rem)] leading-relaxed text-[#464375]">
                     In recognition of the outstanding generosity of
-                    <span className="font-semibold"> ${amount.toLocaleString()}</span>, which provided
-                    <span className="font-semibold"> {impactDescription}</span> for women and children in need.
+                    <span className="font-semibold">
+                      {" "}
+                      ${amount.toLocaleString()}
+                    </span>
+                    , which provided
+                    <span className="font-semibold">
+                      {" "}
+                      {impactDescription}
+                    </span>{" "}
+                    for women and children in need.
                   </p>
                 </motion.div>
 
@@ -209,7 +218,10 @@ export default function Certificate({
                     Awarded on <span className="font-semibold">{date}</span>
                   </p>
                   <div className="h-px w-48 bg-[#bdb9e5]" />
-                  <p className="text-[clamp(0.85rem,1.8vw,1rem)] font-semibold" style={{ color: textColor }}>
+                  <p
+                    className="text-[clamp(0.85rem,1.8vw,1rem)] font-semibold"
+                    style={{ color: textColor }}
+                  >
                     Melpa Kamateros
                   </p>
                   <p className="text-[clamp(0.55rem,1.4vw,0.8rem)] uppercase tracking-[0.35em] text-[#7d79a8]">
@@ -224,7 +236,7 @@ export default function Certificate({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="relative rounded-[32px] border border-[#dad6f1] bg-[#f6f3ff]/95 px-6 py-6 space-y-5 shadow-lg"
+            className="relative rounded-4xl border border-[#dad6f1] bg-[#f6f3ff]/95 px-6 py-6 space-y-5 shadow-lg"
           >
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button
@@ -239,7 +251,7 @@ export default function Certificate({
                 disabled={isGenerating || !certificateId}
               >
                 <Award className="h-5 w-5" />
-                {isGenerating ? "Generating PDF..." : "Download Certificate"}
+                {isGenerating ? t("downloading") : t("downloadPdf")}
                 <Download className="h-4 w-4" />
               </Button>
 
@@ -251,7 +263,7 @@ export default function Certificate({
                 style={{ borderColor: accentColor, color: accentColor }}
               >
                 <Award className="h-5 w-5" />
-                Share Your Impact
+                {t("shareImpact")}
                 <Share2 className="h-4 w-4" />
               </Button>
             </div>
@@ -295,7 +307,7 @@ export default function Certificate({
                   variant="ghost"
                   className="text-[#5f5b97] hover:text-[#40368f]"
                 >
-                  Close & Continue
+                  {t("close")}
                 </Button>
               </div>
             )}

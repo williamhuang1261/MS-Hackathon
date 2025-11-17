@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import DonateButton from "../DonateButton";
 import LanguagePicker from "../LanguagePicker";
@@ -30,14 +31,16 @@ type Props = {
 };
 
 const StickyHeader = ({ showDonation = true }: Props) => {
+  const t = useTranslations("navigation");
+
   return (
     <div className="w-full bg-light-background flex justify-between items-center px-12 py-3 z-10 border-dark-background border shadow-md rounded-full">
       <Logo />
       <div className="flex gap-10 ">
-        <MenuOptions title="Home" destination="/" />
-        <MenuOptions title="About Us" destination="/about" />
-        <MenuOptions title="Ressources" destination="/resources" />
-        <MenuOptions title="Contact" destination="/contact" />
+        <MenuOptions title={t("home")} destination="/" />
+        <MenuOptions title={t("aboutUs")} destination="/about" />
+        <MenuOptions title={t("resources")} destination="/resources" />
+        <MenuOptions title={t("contact")} destination="/contact" />
       </div>
       <div className="flex gap-10">
         {showDonation && <DonateButton />}
