@@ -29,7 +29,7 @@ const RightCloud = ({ words, resolveRotate, resolveFonts }: Props) => {
   });
 
   return (
-    <div className="w-160">
+    <div className="w-160 z-10">
       <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`}>
         <g transform={`translate(${WIDTH / 2},${HEIGHT / 2}) rotate(330)`}>
           {computedWords.map((word, index) => (
