@@ -1,5 +1,8 @@
 import { ORGANIZATION_STATS } from "@/lib/constants";
 import { useTranslations } from "next-intl";
+import { Button } from "@/components/ui/button";
+import { Heart } from "lucide-react";
+import Link from "next/link";
 import Image from "next/image";
 import shelter_home from "@/public/Shelter_home.png";
 import meal_home from "@/public/meals_home.png";
@@ -43,7 +46,7 @@ const SolutionSection = () => {
     },
   ];
   return (
-    <section className="py-16 px-4 bg-background">
+    <section className="py-16 px-4 bg-primary/10">
       <div className="max-w-4xl mx-auto space-y-8">
         <h2 className="text-4xl md:text-5xl font-bold text-center text-primary">
           {t("title")}
@@ -83,18 +86,16 @@ const SolutionSection = () => {
           {services.map((service, index) => (
             <div
               key={index}
-              className={`rounded-lg shadow-md border border-accent/40 overflow-hidden ${
-                index === services.length - 1
-                  ? "md:col-span-2 max-w-3xl mx-auto w-full"
-                  : ""
-              }`}
+              className={`rounded-lg shadow-md border border-accent/40 overflow-hidden ${index === services.length - 1
+                ? "md:col-span-2 max-w-3xl mx-auto w-full"
+                : ""
+                }`}
             >
               <div
-                className={`relative ${
-                  index === services.length - 1
-                    ? "h-64 md:h-72"
-                    : "h-56 md:h-64"
-                }`}
+                className={`relative ${index === services.length - 1
+                  ? "h-64 md:h-72"
+                  : "h-56 md:h-64"
+                  }`}
               >
                 <Image
                   src={service.imageSrc}
@@ -120,12 +121,12 @@ const SolutionSection = () => {
         </div>
 
         <div className="text-center pt-8">
-          <a
-            href="/donate"
-            className="bg-yellow-400 text-foreground hover:bg-[#f5d785] px-6 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-lg"
-          >
-            {t("cta")}
-          </a>
+          <Link href="/donate">
+            <Button size="lg" className="text-lg px-8 py-6">
+              <Heart className="mr-2 h-5 w-5" />
+              {t("cta")}
+            </Button>
+          </Link>
           <p className="text-base text-primary font-semibold mt-4 italic">
             {t("tagline")}
           </p>

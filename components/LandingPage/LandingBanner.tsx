@@ -41,16 +41,15 @@ const LandingBanner = () => {
   const currentMessage = THANK_YOU_MESSAGES[currentIndex];
 
   return (
-    <div className="flex flex-col justify-between items-center w-full text-light-background h-130 bg-linear-to-b from-accent to-primary">
+    <div className="flex flex-col justify-between items-center w-full text-light-background h-130 bg-primary">
       <div
-        className={`flex w-full items-start justify-center px-20 pt-6 gap-1 transition-opacity duration-400 ${
-          fade ? "opacity-100" : "opacity-30"
-        }`}
+        className={`flex w-full items-start justify-center px-20 pt-6 gap-1 transition-opacity duration-400 ${fade ? "opacity-100" : "opacity-30"
+          }`}
       >
         <span>
           {currentMessage.name} {t("donationMessage")}{" "}
         </span>
-        <span className="text-yellow-500 font-bold">{`$${currentMessage.amount}`}</span>
+        <span className="text-accent font-bold">{`$${currentMessage.amount}`}</span>
         <span>
           {t("safetyWeeksMessage", { weeks: currentMessage.weeksOfSafety })}
         </span>

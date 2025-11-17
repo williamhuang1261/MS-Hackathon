@@ -1,6 +1,9 @@
 import Image from "next/image";
 import React from "react";
 import { useTranslations } from "next-intl";
+import { Button } from "@/components/ui/button";
+import { Heart } from "lucide-react";
+import Link from "next/link";
 import image1 from "@/public/image1_home.png";
 import image2 from "@/public/image2_home.png";
 import image3 from "@/public/image3_home.png";
@@ -30,7 +33,7 @@ const ProblemSection = () => {
   ];
   return (
     // Problem Section
-    <section className="py-16 px-4 bg-snow-white">
+    <section className="py-16 px-4 bg-primary/10">
       <div className="max-w-4xl mx-auto space-y-6">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-8 text-primary">
           {t("title")}
@@ -66,12 +69,12 @@ const ProblemSection = () => {
         </div>
         <div className="text-center pt-8">
           <p className="text-xl text-soft-charcoal mb-6">{t("summary")}</p>
-          <a
-            href="/donate"
-            className="bg-yellow-400 text-soft-charcoal hover:bg-[#f5d785] px-6 py-3 rounded-lg font-semibold transition-all duration-200 inline-block"
-          >
-            {t("cta")}
-          </a>
+          <Link href="/donate">
+            <Button size="lg" className="text-lg px-8 py-6">
+              <Heart className="mr-2 h-5 w-5" />
+              {t("cta")}
+            </Button>
+          </Link>
           <p className="text-base text-primary font-semibold mt-4 italic">
             {t("tagline")}
           </p>
