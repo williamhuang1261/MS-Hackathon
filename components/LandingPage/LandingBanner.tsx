@@ -41,7 +41,7 @@ const LandingBanner = () => {
   const currentMessage = THANK_YOU_MESSAGES[currentIndex];
 
   return (
-    <div className="flex flex-col justify-between items-center w-full text-light-background h-130 bg-primary">
+    <div className="flex flex-col justify-between items-center w-full text-light-background h-130 bg-primary z-10">
       <div
         className={`flex w-full items-start justify-center px-20 pt-6 gap-1 transition-opacity duration-400 ${fade ? "opacity-100" : "opacity-30"
           }`}

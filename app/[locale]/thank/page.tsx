@@ -77,7 +77,7 @@ const ThankYouPage = () => {
       <div className="fixed left-0 right-0 top-0 z-50 w-full px-6 pt-6 sm:px-16">
         <StickyHeader />
       </div>
-      <main className="flex w-full flex-1 justify-center px-4 pb-24 pt-32 sm:px-8 lg:px-12 xl:px-16">
+      <main className="flex w-full flex-1 justify-center px-4 pb-24 pt-36 sm:px-8 lg:px-12 xl:px-16">
         <section className="flex w-full max-w-[1500px] flex-col gap-12">
           <header className="text-center mt-8">
             <h1 className="text-4xl font-semibold text-primary sm:text-5xl">

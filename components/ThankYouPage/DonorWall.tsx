@@ -41,7 +41,7 @@ const DonorWall = ({
   progress = 80,
 }: Props) => {
   return (
-    <div className="w-full flex p-8 justify-center items-center">
+    <div className="w-full flex pb-8 px-8 justify-center items-center">
       <div className="flex relative h-100 items-end">
         <LeftCloud
           words={firstHalf}

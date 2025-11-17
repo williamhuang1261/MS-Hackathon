@@ -15,7 +15,7 @@ import LandingProgressBar from "@/components/LandingPage/LandingProgressBar";
 import LandingTargetSection from "@/components/LandingPage/LandingTargetSection";
 
 const LandingPage = () => {
-  const MONTHLY_GOAL_PROGRESS = 65.172; // Example progress value
+  const MONTHLY_GOAL_PROGRESS = 78.153; // Example progress value
 
   return (
     <div className="flex bg-muted/30 flex-col gap-0 w-full relative justify-start">

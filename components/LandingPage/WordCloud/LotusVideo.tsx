@@ -21,7 +21,7 @@ useEffect(() => {
   };
 
   video.currentTime = 0;
-  video.playbackRate = 4; // Accelerate video (2x speed)
+  video.playbackRate = 2; // Accelerate video (2x speed)
   video.play();
 
   video.addEventListener("timeupdate", handleTimeUpdate);

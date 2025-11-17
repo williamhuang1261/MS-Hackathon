@@ -190,7 +190,7 @@ export default function Donate() {
     animationTimeoutRef.current = setTimeout(() => {
       setShowHouseAnimation(false);
       router.push("/thank");
-    }, 4000);
+    }, 6000);
   };
 
   const handleSliderChange = (value: number[]) => {
