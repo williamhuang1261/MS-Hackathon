@@ -20,7 +20,7 @@ const MenuOptions = ({ title, destination }: MenuOptionsProps) => {
 
   return (
     <h2
-      className="text-base font-medium hover:underline cursor-pointer hover:opacity-90 transition-all whitespace-nowrap"
+      className="text-2xl font-medium hover:underline cursor-pointer hover:opacity-90 transition-all whitespace-nowrap"
       onClick={onClick}
     >
       {title}
@@ -37,21 +37,21 @@ const StickyHeader = ({ showDonation = true }: Props) => {
   const router = useRouter();
 
   return (
-    <div className="w-full bg-light-background flex justify-between items-center px-8 py-2.5 z-10 border-dark-background border shadow-md rounded-full">
+    <div className="w-full bg-light-background flex justify-between items-center px-10 py-4 z-10 border-dark-background border shadow-md rounded-full">
       <div className="cursor-pointer flex items-center gap-3" onClick={() => router.push("/")}>
         <Image
           src={shieldAthenaLogo}
           alt="Shield of Athena Logo"
-          width={50}
-          height={50}
+          width={55}
+          height={55}
           className="object-contain"
           priority
         />
         <Image
           src={shieldAthenaText}
           alt="Shield of Athena"
-          width={200}
-          height={40}
+          width={220}
+          height={44}
           className="object-contain"
           priority
         />

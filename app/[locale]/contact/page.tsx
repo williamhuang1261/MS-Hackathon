@@ -13,11 +13,11 @@ const ContactPage = () => {
       </div>
 
       {/* Hero Section */}
-      <div className="from-primary to-accent bg-linear-to-b text-light-background pt-48 pb-16 px-4">
+      <div className="bg-gradient-to-r from-primary to-accent text-white pt-48 pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">{t("title")}</h1>
           <p className="text-xl md:text-2xl mb-8">{t("heroSubtitle")}</p>
-          <p className="text-lg text-yellow-400 font-semibold">
+          <p className="text-lg text-white/90 font-semibold">
             {t("confidentialNotice")}
           </p>
         </div>
@@ -45,7 +45,7 @@ const ContactPage = () => {
       </section>
 
       {/* Main Contact Section */}
-      <section className="py-16 px-4 bg-background">
+      <section className="py-16 px-4 bg-muted/30">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Information */}
@@ -152,7 +152,7 @@ const ContactPage = () => {
               </div>
 
               {/* Languages */}
-              <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+              <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-200 shadow-md">
                 <h3 className="text-xl font-bold text-primary mb-4">
                   {t("languages.title")}
                 </h3>
@@ -181,7 +181,7 @@ const ContactPage = () => {
             </div>
 
             {/* Contact Form */}
-            <div className="bg-white p-8 rounded-lg shadow-lg">
+            <div className="bg-white p-8 rounded-lg shadow-md">
               <h2 className="text-3xl font-bold text-primary mb-6">
                 {t("form.title")}
               </h2>
@@ -324,7 +324,7 @@ const ContactPage = () => {
 
                 <button
                   type="submit"
-                  className="w-full bg-primary text-light-background px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-all duration-200"
+                  className="w-full bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-all duration-200"
                 >
                   {t("form.submit")}
                 </button>
@@ -339,7 +339,7 @@ const ContactPage = () => {
       </section>
 
       {/* Additional Resources */}
-      <section className="py-16 px-4 bg-gray-50">
+      <section className="py-16 px-4 bg-background">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-primary mb-12">
             {t("otherWays.title")}
@@ -386,20 +386,20 @@ const ContactPage = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 px-4 bg-linear-to-b from-primary to-primary/75 text-light-background">
+      <section className="py-16 px-4 bg-gradient-to-b from-primary to-primary/90 text-white">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-4xl font-bold mb-6">{t("finalCta.title")}</h2>
           <p className="text-xl mb-8">{t("finalCta.description")}</p>
           <div className="flex flex-wrap justify-center gap-4">
             <a
               href="tel:5142748117"
-              className="bg-yellow-400 hover:bg-yellow-500 text-primary px-8 py-4 rounded-lg font-semibold transition-all duration-200"
+              className="bg-accent hover:bg-accent/90 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200"
             >
               {t("finalCta.callButton")}
             </a>
             <a
               href="/resources"
-              className="bg-transparent border-2 border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-primary px-8 py-4 rounded-lg font-semibold transition-all duration-200"
+              className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 rounded-lg font-semibold transition-all duration-200"
             >
               {t("finalCta.resourcesButton")}
             </a>

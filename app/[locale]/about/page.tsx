@@ -14,7 +14,7 @@ const AboutPage = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="from-primary to-accent bg-linear-to-t text-light-background py-30 px-4 pt-54">
+      <section className="bg-gradient-to-r from-primary to-accent text-white py-16 px-4 pt-48">
         <div className="max-w-6xl mx-auto text-center">
           <h1 className="text-5xl md:text-7xl font-bold mb-6">{t("title")}</h1>
           <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed">
@@ -24,7 +24,7 @@ const AboutPage = () => {
       </section>
 
       {/* Mission Section */}
-      <section className="py-16 px-4 bg-background">
+      <section className="py-16 px-4 bg-muted/30">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
@@ -38,7 +38,7 @@ const AboutPage = () => {
                 {t("mission.description2")}
               </p>
             </div>
-            <div className="bg-accent/10 p-8 rounded-lg">
+            <div className="bg-white p-8 rounded-lg shadow-md">
               <h3 className="text-2xl font-bold text-primary mb-4">
                 {t("vision.title")}
               </h3>
@@ -51,13 +51,13 @@ const AboutPage = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 px-4 bg-light-background">
+      <section className="py-16 px-4 bg-background">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-12">
             {t("impact.title")}
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-background p-8 rounded-lg shadow-md">
+            <div className="bg-white p-8 rounded-lg shadow-md">
               <p className="text-5xl md:text-6xl font-bold text-primary mb-4">
                 {ORGANIZATION_STATS.womenSupported}
               </p>
@@ -65,7 +65,7 @@ const AboutPage = () => {
                 {t("impact.womenSupported")}
               </p>
             </div>
-            <div className="bg-background p-8 rounded-lg shadow-md">
+            <div className="bg-white p-8 rounded-lg shadow-md">
               <p className="text-5xl md:text-6xl font-bold text-primary mb-4">
                 {ORGANIZATION_STATS.hotlineAvailability}
               </p>
@@ -73,7 +73,7 @@ const AboutPage = () => {
                 {t("impact.hotlineAvailability")}
               </p>
             </div>
-            <div className="bg-background p-8 rounded-lg shadow-md">
+            <div className="bg-white p-8 rounded-lg shadow-md">
               <p className="text-5xl md:text-6xl font-bold text-primary mb-4">
                 10+
               </p>
@@ -86,7 +86,7 @@ const AboutPage = () => {
       </section>
 
       {/* Services Section */}
-      <section className="py-16 px-4 bg-background">
+      <section className="py-16 px-4 bg-muted/30">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center text-primary mb-12">
             {t("services.title")}
@@ -94,9 +94,9 @@ const AboutPage = () => {
 
           <div className="grid md:grid-cols-3 gap-8">
             {/* Office Services */}
-            <div className="bg-light-background p-8 rounded-lg shadow-md">
+            <div className="bg-white p-8 rounded-lg shadow-md">
               <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6 mx-auto">
-                <span className="text-3xl text-light-background">🏢</span>
+                <span className="text-3xl text-white">🏢</span>
               </div>
               <h3 className="text-2xl font-bold text-primary mb-4 text-center">
                 {t("services.professional.title")}
@@ -107,9 +107,9 @@ const AboutPage = () => {
             </div>
 
             {/* Shelter Services */}
-            <div className="bg-light-background p-8 rounded-lg shadow-md">
+            <div className="bg-white p-8 rounded-lg shadow-md">
               <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6 mx-auto">
-                <span className="text-3xl text-light-background">🏠</span>
+                <span className="text-3xl text-white">🏠</span>
               </div>
               <h3 className="text-2xl font-bold text-primary mb-4 text-center">
                 {t("services.shelter.title")}
@@ -120,9 +120,9 @@ const AboutPage = () => {
             </div>
 
             {/* Community Outreach */}
-            <div className="bg-light-background p-8 rounded-lg shadow-md">
+            <div className="bg-white p-8 rounded-lg shadow-md">
               <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6 mx-auto">
-                <span className="text-3xl text-light-background">🌍</span>
+                <span className="text-3xl text-white">🌍</span>
               </div>
               <h3 className="text-2xl font-bold text-primary mb-4 text-center">
                 {t("services.outreach.title")}
@@ -136,14 +136,14 @@ const AboutPage = () => {
       </section>
 
       {/* Values Section */}
-      <section className="py-16 px-4 bg-accent/10">
+      <section className="py-16 px-4 bg-background">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center text-primary mb-12">
             {t("values.title")}
           </h2>
 
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-background p-8 rounded-lg shadow-md">
+            <div className="bg-white p-8 rounded-lg shadow-md">
               <h3 className="text-2xl font-bold text-primary mb-4">
                 {t("values.culturalSensitivity.title")}
               </h3>
@@ -152,7 +152,7 @@ const AboutPage = () => {
               </p>
             </div>
 
-            <div className="bg-background p-8 rounded-lg shadow-md">
+            <div className="bg-white p-8 rounded-lg shadow-md">
               <h3 className="text-2xl font-bold text-primary mb-4">
                 {t("values.multilingualSupport.title")}
               </h3>
@@ -161,7 +161,7 @@ const AboutPage = () => {
               </p>
             </div>
 
-            <div className="bg-background p-8 rounded-lg shadow-md">
+            <div className="bg-white p-8 rounded-lg shadow-md">
               <h3 className="text-2xl font-bold text-primary mb-4">
                 {t("values.empowerment.title")}
               </h3>
@@ -170,7 +170,7 @@ const AboutPage = () => {
               </p>
             </div>
 
-            <div className="bg-background p-8 rounded-lg shadow-md">
+            <div className="bg-white p-8 rounded-lg shadow-md">
               <h3 className="text-2xl font-bold text-primary mb-4">
                 {t("values.comprehensiveCare.title")}
               </h3>
@@ -183,7 +183,7 @@ const AboutPage = () => {
       </section>
 
       {/* Emergency Contact Section */}
-      <section className="py-16 px-4 bg-primary text-light-background">
+      <section className="py-16 px-4 bg-primary text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-8">
             {t("emergency.title")}
@@ -203,7 +203,7 @@ const AboutPage = () => {
                 {t("emergency.lavalOffice")}
               </h3>
               <p className="text-lg">450-688-6584</p>
-              <p className="text-sm mt-2 text-light-background/80">
+              <p className="text-sm mt-2 text-white/80">
                 {t("emergency.sexualViolenceHelp")}
               </p>
             </div>
@@ -211,7 +211,7 @@ const AboutPage = () => {
           <p className="text-lg mb-8">{t("emergency.emergencyInfo")}</p>
           <a
             href="/contact"
-            className="bg-yellow-400 text-primary hover:bg-[#f5d785] px-8 py-4 rounded-lg font-semibold transition-all duration-200 inline-block text-lg"
+            className="bg-accent hover:bg-accent/90 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 inline-block text-lg"
           >
             {t("emergency.getSupportButton")}
           </a>
@@ -219,7 +219,7 @@ const AboutPage = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 px-4 bg-light-background">
+      <section className="py-16 px-4 bg-muted/30">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6">
             {t("cta.title")}
@@ -228,13 +228,13 @@ const AboutPage = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="/donate"
-              className="bg-primary text-light-background hover:bg-primary/90 px-8 py-4 rounded-lg font-semibold transition-all duration-200 inline-block text-lg"
+              className="bg-primary text-white hover:bg-primary/90 px-8 py-4 rounded-lg font-semibold transition-all duration-200 inline-block text-lg"
             >
               {t("cta.donateButton")}
             </a>
             <a
               href="/resources"
-              className="border-2 border-primary text-primary hover:bg-primary hover:text-light-background px-8 py-4 rounded-lg font-semibold transition-all duration-200 inline-block text-lg"
+              className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 inline-block text-lg"
             >
               {t("cta.learnMoreButton")}
             </a>

@@ -13,11 +13,11 @@ const ResourcesPage = () => {
       </div>
 
       {/* Hero Section */}
-      <div className="from-primary to-accent bg-linear-to-b text-light-background pt-48 pb-16 px-4">
+      <div className="bg-gradient-to-r from-primary to-accent text-white pt-48 pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">{t("title")}</h1>
           <p className="text-xl md:text-2xl mb-8">{t("heroSubtitle")}</p>
-          <p className="text-lg text-yellow-400 font-semibold">
+          <p className="text-lg text-white/90 font-semibold">
             {t("legalNotice")}
           </p>
         </div>
@@ -31,7 +31,7 @@ const ResourcesPage = () => {
           </h2>
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             <div className="bg-red-600 p-6 rounded-lg">
-              <h3 className="text-2xl font-bold mb-4 text-yellow-200">
+              <h3 className="text-2xl font-bold mb-4 text-white-200">
                 {t("emergency.immediate.title")}
               </h3>
               <div className="space-y-3">
@@ -53,7 +53,7 @@ const ResourcesPage = () => {
               </div>
             </div>
             <div className="bg-red-600 p-6 rounded-lg">
-              <h3 className="text-2xl font-bold mb-4 text-yellow-200">
+              <h3 className="text-2xl font-bold mb-4 text-white-200">
                 {t("emergency.shieldOfAthena.title")}
               </h3>
               <div className="space-y-3">
@@ -75,7 +75,7 @@ const ResourcesPage = () => {
               </div>
             </div>
             <div className="md:col-span-2 bg-red-600 p-6 rounded-lg">
-              <h3 className="text-xl font-bold mb-3 text-yellow-200">
+              <h3 className="text-xl font-bold mb-3 text-white-200">
                 {t("emergency.sexualViolence.title")}
               </h3>
               <div className="flex flex-wrap justify-center gap-8">
@@ -101,7 +101,7 @@ const ResourcesPage = () => {
       </section>
 
       {/* Quick Assessment Section */}
-      <section className="py-16 px-4 bg-background">
+      <section className="py-16 px-4 bg-muted/30">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-primary mb-12">
             {t("quickHelp.title")}
@@ -184,7 +184,7 @@ const ResourcesPage = () => {
       </section>
 
       {/* Safety Planning Section */}
-      <section className="py-16 px-4 bg-gray-50">
+      <section className="py-16 px-4 bg-background">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-primary mb-12">
             {t("safety.title")}
@@ -320,7 +320,7 @@ const ResourcesPage = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 px-4 bg-primary text-light-background">
+      <section className="py-16 px-4 bg-primary text-white">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-4xl font-bold mb-6">{t("finalMessage.title")}</h2>
           <p className="text-xl mb-8">{t("finalMessage.description")}</p>
@@ -333,12 +333,12 @@ const ResourcesPage = () => {
             </a>
             <a
               href="tel:5142748117"
-              className="bg-yellow-400 hover:bg-yellow-500 text-primary px-6 py-4 rounded-lg font-semibold transition-all duration-200 text-center block"
+              className="bg-accent hover:bg-accent/90 text-white px-6 py-4 rounded-lg font-semibold transition-all duration-200 text-center block"
             >
               {t("finalMessage.shieldButton")}
             </a>
           </div>
-          <p className="text-sm mt-6 text-accent">
+          <p className="text-sm mt-6 text-white/80">
             {t("finalMessage.confidentialNote")}
           </p>
         </div>
