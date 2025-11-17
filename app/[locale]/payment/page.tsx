@@ -1,11 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import StickyHeader from "@/components/LandingPage/StickyHeader";
 import { getStorageItem } from "@/lib/personal_util";
-import { STORAGE_KEYS, ROUTES } from "@/lib/constants";
+import { STORAGE_KEYS } from "@/lib/constants";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 import paypalIcon from "@/public/paypal.svg";
 import applePayIcon from "@/public/applepay.svg";
@@ -58,12 +65,43 @@ const FUNDING_DESTINATIONS = [
   },
 ];
 
+const getStoredNumber = (key: string) => {
+  const value = getStorageItem(key);
+  return value ? Number(value) : 0;
+};
+
+const getStoredString = (key: string) => getStorageItem(key) || "";
+
+const MOCK_PAYMENT_DATA = {
+  cardNumber: "4532 1234 5678 9012",
+  expiryDate: "12/28",
+  cvc: "123",
+  nameOnCard: "Jimmy Ballone",
+  address: "123 Main Street",
+  address2: "Apt 4B",
+  city: "Montreal",
+  province: "QC",
+  country: "CA",
+};
+
 const PaymentPage = () => {
   const router = useRouter();
-  const [originalAmount, setOriginalAmount] = useState<number>(0);
-  const [additionalAmount, setAdditionalAmount] = useState<number>(0);
-  const [donationType, setDonationType] = useState<string>("");
-  const [totalAmount, setTotalAmount] = useState<number>(0);
+  const originalAmount = useMemo(
+    () => getStoredNumber(STORAGE_KEYS.donationAmount),
+    []
+  );
+  const additionalAmount = useMemo(
+    () => getStoredNumber(STORAGE_KEYS.additionalAmount),
+    []
+  );
+  const totalAmount = useMemo(
+    () => getStoredNumber(STORAGE_KEYS.totalDonationAmount),
+    []
+  );
+  const donationType = useMemo(
+    () => getStoredString(STORAGE_KEYS.donationType),
+    []
+  );
   const [formData, setFormData] = useState<PaymentFormData>({
     cardNumber: "",
     expiryDate: "",
@@ -81,36 +119,14 @@ const PaymentPage = () => {
     FUNDING_DESTINATIONS[0].value
   );
 
-  const mockData = {
-    cardNumber: "4532 1234 5678 9012",
-    expiryDate: "12/28",
-    cvc: "123",
-    nameOnCard: "Jimmy Ballone",
-    address: "123 Main Street",
-    address2: "Apt 4B",
-    city: "Montreal",
-    province: "QC",
-    country: "CA",
-  };
-
   useEffect(() => {
-    const original = getStorageItem(STORAGE_KEYS.donationAmount);
-    const additional = getStorageItem(STORAGE_KEYS.additionalAmount);
-    const total = getStorageItem(STORAGE_KEYS.totalDonationAmount);
-    const type = getStorageItem(STORAGE_KEYS.donationType);
-
-    if (original) setOriginalAmount(Number(original));
-    if (additional) setAdditionalAmount(Number(additional));
-    if (total) setTotalAmount(Number(total));
-    if (type) setDonationType(type);
-
     // Handle Ctrl+P for mock data
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.ctrlKey && e.key === "p") {
         e.preventDefault();
         setFormData((prev) => ({
           ...prev,
-          ...mockData,
+          ...MOCK_PAYMENT_DATA,
         }));
       }
     };
@@ -271,8 +287,8 @@ const PaymentPage = () => {
                         handleInputChange("billingFrequency", "monthly")
                       }
                       className={`p-3 rounded-lg border-2 text-left transition-all ${formData.billingFrequency === "monthly"
-                          ? "border-purple-500 bg-purple-50"
-                          : "border-gray-200 hover:border-gray-300"
+                        ? "border-purple-500 bg-purple-50"
+                        : "border-gray-200 hover:border-gray-300"
                         }`}
                     >
                       <div className="font-semibold">Pay monthly</div>
@@ -286,8 +302,8 @@ const PaymentPage = () => {
                         handleInputChange("billingFrequency", "yearly")
                       }
                       className={`p-3 rounded-lg border-2 text-left transition-all relative ${formData.billingFrequency === "yearly"
-                          ? "border-purple-500 bg-purple-50"
-                          : "border-gray-200 hover:border-gray-300"
+                        ? "border-purple-500 bg-purple-50"
+                        : "border-gray-200 hover:border-gray-300"
                         }`}
                     >
                       {savings && (
@@ -320,8 +336,8 @@ const PaymentPage = () => {
                     type="button"
                     onClick={() => handleInputChange("paymentMethod", "card")}
                     className={`p-3 rounded-lg border-2 text-center transition-all ${formData.paymentMethod === "card"
-                        ? "border-blue-500 bg-blue-50"
-                        : "border-gray-200 hover:border-gray-300"
+                      ? "border-blue-500 bg-blue-50"
+                      : "border-gray-200 hover:border-gray-300"
                       }`}
                   >
                     <div className="text-xs font-medium">
@@ -332,8 +348,8 @@ const PaymentPage = () => {
                     type="button"
                     onClick={() => handleInputChange("paymentMethod", "paypal")}
                     className={`p-3 rounded-lg border-2 text-center transition-all flex items-center justify-center ${formData.paymentMethod === "paypal"
-                        ? "border-blue-500 bg-blue-50"
-                        : "border-gray-200 hover:border-gray-300"
+                      ? "border-blue-500 bg-blue-50"
+                      : "border-gray-200 hover:border-gray-300"
                       }`}
                   >
                     <Image
@@ -350,8 +366,8 @@ const PaymentPage = () => {
                       handleInputChange("paymentMethod", "applepay")
                     }
                     className={`p-3 rounded-lg border-2 text-center transition-all flex items-center justify-center ${formData.paymentMethod === "applepay"
-                        ? "border-blue-500 bg-blue-50"
-                        : "border-gray-200 hover:border-gray-300"
+                      ? "border-blue-500 bg-blue-50"
+                      : "border-gray-200 hover:border-gray-300"
                       }`}
                   >
                     <Image
@@ -368,8 +384,8 @@ const PaymentPage = () => {
                       handleInputChange("paymentMethod", "googlepay")
                     }
                     className={`p-3 rounded-lg border-2 text-center transition-all flex items-center justify-center ${formData.paymentMethod === "googlepay"
-                        ? "border-blue-500 bg-blue-50"
-                        : "border-gray-200 hover:border-gray-300"
+                      ? "border-blue-500 bg-blue-50"
+                      : "border-gray-200 hover:border-gray-300"
                       }`}
                   >
                     <Image
@@ -388,17 +404,21 @@ const PaymentPage = () => {
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Direct my gift to
                 </label>
-                <select
+                <Select
                   value={fundingDestination}
-                  onChange={(e) => setFundingDestination(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 p-3 text-base focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200"
+                  onValueChange={(value) => setFundingDestination(value)}
                 >
-                  {FUNDING_DESTINATIONS.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
+                  <SelectTrigger className="h-12 w-full border border-gray-300">
+                    <SelectValue placeholder="Choose an impact area" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {FUNDING_DESTINATIONS.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 <p className="mt-2 text-sm text-gray-500">{destinationHelper}</p>
               </div>
 

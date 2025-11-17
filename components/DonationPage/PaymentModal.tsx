@@ -1,7 +1,7 @@
 "use client";
 
 import { formatCurrency } from "@/lib/donation-utils";
-import { Checkbox } from "@radix-ui/react-checkbox";
+import { Checkbox } from "../ui/checkbox";
 import { AnimatePresence, motion } from "framer-motion";
 import { Lock } from "lucide-react";
 import React, { useEffect } from "react";
@@ -165,17 +165,6 @@ const PaymentModal = ({
     }
   }, [showPaymentModal, handlePaymentInputChange]);
 
-  const getSavings = () => {
-    if (paymentInfo.billingFrequency === "yearly") {
-      const yearlyAmount = totalAmount * 12;
-      const savings = Math.round(yearlyAmount * 0.2);
-      return { yearlyAmount: yearlyAmount - savings, savings };
-    }
-    return null;
-  };
-
-  const savings = getSavings();
-
   return (
     <AnimatePresence>
       {showPaymentModal && (
@@ -269,68 +258,6 @@ const PaymentModal = ({
                       Complete Your Donation
                     </h2>
                   </div>
-
-                  {/* Billing Frequency */}
-                  {donorInfo.isReturning && (
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-3">
-                        Billing frequency
-                      </label>
-                      <div className="grid grid-cols-2 gap-3">
-                        <button
-                          type="button"
-                          onClick={() =>
-                            handlePaymentInputChange(
-                              "billingFrequency",
-                              "monthly"
-                            )
-                          }
-                          className={`p-3 rounded-lg border-2 text-left transition-all ${paymentInfo.billingFrequency === "monthly"
-                            ? "border-purple-500 bg-purple-50"
-                            : "border-gray-200 hover:border-gray-300"
-                            }`}
-                        >
-                          <div className="font-semibold">Pay monthly</div>
-                          <div className="text-sm text-gray-600">
-                            ${totalAmount}/month
-                          </div>
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() =>
-                            handlePaymentInputChange(
-                              "billingFrequency",
-                              "yearly"
-                            )
-                          }
-                          className={`p-3 rounded-lg border-2 text-left transition-all relative ${paymentInfo.billingFrequency === "yearly"
-                            ? "border-purple-500 bg-purple-50"
-                            : "border-gray-200 hover:border-gray-300"
-                            }`}
-                        >
-                          {savings && (
-                            <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
-                              Save 20%
-                            </span>
-                          )}
-                          <div className="flex items-center">
-                            <span className="font-semibold mr-2">
-                              Pay yearly
-                            </span>
-                            <span className="text-xs bg-green-100 text-green-700 px-1 rounded">
-                              ✓
-                            </span>
-                          </div>
-                          <div className="text-sm text-gray-600">
-                            {savings &&
-                              `$${(savings.yearlyAmount / 12).toFixed(
-                                0
-                              )}/month`}
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  )}
 
                   {/* Payment Method */}
                   <div>
@@ -478,7 +405,7 @@ const PaymentModal = ({
 
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          id="returning"
+                          id="monthly-donation"
                           checked={donorInfo.isReturning}
                           onCheckedChange={(checked: boolean) =>
                             handlePaymentInputChange(
@@ -488,10 +415,10 @@ const PaymentModal = ({
                           }
                         />
                         <Label
-                          htmlFor="returning"
+                          htmlFor="monthly-donation"
                           className="cursor-pointer text-sm"
                         >
-                          I’m a returning donor
+                          Make this a monthly donation
                         </Label>
                       </div>
                     </div>

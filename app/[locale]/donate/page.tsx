@@ -30,7 +30,7 @@ export default function Donate() {
   const [donorInfo, setDonorInfo] = useState({
     name: "",
     email: "",
-    isReturning: false,
+    isReturning: true,
   });
   const [paymentInfo, setPaymentInfo] = useState({
     cardNumber: "",
@@ -233,8 +233,8 @@ export default function Donate() {
         impact={impact}
         donorInfo={donorInfo}
         paymentInfo={paymentInfo}
-  fundingDestination={fundingDestination}
-  setFundingDestination={setFundingDestination}
+        fundingDestination={fundingDestination}
+        setFundingDestination={setFundingDestination}
         handlePaymentInputChange={handlePaymentInputChange}
         paymentMethod={paymentMethod}
         setPaymentMethod={setPaymentMethod}
@@ -252,8 +252,8 @@ export default function Donate() {
 
       <div
         className={`fixed inset-0 z-40 transition-opacity duration-500 ${showHouseAnimation
-            ? "opacity-100 visible"
-            : "pointer-events-none opacity-0"
+          ? "opacity-100 visible"
+          : "pointer-events-none opacity-0"
           }`}
         aria-hidden={!showHouseAnimation}
       >
